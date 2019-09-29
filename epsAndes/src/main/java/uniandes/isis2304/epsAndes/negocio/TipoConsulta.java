@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-public class TipoConsulta {
+public class TipoConsulta implements VOTipoConsulta{
 	
 	private long idTipo;
 	

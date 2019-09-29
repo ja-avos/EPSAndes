@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VOServicioSalud {
 	
-	public long getId();
+	public long getIdServicio();
 	
 	public String getNombre();
 	

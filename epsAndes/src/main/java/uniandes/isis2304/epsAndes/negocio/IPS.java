@@ -14,7 +14,7 @@ public class IPS implements VOIps{
 		this.nombre = "";
 	}
 	
-	public IPS(long id, String localizacion, String nombre) {
+	public IPS(long id, String localizacion, String nombre, long EPS) {
 		this.id = id;
 		this.localizacion = localizacion;
 		this.nombre = nombre;
@@ -43,7 +43,7 @@ public class IPS implements VOIps{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String toString() {
 		return "IPS [id=" + id + ", nombre=" + nombre + ", localizacion=" + localizacion + "]";
 	}
