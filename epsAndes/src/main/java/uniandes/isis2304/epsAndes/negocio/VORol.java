@@ -1,11 +1,10 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-public interface VOEps {
+public interface VORol {
 
-	public long getId();
+	public long getIdRol();
 	
-	public String getNombre();
+	public String getRol();
 	
 	public String toString();
-
 }

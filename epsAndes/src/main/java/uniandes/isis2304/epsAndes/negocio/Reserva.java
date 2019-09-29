@@ -19,7 +19,7 @@ public class Reserva implements VOReserva{
 	public Reserva() {
 		this.codigo = 0;
 		this.servicioPrestado = false;
-		this.fecha = null;
+		this.fecha = new Date(0);
 		this.horario = 0;
 		this.afiliado = 0;
 		this.orden = 0;
