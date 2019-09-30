@@ -70,6 +70,14 @@ public class EPSAndes {
 		return nuevoRecepcionista;
 	}
 	
+	public IPS addIPS (String localizacion, String nombre)
+	{
+		log.info("Adicionando la IPS: " + nombre);
+		IPS nuevaIPS = pp.addIPS(localizacion, nombre);
+		log.info("Adicionando afiliado: " + nuevaIPS);
+		return nuevaIPS;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");

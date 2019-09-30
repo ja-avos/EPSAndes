@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
@@ -425,7 +426,7 @@ public class PersistenciaEPSAndes {
             long tuplasInsertadas = sqlRecepcionista.addRecepcionista(pm, idRecepcionista, usuario, IPS);
             tx.commit();
 
-            log.trace ("Inserción de afiliado: " + usuario + ": " + tuplasInsertadas + " tuplas insertadas");
+            log.trace ("Inserción de recepcionista: " + usuario + ": " + tuplasInsertadas + " tuplas insertadas");
             
             return new Recepcionista(idRecepcionista, usuario, IPS);
         }
@@ -452,7 +453,36 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 
 	
-	
+	public IPS addIPS(String localizacion, String nombre) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long id = nextval ();
+            long tuplasInsertadas = sqlIPS.addIps(pm, id, localizacion, nombre);
+            tx.commit();
+
+            log.trace ("Inserción de IPS: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new IPS(id, localizacion, nombre);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////

@@ -14,7 +14,7 @@ public class IPS implements VOIps{
 		this.nombre = "";
 	}
 	
-	public IPS(long id, String localizacion, String nombre, long EPS) {
+	public IPS(long id, String localizacion, String nombre) {
 		this.id = id;
 		this.localizacion = localizacion;
 		this.nombre = nombre;
