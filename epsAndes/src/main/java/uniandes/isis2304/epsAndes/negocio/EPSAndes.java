@@ -140,6 +140,14 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public long registrarPrestacionServicio (long codigo)
+	{
+        log.info ("Registrando la prestación del servicio: " + codigo);
+        long resp = pp.registrarPrestacionServicio(codigo);
+        log.info ("Registrando la prestación del servicio: " + resp + " tuplas actualizadas");
+        return resp;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");
