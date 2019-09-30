@@ -1,12 +1,14 @@
 package uniandes.isis2304.epsAndes.negocio;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.persistencia.PersistenciaEPSAndes;
+import uniandes.isis2304.parranderos.negocio.Bar;
 
 public class EPSAndes {
 
@@ -35,6 +37,14 @@ public class EPSAndes {
         Rol nuevoRol = pp.addRol (rol);		
         log.info ("Adicionando Rol: " + nuevoRol);
         return nuevoRol;
+	}
+	
+	public List<Rol> darRoles ()
+	{
+        log.info ("Listando Roles");
+        List<Rol> roles = pp.getRoles();
+        log.info ("Listando Roles: " + roles.size() + " roles existentes");
+        return roles;
 	}
 	
 	public TipoID addTipoID (String nombre)
@@ -147,6 +157,8 @@ public class EPSAndes {
         log.info ("Registrando la prestación del servicio: " + resp + " tuplas actualizadas");
         return resp;
 	}
+	
+	
 	
 	public long [] limpiarEPS ()
 	{

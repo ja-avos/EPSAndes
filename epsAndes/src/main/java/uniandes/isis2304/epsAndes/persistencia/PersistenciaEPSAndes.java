@@ -29,6 +29,7 @@ import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
+import uniandes.isis2304.parranderos.negocio.Bar;
 
 
 public class PersistenciaEPSAndes {
@@ -303,7 +304,10 @@ public class PersistenciaEPSAndes {
         }
 	}
 
-	
+	public List<Rol> getRoles ()
+	{
+		return sqlRol.getRoles(pm);
+	}
 	
 	
 	
