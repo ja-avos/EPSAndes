@@ -16,7 +16,7 @@ public class Afiliado implements VOAfiliado{
 		this.usuario = 0;
 	}
 	
-	public Afiliado(long idAfiliado, Date fechaNacimiento, long usuario, long EPS) {
+	public Afiliado(long idAfiliado, Date fechaNacimiento, long usuario) {
 		this.idAfiliado = idAfiliado;
 		this.fechaNacimiento = fechaNacimiento;
 		this.usuario = usuario;

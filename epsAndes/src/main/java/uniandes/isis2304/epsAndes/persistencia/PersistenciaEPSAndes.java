@@ -1,5 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
+import java.sql.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,7 +16,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.Medico;
+import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.Usuario;
 
 
 public class PersistenciaEPSAndes {
@@ -297,14 +302,74 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	////////////////////MANEJO USUARIOS/////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
-	
+	public Usuario addUsuario(String nombre, String correo, long id,
+			long tipoID, long rol) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idUsuario = nextval ();
+            long tuplasInsertadas = sqlUsuario.addUsuario(pm, idUsuario, nombre, correo, idUsuario, tipoID, rol);
+            tx.commit();
+
+            log.trace ("Inserción de usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Usuario(idUsuario, nombre, correo, id, tipoID, rol);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
 	
 	
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO MEDICO///////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
-	
+	public Medico addMedico(long registroMedico, String especialidad, long usuario) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idMedico = nextval ();
+            long tuplasInsertadas = sqlMedico.addMedico(pm, idMedico, registroMedico, especialidad, usuario);
+            tx.commit();
+
+            log.trace ("Inserción de medico: " + usuario + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Medico(idMedico, registroMedico, especialidad, usuario);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	
@@ -312,7 +377,36 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO AFILIADOS///////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
+	public Afiliado addAfiliado(Date fechaNacimiento, long usuario) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idAfiliado = nextval ();
+            long tuplasInsertadas = sqlAfiliado.addAfiliado(pm, idAfiliado, fechaNacimiento, usuario);
+            tx.commit();
 
+            log.trace ("Inserción de afiliado: " + usuario + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Afiliado(idAfiliado, fechaNacimiento, usuario);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 
 
 
@@ -320,7 +414,36 @@ public class PersistenciaEPSAndes {
 	//////////////////////////MANEJO RECEPCIONISTA//////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public Recepcionista addRecepcionista(long usuario, long IPS) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idRecepcionista = nextval ();
+            long tuplasInsertadas = sqlRecepcionista.addRecepcionista(pm, idRecepcionista, usuario, IPS);
+            tx.commit();
+
+            log.trace ("Inserción de afiliado: " + usuario + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Recepcionista(idRecepcionista, usuario, IPS);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	
