@@ -5,6 +5,7 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.persistencia.PersistenciaEPSAndes;
+import uniandes.isis2304.parranderos.negocio.TipoBebida;
 
 public class EPSAndes {
 
@@ -25,6 +26,14 @@ public class EPSAndes {
 	public void cerrarUnidadPersistencia ()
 	{
 		pp.cerrarUnidadPersistencia ();
+	}
+	
+	public Rol addRol (String rol)
+	{
+        log.info ("Adicionando Tipo de bebida: " + rol);
+        Rol nuevoRol = pp.addRol (rol);		
+        log.info ("Adicionando Tipo de bebida: " + nuevoRol);
+        return nuevoRol;
 	}
 	
 	public long [] limpiarEPS ()
