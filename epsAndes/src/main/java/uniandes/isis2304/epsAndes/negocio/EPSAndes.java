@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.persistencia.PersistenciaEPSAndes;
-import uniandes.isis2304.parranderos.negocio.Bar;
 
 public class EPSAndes {
 
