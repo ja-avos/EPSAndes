@@ -21,6 +21,9 @@ import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
+import uniandes.isis2304.epsAndes.negocio.TipoID;
+import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
 
@@ -526,7 +529,37 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO TIPO_ID/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public TipoID addTipoID(String nombre)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idTipo = nextval ();
+            long tuplasInsertadas = sqlTipoId.addTipoId(pm, idTipo, nombre);
+            tx.commit();
+            
+            log.trace ("Inserción de tipoId: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new TipoID(idTipo, nombre);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
 	
 	
 	
@@ -534,14 +567,73 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO TIPO_SERVICIO///////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public TipoServicio addTipoServicio(String nombre)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idServicio = nextval ();
+            long tuplasInsertadas = sqlTipoServicio.addTipoServicio(pm, idServicio, nombre);
+            tx.commit();
+            
+            log.trace ("Inserción de tipoId: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new TipoServicio(idServicio, nombre);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
 	
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO SERVICIO_SALUD///////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public ServicioSalud addServicioSalud(String nombre, long tipo) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idServicio = nextval ();
+            long tuplasInsertadas = sqlServicioSalud.addServicioSalud(pm, idServicio, nombre, tipo);
+            tx.commit();
+
+            log.trace ("Inserción de IPS: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new ServicioSalud(idServicio, nombre, tipo);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////

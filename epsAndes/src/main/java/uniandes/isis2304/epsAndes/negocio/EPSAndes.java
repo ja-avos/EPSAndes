@@ -37,6 +37,14 @@ public class EPSAndes {
         return nuevoRol;
 	}
 	
+	public TipoID addTipoID (String nombre)
+	{
+        log.info ("Adicionando tipoID: " + nombre);
+        TipoID nuevoTipo = pp.addTipoID(nombre);	
+        log.info ("Adicionando tipoID: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
 	public Usuario addUsuario (String nombre, String correo, long id,
 			long tipoID, long rol)
 	{
@@ -84,6 +92,22 @@ public class EPSAndes {
         TrabajaEn resp = pp.addTrabajaEn(ips, medico);
         log.info ("Adicionando trabaEn: " + resp + " tuplas insertadas");
         return resp;
+	}
+	
+	public TipoServicio addTipoServicio(String nombre)
+	{
+        log.info ("Adicionando tipoServicio: " + nombre);
+        TipoServicio nuevoTipo = pp.addTipoServicio(nombre);
+        log.info ("Adicionando tipoServicio: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
+	public ServicioSalud addServicioSalud (String nombre, long tipo)
+	{
+		log.info("Adicionando el ServicioSalud: " + nombre);
+		ServicioSalud nuevoServicio = pp.addServicioSalud(nombre, tipo);
+		log.info("Adicionando afiliado: " + nuevoServicio);
+		return nuevoServicio;
 	}
 	
 	public long [] limpiarEPS ()
