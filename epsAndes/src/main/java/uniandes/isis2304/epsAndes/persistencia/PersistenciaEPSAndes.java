@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
 import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
+import uniandes.isis2304.epsAndes.negocio.Orden;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
 import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
@@ -648,7 +649,39 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO ORDEN///////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public Orden addOrden(Date fecha, boolean validoBool, long medicoRemitente,
+			long servicio, long afiliado) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long codigo = nextval ();
+            int valido = validoBool? 1:0;
+            long tuplasInsertadas = sqlOrden.addOrden(pm, codigo, fecha, valido,
+            		medicoRemitente, servicio, afiliado);
+            tx.commit();
+
+            log.trace ("Inserción de orden: [" + medicoRemitente + ", " + afiliado + "]. " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Orden(codigo, fecha, validoBool, medicoRemitente, servicio, afiliado);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	

@@ -110,6 +110,16 @@ public class EPSAndes {
 		return nuevoServicio;
 	}
 	
+	public Orden addOrden (Date fecha, boolean valido, long medicoRemitente,
+			long servicio, long afiliado)
+	{
+		log.info ("Adicionando Orden [" + medicoRemitente + ", " + afiliado + "]");
+        Orden resp = pp.addOrden(fecha, valido, medicoRemitente, servicio, 
+        		afiliado);
+        log.info ("Adicionando Orden: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");
