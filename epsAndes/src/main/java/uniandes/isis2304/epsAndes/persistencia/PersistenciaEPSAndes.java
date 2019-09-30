@@ -23,7 +23,6 @@ import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
-import uniandes.isis2304.parranderos.negocio.Sirven;
 
 
 public class PersistenciaEPSAndes {
