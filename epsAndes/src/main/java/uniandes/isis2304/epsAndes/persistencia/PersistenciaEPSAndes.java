@@ -5,13 +5,17 @@ import java.util.List;
 
 import javax.jdo.JDODataStoreException;
 import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
 
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import uniandes.isis2304.epsAndes.negocio.Rol;
 
 
 public class PersistenciaEPSAndes {
@@ -255,6 +259,37 @@ public class PersistenciaEPSAndes {
 	////////////////////MANEJO ROLES DE USUARIO/////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
+	public Rol addRol(String rol)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idRol = nextval ();
+            long tuplasInsertadas = sqlRol.addRol(pm, idRol, rol);
+            tx.commit();
+            
+            log.trace ("Inserción de rol: " + rol + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Rol (idRol, rol);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+
 	
 	
 	
@@ -350,5 +385,32 @@ public class PersistenciaEPSAndes {
 	
 	
 	
-	
+	public long [] limpiarEPS ()
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long [] resp = sqlUtil.limpiarEPSAndes(pm);
+            tx.commit ();
+            log.info ("Borrada la base de datos");
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return new long[] {-1, -1, -1, -1, -1, -1, -1};
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+		
+	}
 }
