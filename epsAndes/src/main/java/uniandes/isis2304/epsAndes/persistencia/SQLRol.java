@@ -18,10 +18,11 @@ class SQLRol {
 		this.pe = pe;
 	}
 	
-	public long addRol (PersistenceManager pm, String rol) 
+	public long addRol (PersistenceManager pm, long idRol, String rol) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableRol () + "(rol) values (?)");
-        q.setParameters(rol);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableRol () + 
+        		"(id_Rol, rol) values (?,?)");
+        q.setParameters(idRol, rol);
         return (long) q.executeUnique();
 	}
 	
@@ -29,6 +30,15 @@ class SQLRol {
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableRol());
 		q.setResultClass(Rol.class);
+		return (List<Rol>) q.executeList();
+	}
+	
+	public List<Rol> getRolesByName (PersistenceManager pm, String rol) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableRol() + 
+				" WHERE rol = ?");
+		q.setResultClass(Rol.class);
+		q.setParameters(rol);
 		return (List<Rol>) q.executeList();
 	}
 }

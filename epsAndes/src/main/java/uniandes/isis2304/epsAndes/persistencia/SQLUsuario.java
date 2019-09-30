@@ -18,12 +18,13 @@ public class SQLUsuario {
 		this.pe = pe;
 	}
 	
-	public long addUsuario (PersistenceManager pm, String nombre, String correo,
+	public long addUsuario (PersistenceManager pm, long idUsuario, String nombre, String correo,
 			long id, long tipoId, long rol)
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableUsuario() + "(nombre, correo,"
-        		+ "id, tipoId, rol) values (?,?,?,?,?)");
-        q.setParameters(nombre, correo, id, tipoId, rol);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableUsuario() + 
+        		"(id_Usuario, nombre, correo,"
+        		+ "id, tipo_Id, rol) values (?,?,?,?,?,?)");
+        q.setParameters(idUsuario, nombre, correo, id, tipoId, rol);
         return (long) q.executeUnique();
 	}
 	
@@ -32,5 +33,14 @@ public class SQLUsuario {
 		q.setResultClass(Usuario.class);
 		q.setParameters(rol);
 		return (List<Usuario>) q.executeList();
+	}
+	
+	public Usuario getUsuarioByID (PersistenceManager pm, long idUsuario) 
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + 
+				" WHERE idUsuario = ?");
+		q.setResultClass(Usuario.class);
+		q.setParameters(idUsuario);
+		return (Usuario) q.executeUnique();
 	}
 }
