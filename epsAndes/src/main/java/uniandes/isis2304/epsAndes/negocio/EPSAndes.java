@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.persistencia.PersistenciaEPSAndes;
+import uniandes.isis2304.parranderos.negocio.Sirven;
 
 public class EPSAndes {
 
@@ -76,6 +77,14 @@ public class EPSAndes {
 		IPS nuevaIPS = pp.addIPS(localizacion, nombre);
 		log.info("Adicionando afiliado: " + nuevaIPS);
 		return nuevaIPS;
+	}
+	
+	public TrabajaEn addTrabajaEn (long ips, long medico)
+	{
+		log.info ("Adicionando trabajaEn [" + ips + ", " + medico + "]");
+        TrabajaEn resp = pp.addTrabajaEn(ips, medico);
+        log.info ("Adicionando trabaEn: " + resp + " tuplas insertadas");
+        return resp;
 	}
 	
 	public long [] limpiarEPS ()

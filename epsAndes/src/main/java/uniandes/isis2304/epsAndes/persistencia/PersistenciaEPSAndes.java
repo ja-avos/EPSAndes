@@ -21,7 +21,9 @@ import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
+import uniandes.isis2304.parranderos.negocio.Sirven;
 
 
 public class PersistenciaEPSAndes {
@@ -489,7 +491,35 @@ public class PersistenciaEPSAndes {
 	////////////////////////MANEJO TRABAJA_EN///////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public TrabajaEn addTrabajaEn(long ips, long medico) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlTrabajaEn.addTrabajaEn(pm, ips, medico);
+    		tx.commit();
+
+            log.trace ("Inserción de trabajaEn: [" + ips + ", " + medico + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new TrabajaEn(ips, medico);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	

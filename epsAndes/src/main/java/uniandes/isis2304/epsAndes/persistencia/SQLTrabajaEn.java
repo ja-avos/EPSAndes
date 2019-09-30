@@ -14,7 +14,7 @@ public class SQLTrabajaEn {
 		this.pe = pe;
 	}
 	
-	public long addRol (PersistenceManager pm, long ips, String medico) 
+	public long addTrabajaEn (PersistenceManager pm, long ips, long medico) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableTrabajaEn() + 
         		"(ips, medico) values (?,?)");
