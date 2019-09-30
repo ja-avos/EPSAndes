@@ -17,10 +17,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.Horario;
 import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Orden;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
+import uniandes.isis2304.epsAndes.negocio.Reserva;
 import uniandes.isis2304.epsAndes.negocio.Rol;
 import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
@@ -616,7 +618,7 @@ public class PersistenciaEPSAndes {
             long tuplasInsertadas = sqlServicioSalud.addServicioSalud(pm, idServicio, nombre, tipo);
             tx.commit();
 
-            log.trace ("Inserción de IPS: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            log.trace ("Inserción de ServicioSalud: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
             return new ServicioSalud(idServicio, nombre, tipo);
         }
@@ -641,7 +643,38 @@ public class PersistenciaEPSAndes {
 	////////////////////////MANEJO HORARIO//////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	
+	public Horario addHorario(long IPS, long servicio, int capacidad, int dia,
+			Date horaInicio, Date horaFin) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idHorario = nextval ();
+            long tuplasInsertadas = sqlHorario.addHorario(pm, idHorario, IPS, 
+            		servicio, capacidad, dia, horaInicio, horaFin);
+            tx.commit();
+
+            log.trace ("Inserción de horario: [" + IPS + ", " + servicio + "]. " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Horario(idHorario, IPS, servicio, capacidad, dia, horaInicio, horaFin);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	
 	
@@ -690,7 +723,46 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	
 	
+	public Reserva addReserva(boolean servicioPrestadoBool, Date fecha,
+			long horario, long afiliado, long orden) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long codigo = nextval ();
+            int servicioPrestado = servicioPrestadoBool? 1:0;
+            long tuplasInsertadas = sqlReserva.addReserva(pm, codigo, 
+            		servicioPrestado, fecha, horario, afiliado, orden);
+            tx.commit();
+
+            log.trace ("Inserción de orden: [" + horario + ", " + afiliado + "]. " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Reserva(codigo, servicioPrestadoBool, fecha, horario, afiliado, orden);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
+	
+	
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////LIMPIAR EPS////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
 	
 	public long [] limpiarEPS ()
 	{

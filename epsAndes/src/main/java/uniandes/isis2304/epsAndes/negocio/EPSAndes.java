@@ -120,6 +120,26 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
+			Date horaInicio, Date horaFin)
+	{
+		log.info ("Adicionando Horario [" + IPS + ", " + servicio + "]");
+        Horario resp = pp.addHorario(IPS, servicio, capacidad, dia, horaInicio,
+        		horaFin);
+        log.info ("Adicionando Horario: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
+	public Reserva addReserva (boolean servicioPrestado, Date fecha, long horario,
+			long afiliado, long orden)
+	{
+		log.info ("Adicionando Reserva [" + horario + ", " + afiliado + "]");
+        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
+        		afiliado, orden);
+        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");
