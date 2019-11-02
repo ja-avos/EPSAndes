@@ -56,6 +56,8 @@ public class InterfazApp extends JFrame {
 		
 		JPanel up = new JPanel(new GridLayout(2, 1));
 		
+		panelOpciones = new PanelOpciones(this);
+		
 		titulo = new JLabel("EPSAndes", SwingConstants.CENTER);
 		titulo.setFont(new Font("Verdana", Font.BOLD, 20));
 		up.add(titulo);
@@ -66,19 +68,19 @@ public class InterfazApp extends JFrame {
 		div.add(new JLabel("Email"));
 		div.add(emailTxt);
 		
-		rolCmb = new JComboBox<Rol>( (Rol[])eps.darRoles().toArray());
+		rolCmb = new JComboBox<Rol>( );
 		div.add(new JLabel("Rol"));
 		div.add(rolCmb);
 		
 		up.add(div);
 		add(up, BorderLayout.NORTH);
-		
+		add(panelOpciones, BorderLayout.SOUTH);
 		
 	}
 	
 	public void actualizar()
 	{
-		rolCmb = new JComboBox<Rol>( (Rol[])eps.darRoles().toArray());
+		
 	}
 	
 	public void registrar()
