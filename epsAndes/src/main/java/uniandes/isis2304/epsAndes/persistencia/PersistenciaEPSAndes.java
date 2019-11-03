@@ -1097,23 +1097,7 @@ public class PersistenciaEPSAndes {
 	public List<ServicioSalud> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
 			Timestamp fechaFin)
 	{
-		List<ServicioSalud> respuesta = new LinkedList <ServicioSalud> ();
-		List<Object> tuplas = sqlServicioSalud.dar20MasSolicitados(pmf.getPersistenceManager(), 
-				fechaInicio, fechaFin); 
-        for ( Object tupla : tuplas)
-        {
-			Object [] datos = (Object []) tupla;
-			long id_servicio = ((BigDecimal) datos [0]).longValue ();
-			String nombre = (String) datos [1];
-			long tipo = ((BigDecimal) datos [2]).longValue ();
-
-			ServicioSalud resp = new ServicioSalud();
-			resp = new ServicioSalud(id_servicio, nombre, tipo);
-			
-			respuesta.add(resp);
-        }
-
-		return respuesta;
+		return sqlServicioSalud.dar20MasSolicitados(pmf.getPersistenceManager(), fechaInicio, fechaFin);
 	}
 	
 	public List<Horario> getHorarios(int dia, long idServicio)

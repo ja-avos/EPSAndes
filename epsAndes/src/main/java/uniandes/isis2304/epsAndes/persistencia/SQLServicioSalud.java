@@ -36,7 +36,7 @@ public class SQLServicioSalud {
 		return (List<ServicioSalud>) q.executeList();
 	}
 	
-	public List<Object> dar20MasSolicitados (PersistenceManager pm,
+	public List<ServicioSalud> dar20MasSolicitados (PersistenceManager pm,
 			Timestamp fechaInicio, Timestamp fechaFin)
 	{
 		String sql = "SELECT * FROM (";
@@ -51,7 +51,8 @@ public class SQLServicioSalud {
 		
 	    Query q = pm.newQuery(SQL, sql);
 	    q.setParameters(fechaInicio, fechaFin);
-		return q.executeList();
+	    q.setResultClass(ServicioSalud.class);
+		return (List<ServicioSalud>)q.executeList();
 	}
 	
 	public ServicioSalud getServicioSaludById (PersistenceManager pm, long id)

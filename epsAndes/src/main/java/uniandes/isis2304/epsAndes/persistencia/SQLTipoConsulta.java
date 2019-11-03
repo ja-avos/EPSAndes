@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.TipoConsulta;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
 
 public class SQLTipoConsulta {
@@ -30,7 +31,7 @@ private final static String SQL = PersistenciaEPSAndes.SQL;
 	public List<TipoID> getTiposConsulta (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoConsulta());
-		q.setResultClass(Rol.class);
+		q.setResultClass(TipoConsulta.class);
 		return (List<TipoID>) q.executeList();
 	}
 }

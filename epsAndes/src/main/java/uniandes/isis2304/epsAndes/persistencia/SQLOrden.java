@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
+import uniandes.isis2304.epsAndes.negocio.Orden;
+
 public class SQLOrden {
 	private final static String SQL = PersistenciaEPSAndes.SQL;
 	
