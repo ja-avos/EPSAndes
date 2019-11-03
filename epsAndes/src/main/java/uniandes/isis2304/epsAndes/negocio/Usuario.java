@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public class Usuario implements VOUsuario{
 	
-	private long idUsuario;
+	private long id_Usuario;
 	
 	private String nombre;
 	
@@ -10,35 +10,35 @@ public class Usuario implements VOUsuario{
 	
 	private long id;
 	
-	private long tipoID;
+	private long tipo_ID;
 	
 	private long rol;
 	
 	public Usuario() {
-		this.idUsuario = 0;
+		this.id_Usuario = 0;
 		this.nombre = "";
 		this.correo = "";
 		this.id = 0;
-		this.tipoID = 0;
+		this.tipo_ID = 0;
 		this.rol = 0;
 	}
 	
 	public Usuario(long idUsuario, String nombre, String correo, long id,
 			long tipoID, long rol) {
-		this.idUsuario = idUsuario;
+		this.id_Usuario = idUsuario;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.id = id;
-		this.tipoID = tipoID;
+		this.tipo_ID = tipoID;
 		this.rol = rol;
 	}
 
 	public long getIdUsuario() {
-		return idUsuario;
+		return id_Usuario;
 	}
 
 	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
+		this.id_Usuario = idUsuario;
 	}
 
 	public String getNombre() {
@@ -66,11 +66,11 @@ public class Usuario implements VOUsuario{
 	}
 
 	public long getTipoID() {
-		return tipoID;
+		return tipo_ID;
 	}
 
 	public void setTipoID(long tipoID) {
-		this.tipoID = tipoID;
+		this.tipo_ID = tipoID;
 	}
 
 	public long getRol() {
@@ -82,8 +82,8 @@ public class Usuario implements VOUsuario{
 	}
 	
 	public String toString() {
-		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre +
-				", correo=" + correo + ", id=" + id + ", tipoID=" + tipoID +
+		return "Usuario [idUsuario=" + id_Usuario + ", nombre=" + nombre +
+				", correo=" + correo + ", id=" + id + ", tipoID=" + tipo_ID +
 				", rol=" + rol + "]";
 	}
 }
