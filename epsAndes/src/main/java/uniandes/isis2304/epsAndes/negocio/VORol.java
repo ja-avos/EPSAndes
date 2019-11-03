@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VORol {
 
-	public long getIdRol();
+	public long getId_Rol();
 	
 	public String getRol();
 	

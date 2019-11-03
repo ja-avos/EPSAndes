@@ -58,13 +58,13 @@ public class Orden implements VOOrden{
 	public void setValido(boolean valido) {
 		this.valido = valido;
 	}
-	
-	public long getMedicoRemitente() {
+
+	public long getMedico_Remit() {
 		return medico_Remit;
 	}
 
-	public void setMedicoRemitente(long medicoRemitente) {
-		this.medico_Remit = medicoRemitente;
+	public void setMedico_Remit(long medico_Remit) {
+		this.medico_Remit = medico_Remit;
 	}
 
 	public long getServicio() {

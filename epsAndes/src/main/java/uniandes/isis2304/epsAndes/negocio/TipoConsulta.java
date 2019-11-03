@@ -16,12 +16,12 @@ public class TipoConsulta implements VOTipoConsulta{
 		this.nombre = nombre;
 	}
 
-	public long getIdTipo() {
+	public long getId_Tipo() {
 		return id_Tipo;
 	}
 
-	public void setIdServicio(long idServicio) {
-		this.id_Tipo = idServicio;
+	public void setId_Tipo(long id_Tipo) {
+		this.id_Tipo = id_Tipo;
 	}
 
 	public String getNombre() {

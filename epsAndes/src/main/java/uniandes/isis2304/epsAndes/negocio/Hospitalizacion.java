@@ -30,12 +30,12 @@ public class Hospitalizacion implements VOHospitalizacion{
 		this.reserva = reserva;
 	}
 
-	public Timestamp getFechaSalida() {
+	public Timestamp getFecha_Salida() {
 		return fecha_Salida;
 	}
 
-	public void setFechaSalida(Timestamp fechaSalida) {
-		this.fecha_Salida = fechaSalida;
+	public void setFecha_Salida(Timestamp fecha_Salida) {
+		this.fecha_Salida = fecha_Salida;
 	}
 
 	public String getObservacion() {

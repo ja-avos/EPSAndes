@@ -4,7 +4,7 @@ public interface VOTerapia {
 
 	public long getReserva();
 	
-	public int getNumeroSesiones();
+	public int getNumero_Sesiones();
 	
 	public String toString();
 }

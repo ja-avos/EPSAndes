@@ -24,20 +24,20 @@ public class Medico implements VOMedico{
 		this.usuario = usuario;
 	}
 
-	public long getIdMedico() {
+	public long getId_Medico() {
 		return id_Medico;
 	}
 
-	public void setIdMedico(long idMedico) {
-		this.id_Medico = idMedico;
+	public void setId_Medico(long id_Medico) {
+		this.id_Medico = id_Medico;
 	}
 
-	public long getRegistroMedico() {
+	public long getRegistro_Medico() {
 		return registro_Medico;
 	}
 
-	public void setRegistroMedico(long registroMedico) {
-		this.registro_Medico = registroMedico;
+	public void setRegistro_Medico(long registro_Medico) {
+		this.registro_Medico = registro_Medico;
 	}
 
 	public String getEspecialidad() {

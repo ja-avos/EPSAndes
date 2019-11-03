@@ -43,12 +43,12 @@ public class Reserva implements VOReserva{
 		this.codigo = codigo;
 	}
 
-	public boolean isServicioPrestado() {
+	public boolean isServicio_Prestado() {
 		return servicio_Prestado;
 	}
 
-	public void setServicioPrestado(boolean servicioPrestado) {
-		this.servicio_Prestado = servicioPrestado;
+	public void setServicio_Prestado(boolean servicio_Prestado) {
+		this.servicio_Prestado = servicio_Prestado;
 	}
 
 	public Timestamp getFecha() {

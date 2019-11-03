@@ -16,12 +16,12 @@ public class TipoServicio implements VOTipoServicio{
 		this.nombre = nombre;
 	}
 
-	public long getIdServicio() {
+	public long getId_Servicio() {
 		return id_Servicio;
 	}
 
-	public void setIdServicio(long idServicio) {
-		this.id_Servicio = idServicio;
+	public void setId_Servicio(long id_Servicio) {
+		this.id_Servicio = id_Servicio;
 	}
 
 	public String getNombre() {

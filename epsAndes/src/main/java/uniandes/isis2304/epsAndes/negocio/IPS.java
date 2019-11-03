@@ -20,12 +20,12 @@ public class IPS implements VOIps{
 		this.nombre = nombre;
 	}
 
-	public long getId() {
+	public long getId_IPS() {
 		return id_IPS;
 	}
 
-	public void setId(long id) {
-		this.id_IPS = id;
+	public void setId_IPS(long id_IPS) {
+		this.id_IPS = id_IPS;
 	}
 
 	public String getLocalizacion() {

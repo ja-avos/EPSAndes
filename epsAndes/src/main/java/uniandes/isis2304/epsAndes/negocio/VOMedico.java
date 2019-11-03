@@ -2,9 +2,9 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VOMedico {
 
-	public long getIdMedico();
+	public long getId_Medico();
 	
-	public long getRegistroMedico();
+	public long getRegistro_Medico();
 	
 	public String getEspecialidad();
 	

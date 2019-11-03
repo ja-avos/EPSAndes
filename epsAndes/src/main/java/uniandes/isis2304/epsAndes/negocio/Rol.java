@@ -16,12 +16,12 @@ public class Rol implements VORol{
 		this.rol = rol;
 	}
 
-	public long getIdRol() {
+	public long getId_Rol() {
 		return id_Rol;
 	}
 
-	public void setIdRol(long idRol) {
-		this.id_Rol = idRol;
+	public void setId_Rol(long id_Rol) {
+		this.id_Rol = id_Rol;
 	}
 
 	public String getRol() {

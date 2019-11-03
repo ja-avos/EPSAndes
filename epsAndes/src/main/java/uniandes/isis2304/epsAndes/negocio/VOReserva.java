@@ -6,7 +6,7 @@ public interface VOReserva {
 
 	public long getCodigo();
 	
-	public boolean isServicioPrestado();
+	public boolean isServicio_Prestado();
 	
 	public Timestamp getFecha();
 	

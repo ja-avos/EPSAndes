@@ -20,12 +20,12 @@ public class ServicioSalud implements VOServicioSalud{
 		this.tipo = tipo;
 	}
 
-	public long getIdServicio() {
+	public long getId_Servicio() {
 		return id_Servicio;
 	}
 
-	public void setId(long id) {
-		this.id_Servicio = id;
+	public void setId_Servicio(long id_Servicio) {
+		this.id_Servicio = id_Servicio;
 	}
 
 	public String getNombre() {

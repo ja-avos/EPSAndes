@@ -20,12 +20,12 @@ public class Recepcionista implements VORecepcionista{
 		this.IPS = IPS;
 	}
 
-	public long getIdRecepcionista() {
+	public long getId_Recepcionista() {
 		return id_Recepcionista;
 	}
 
-	public void setIdRecepcionista(long idRecepcionista) {
-		this.id_Recepcionista = idRecepcionista;
+	public void setId_Recepcionista(long id_Recepcionista) {
+		this.id_Recepcionista = id_Recepcionista;
 	}
 
 	public long getUsuario() {

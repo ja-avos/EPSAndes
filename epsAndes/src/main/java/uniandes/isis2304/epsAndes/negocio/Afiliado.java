@@ -1,42 +1,41 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Afiliado implements VOAfiliado{
 	
 	private long id_Afiliado;
 	
-	private Timestamp fechaNacimiento;
+	private Timestamp fecha_Nacimiento;
 	
 	private long usuario;
 	
 	public Afiliado() {
 		this.id_Afiliado = 0;
-		this.fechaNacimiento = new Timestamp(0);
+		this.fecha_Nacimiento = new Timestamp(0);
 		this.usuario = 0;
 	}
 	
 	public Afiliado(long idAfiliado, Timestamp fechaNacimiento, long usuario) {
 		this.id_Afiliado = idAfiliado;
-		this.fechaNacimiento = fechaNacimiento;
+		this.fecha_Nacimiento = fechaNacimiento;
 		this.usuario = usuario;
 	}
 
-	public long getIdAfiliado() {
+	public long getId_Afiliado() {
 		return id_Afiliado;
 	}
 
-	public void setIdAfiliado(long idAfiliado) {
-		this.id_Afiliado = idAfiliado;
+	public void setId_Afiliado(long id_Afiliado) {
+		this.id_Afiliado = id_Afiliado;
 	}
 
-	public Timestamp getFechaNacimiento() {
-		return fechaNacimiento;
+	public Timestamp getFecha_Nacimiento() {
+		return fecha_Nacimiento;
 	}
 
-	public void setFechaNacimiento(Timestamp fechaNacimiento) {
-		this.fechaNacimiento = fechaNacimiento;
+	public void setFecha_Nacimiento(Timestamp fecha_Nacimiento) {
+		this.fecha_Nacimiento = fecha_Nacimiento;
 	}
 
 	public long getUsuario() {
@@ -49,6 +48,6 @@ public class Afiliado implements VOAfiliado{
 	
 	public String toString() {
 		return "Afiliado [idAfiliado=" + id_Afiliado + ", fechaNacimiento=" +
-				fechaNacimiento + ", usuario=" + usuario + "]";
+				fecha_Nacimiento + ", usuario=" + usuario + "]";
 	}
 }

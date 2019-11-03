@@ -3,8 +3,6 @@ package uniandes.isis2304.epsAndes.negocio;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonObject;

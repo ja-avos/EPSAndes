@@ -39,14 +39,6 @@ public class Horario implements VOHorario{
 		this.hora_Fin = horaFin;
 	}
 
-	public long getIdHorario() {
-		return id_Horario;
-	}
-
-	public void setIdHorario(long idHorario) {
-		this.id_Horario = idHorario;
-	}
-
 	public long getIPS() {
 		return IPS;
 	}
@@ -78,23 +70,31 @@ public class Horario implements VOHorario{
 	public void setDia(int dia) {
 		this.dia = dia;
 	}
+	
+	public long getId_Horario() {
+		return id_Horario;
+	}
 
-	public Timestamp getHoraInicio() {
+	public void setId_Horario(long id_Horario) {
+		this.id_Horario = id_Horario;
+	}
+
+	public Timestamp getHora_Inicio() {
 		return hora_Inicio;
 	}
 
-	public void setHoraInicio(Timestamp horaInicio) {
-		this.hora_Inicio = horaInicio;
+	public void setHora_Inicio(Timestamp hora_Inicio) {
+		this.hora_Inicio = hora_Inicio;
 	}
 
-	public Timestamp getHoraFin() {
+	public Timestamp getHora_Fin() {
 		return hora_Fin;
 	}
 
-	public void setHoraFin(Timestamp horaFin) {
-		this.hora_Fin = horaFin;
+	public void setHora_Fin(Timestamp hora_Fin) {
+		this.hora_Fin = hora_Fin;
 	}
-	
+
 	public String toString() {
 		return "Horario [idHorario=" + id_Horario + ", IPS=" + IPS +
 				", servicio=" + servicio + ", capacidad" + capacidad +
