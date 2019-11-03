@@ -17,14 +17,19 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.ExamenDiagnostico;
 import uniandes.isis2304.epsAndes.negocio.Horario;
+import uniandes.isis2304.epsAndes.negocio.Hospitalizacion;
 import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Orden;
+import uniandes.isis2304.epsAndes.negocio.Procedimiento;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Reserva;
 import uniandes.isis2304.epsAndes.negocio.Rol;
 import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
+import uniandes.isis2304.epsAndes.negocio.Terapia;
+import uniandes.isis2304.epsAndes.negocio.TipoConsulta;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
@@ -71,8 +76,15 @@ public class PersistenciaEPSAndes {
 	
 	private SQLTipoServicio sqlTipoServicio;
 	
-
+	private SQLExamenDiagnostico sqlExamenDiagnostico;
 	
+	private SQLTerapia sqlTerapia;
+	
+	private SQLProcedimiento sqlProcedimiento;
+	
+	private SQLHospitalizacion sqlHospitalizacion;
+	
+	private SQLTipoConsulta sqlTipoConsulta;
 	
 	private PersistenciaEPSAndes()
 	{
@@ -166,6 +178,11 @@ public class PersistenciaEPSAndes {
 		sqlReserva = new SQLReserva(this);
 		sqlServicioSalud = new SQLServicioSalud(this);
 		sqlTipoServicio = new SQLTipoServicio(this);
+		sqlExamenDiagnostico = new SQLExamenDiagnostico(this);
+		sqlTerapia = new SQLTerapia(this);
+		sqlProcedimiento = new SQLProcedimiento(this);
+		sqlHospitalizacion = new SQLHospitalizacion(this);
+		sqlTipoConsulta = new SQLTipoConsulta(this);
 		sqlUtil = new SQLUtil(this);
 	}
 	
@@ -345,7 +362,10 @@ public class PersistenciaEPSAndes {
         }
 	}
 
-	
+	public Usuario getUserByEmail (String correo) 
+	{
+		return sqlUsuario.getUserByEmail(pmf.getPersistenceManager(), correo);
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////
@@ -788,8 +808,180 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO EXAMEN_DIAGNOSTICO///////////////////////
+	///////////////////////////////////////////////////////////////////////
 	
+	public ExamenDiagnostico addExamenDiagnostico(long reserva, String diagnostico) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlExamenDiagnostico.addExamenDiagnostico(pm, reserva, diagnostico);
+            tx.commit();
+
+            log.trace ("Inserción de exámen diagnóstico: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new ExamenDiagnostico(reserva, diagnostico);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO TERAPIAS/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public Terapia addTerapia(long reserva, int numeroSesiones) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlTerapia.addTerapia(pm, reserva, numeroSesiones);
+            tx.commit();
+
+            log.trace ("Inserción de terapia: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Terapia(reserva, numeroSesiones);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO PROCEDIMIENTO////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public Procedimiento addProcedimiento(long reserva, String descripcion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlProcedimiento.addProcedimiento(pm, reserva, descripcion);
+            tx.commit();
+
+            log.trace ("Inserción de procedimiento: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Procedimiento(reserva, descripcion);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO HOSPITALIZACIÓN//////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public Hospitalizacion addHospitalizacion(long reserva, Timestamp fechaSalida, String observacion) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlHospitalizacion.addHospitalizacion(pm, reserva, fechaSalida, observacion);
+            tx.commit();
+
+            log.trace ("Inserción de hospitalizacion: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Hospitalizacion(reserva, fechaSalida, observacion);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO TIPO CONSULTA////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public TipoConsulta addTipoConsulta(String nombre)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idTipo = nextval ();
+            long tuplasInsertadas = sqlTipoConsulta.addTipoConsulta(pm, idTipo, nombre);
+            tx.commit();
+            
+            log.trace ("Inserción de tipoConsulta: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new TipoConsulta(idTipo, nombre);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO CONSULTA/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
 	
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////LIMPIAR EPS////////////////////////////////////

@@ -63,6 +63,14 @@ public class EPSAndes {
 		return nuevoUsuario;
 	}
 	
+	public Usuario getUserByEmail(String correo) throws Exception {
+		log.info("Dar información de usuario por correo: " + correo);
+		Usuario usuario = pp.getUserByEmail(correo);
+		log.info ("Buscando usuario por correo: " + usuario != null ? usuario : "NO EXISTE");
+		if (usuario == null ) throw new Exception("Correo no registrado en el sistema");
+		return usuario;
+	}
+	
 	public Medico addMedico (long registroMedico, String especialidad, long usuario)
 	{
 		log.info("Adicionando medico: " + usuario);

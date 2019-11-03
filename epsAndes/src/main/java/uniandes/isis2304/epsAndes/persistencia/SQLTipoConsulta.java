@@ -8,28 +8,28 @@ import javax.jdo.Query;
 import uniandes.isis2304.epsAndes.negocio.Rol;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
 
-public class SQLTipoId {
+public class SQLTipoConsulta {
 
-	private final static String SQL = PersistenciaEPSAndes.SQL;
+private final static String SQL = PersistenciaEPSAndes.SQL;
 	
 	private PersistenciaEPSAndes pe;
 	
-	public SQLTipoId (PersistenciaEPSAndes pe)
+	public SQLTipoConsulta (PersistenciaEPSAndes pe)
 	{
 		this.pe = pe;
 	}
 	
-	public long addTipoId (PersistenceManager pm, long idTipo, String nombre) 
+	public long addTipoConsulta (PersistenceManager pm, long idTipo, String nombre) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableTipoID() + 
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableTipoConsulta() + 
         		"(id_Tipo, nombre) values (?,?)");
         q.setParameters(idTipo, nombre);
         return (long) q.executeUnique();
 	}
 	
-	public List<TipoID> getTiposId (PersistenceManager pm)
+	public List<TipoID> getTiposConsulta (PersistenceManager pm)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoID());
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoConsulta());
 		q.setResultClass(Rol.class);
 		return (List<TipoID>) q.executeList();
 	}

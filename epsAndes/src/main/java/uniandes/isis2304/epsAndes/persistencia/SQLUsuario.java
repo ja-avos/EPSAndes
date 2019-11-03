@@ -43,4 +43,11 @@ public class SQLUsuario {
 		q.setParameters(idUsuario);
 		return (Usuario) q.executeUnique();
 	}
+	
+	public Usuario getUserByEmail (PersistenceManager pm, String correo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + " WHERE correo = ?");
+		q.setResultClass(Usuario.class);
+		q.setParameters(correo);
+		return (Usuario) q.executeList();
+	}
 }
