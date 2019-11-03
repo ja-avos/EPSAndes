@@ -36,7 +36,6 @@ import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
-import uniandes.isis2304.parranderos.negocio.Bebedor;
 
 
 public class PersistenciaEPSAndes {

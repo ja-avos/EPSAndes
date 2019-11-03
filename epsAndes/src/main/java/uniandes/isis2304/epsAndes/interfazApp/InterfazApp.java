@@ -1,6 +1,8 @@
 package uniandes.isis2304.epsAndes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.sql.Timestamp;
+import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -14,7 +16,10 @@ import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.interfazApp.adminDatos.PanelAdmin;
 import uniandes.isis2304.epsAndes.negocio.EPSAndes;
+import uniandes.isis2304.epsAndes.negocio.Horario;
+import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
 
 public class InterfazApp extends JFrame {
@@ -90,28 +95,33 @@ public class InterfazApp extends JFrame {
 		
 		loginPanel = new LoginPanel(this);
 		add(loginPanel, BorderLayout.CENTER);
+		//pAdmin = new PanelAdmin(this, new Usuario(1, "", "", 2, 1, 1));
+		//add(pAdmin, BorderLayout.CENTER);
 		
 	}
 	
 	public void login(String mail)
 	{
 		try {
-			Usuario user = eps.getUserByEmail(mail);
-			switch ((int)user.getRol()) {
+			//Usuario user = eps.getUserByEmail(mail);
+			//switch ((int)user.getRol()) {
+			switch (Integer.valueOf(mail)) {
 			case 1:
-				JOptionPane.showInternalMessageDialog(this, "El ambiente para Afiliado sigue en construccion");
+				JOptionPane.showMessageDialog(this, "El ambiente para Afiliado sigue en construccion");
 				break;
 			case 2:
-				JOptionPane.showInternalMessageDialog(this, "El ambiente para Medico sigue en construccion");
+				JOptionPane.showMessageDialog(this, "El ambiente para Medico sigue en construccion");
 				break;
 			case 3:
-				JOptionPane.showInternalMessageDialog(this, "El ambiente para Recepcionista sigue en construccion");
+				JOptionPane.showMessageDialog(this, "El ambiente para Recepcionista sigue en construccion");
 				break;
 			case 4:
-				JOptionPane.showInternalMessageDialog(this, "El ambiente para Admin de Datos sigue en construccion");
+				JOptionPane.showMessageDialog(this, "El ambiente para Admin de Datos sigue en construccion");
+				pAdmin = new PanelAdmin(this, new Usuario(1, "", "", 2, 1, 1));
+				pAdmin.setVisible(true);
 				break;
 			case 5:
-				JOptionPane.showInternalMessageDialog(this, "El ambiente para Gerente sigue en construccion");
+				JOptionPane.showMessageDialog(this, "El ambiente para Gerente sigue en construccion");
 				break;
 			default:
 				throw new Exception("Existe el usuario con error. Comunicarse con IT.");
@@ -132,6 +142,36 @@ public class InterfazApp extends JFrame {
 				+ "Cualquier inquietud comunicarse al correo:\n\t"
 				+ " {c.alcala, ja.avelino}@uniandes.edu.co";
 		JOptionPane.showMessageDialog(this, msg, "Ayuda", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public IPS getIPSByID(long id)
+	{
+		return eps.getIPSById(id);
+	}
+	
+	public ServicioSalud getServicioSaludByID(long id)
+	{
+		return eps.getServicioSaludByID(id);
+	}
+	
+	public List<ServicioSalud> getServiciosSalud()
+	{
+		return eps.getServiciosSalud();
+	}
+	
+	public void addHorario(long ips, long servicio, int capacidad, int dia, Timestamp inicio, Timestamp fin)
+	{
+		eps.addHorario(ips, servicio, capacidad, dia, inicio, fin);
+	}
+	
+	public List<Horario> getHorariosByIPS(long id)
+	{
+		return eps.getHorariosByIPS(id);
+	}
+	
+	public void deleteHorarioByID(long id)
+	{
+		eps.deleteHorario(id);
 	}
 
 	public static void main(String[] args) {
