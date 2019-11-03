@@ -210,13 +210,20 @@ public class EPSAndes {
 	}
 	
 	public Reserva addReserva (boolean servicioPrestado, Timestamp fecha, long horario,
-			long afiliado, long orden)
+			long afiliado, long orden) throws Exception
 	{
 		log.info ("Adicionando Reserva [" + horario + ", " + afiliado + "]");
-        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
-        		afiliado, orden);
-        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
-        return resp;
+		long disponibilidad = pp.getDisponibilidad(horario, fecha);
+		if (disponibilidad != 0) {
+	        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
+	        		afiliado, orden);
+	        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
+	        return resp;
+		} else {
+			log.info("No hay disponibilidad para adicionar reserva para el afiliado" +
+					afiliado + " en el horario "+ horario);
+			throw new Exception ("No hay disponibilidad para reservar en este horario");
+		}
 	}
 	
 	

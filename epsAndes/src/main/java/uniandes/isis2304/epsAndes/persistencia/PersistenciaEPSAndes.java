@@ -740,7 +740,7 @@ public class PersistenciaEPSAndes {
 			resp [0] = horario;
 			resp [1] = disponibilidad;	
 			
-			respuesta.add(resp);
+			if (disponibilidad != 0) respuesta.add(resp);
         }
 
 		return respuesta;
