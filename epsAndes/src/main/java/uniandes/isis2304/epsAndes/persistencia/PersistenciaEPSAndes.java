@@ -17,6 +17,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.Consulta;
 import uniandes.isis2304.epsAndes.negocio.ExamenDiagnostico;
 import uniandes.isis2304.epsAndes.negocio.Horario;
 import uniandes.isis2304.epsAndes.negocio.Hospitalizacion;
@@ -85,6 +86,8 @@ public class PersistenciaEPSAndes {
 	private SQLHospitalizacion sqlHospitalizacion;
 	
 	private SQLTipoConsulta sqlTipoConsulta;
+	
+	private SQLConsulta sqlConsulta;
 	
 	private PersistenciaEPSAndes()
 	{
@@ -183,6 +186,7 @@ public class PersistenciaEPSAndes {
 		sqlProcedimiento = new SQLProcedimiento(this);
 		sqlHospitalizacion = new SQLHospitalizacion(this);
 		sqlTipoConsulta = new SQLTipoConsulta(this);
+		sqlConsulta = new SQLConsulta(this);
 		sqlUtil = new SQLUtil(this);
 	}
 	
@@ -982,6 +986,38 @@ public class PersistenciaEPSAndes {
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////MANEJO CONSULTA/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
+	
+	public Consulta addConsulta(long reserva, String observacion, int prioridad, String receta, 
+			long tipo) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlConsulta.addConsulta(pm, reserva, observacion, prioridad, 
+            		receta, tipo); 
+            tx.commit();
+
+            log.trace ("Inserción de consulta: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Consulta(reserva, observacion, prioridad, receta, tipo);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////LIMPIAR EPS////////////////////////////////////

@@ -157,6 +157,57 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public TipoConsulta addTipoConsulta(String nombre)
+	{
+		log.info ("Adicionando tipoConsulta: " + nombre);
+        TipoConsulta nuevoTipo = pp.addTipoConsulta(nombre);
+        log.info ("Adicionando tipoConsulta: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
+	public Consulta addConsulta(long reserva, String observacion, int prioridad, String receta, 
+			long tipo)
+	{
+		log.info ("Adicionando Consulta [" + reserva + ", " + observacion + ", " + prioridad +
+				", " + receta + ", " + tipo + "]");
+        Consulta resp = pp.addConsulta(reserva, observacion, prioridad, receta, tipo);
+        log.info ("Adicionando Consulta: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
+	public ExamenDiagnostico addExamenDiagnostico(long reserva, String diagnostico)
+	{
+		log.info ("Adicionando examenDiagnostico [" + reserva + ", " + diagnostico + "]");
+        ExamenDiagnostico resp = pp.addExamenDiagnostico(reserva, diagnostico);
+        log.info ("Adicionando examenDiagnostico: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
+	public Terapia addTerapia(long reserva, int numeroSesiones)
+	{
+		log.info ("Adicionando terapia [" + reserva + ", " + numeroSesiones + "]");
+        Terapia resp = pp.addTerapia(reserva, numeroSesiones);
+        log.info ("Adicionando terapia: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
+	public Procedimiento addProcedimiento(long reserva, String descripcion)
+	{
+		log.info ("Adicionando procedimiento [" + reserva + ", " + descripcion + "]");
+        Procedimiento resp = pp.addProcedimiento(reserva, descripcion);
+        log.info ("Adicionando procedimiento: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
+	public Hospitalizacion addHospitalizacion(long reserva, Timestamp fechaSalida, String observacion)
+	{
+		log.info ("Adicionando Hospitalizacion [" + reserva + ", " + fechaSalida + ", " +
+				observacion + "]");
+		Hospitalizacion resp = pp.addHospitalizacion(reserva, fechaSalida, observacion);
+        log.info ("Adicionando Hospitalizacion: " + resp + " tuplas insertadas");
+        return resp;
+	}
+	
 	public long registrarPrestacionServicio (long codigo)
 	{
         log.info ("Registrando la prestación del servicio: " + codigo);
