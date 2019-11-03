@@ -186,7 +186,7 @@ public class DialogoAgregarServicioIPS extends JDialog implements ActionListener
 	{
 		for(ServicioSalud s :  principal.getServiciosSalud())
 			if(nombre.equals(s.getNombre()))
-				return s.getIdServicio();
+				return s.getId_Servicio();
 		return -1;
 	}
 	
@@ -206,7 +206,7 @@ public class DialogoAgregarServicioIPS extends JDialog implements ActionListener
 			Date horaInicio = (Date) sHoraInicio.getValue();
 			Date horaFin = (Date) sHoraFin.getValue();
 			try {
-				principal.addHorario(ips.getId(), idServicio, capacidad, dia, new Timestamp(horaInicio.getTime()), new Timestamp(horaFin.getTime()));
+				principal.addHorario(ips.getId_IPS(), idServicio, capacidad, dia, new Timestamp(horaInicio.getTime()), new Timestamp(horaFin.getTime()));
 			} catch ( Exception e )
 			{
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error agregando el servicio", JOptionPane.ERROR_MESSAGE);

@@ -126,6 +126,7 @@ public class PanelAdmin extends JFrame implements ActionListener{
 			} catch(Exception ex)
 			{
 				JOptionPane.showMessageDialog(null, "Error abriendo ventana de Servicios por IPS");
+				ex.printStackTrace();
 			}
 			break;
 		default:

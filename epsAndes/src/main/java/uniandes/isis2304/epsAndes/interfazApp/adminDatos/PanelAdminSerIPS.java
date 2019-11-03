@@ -51,7 +51,7 @@ public class PanelAdminSerIPS extends JPanel implements ActionListener{
 		add(lblSerIPS, BorderLayout.NORTH);
 		
 		tabla = new PanelTablaServiciosIPS(main);
-		tabla.actualizar(main.getHorariosByIPS(ips.getId()));
+		tabla.actualizar(main.getHorariosByIPS(ips.getId_IPS()));
 		add(tabla, BorderLayout.CENTER);
 		
 		opciones = new JPanel(new GridLayout(1, 3));

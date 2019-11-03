@@ -87,7 +87,7 @@ public class InterfazApp extends JFrame {
 	public InterfazApp()
 	{
 		setTitle("EPSAndes");
-		setSize(600, 800);
+		setSize(300, 300);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 		
