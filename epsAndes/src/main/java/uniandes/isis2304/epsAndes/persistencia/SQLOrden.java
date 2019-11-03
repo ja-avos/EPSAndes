@@ -32,4 +32,8 @@ public class SQLOrden {
         q.setParameters(codigo);
         return (long) q.executeUnique();
 	}
+	
+	public Orden getOrden (PersistenceManager pm ) {
+		return null;
+	}
 }

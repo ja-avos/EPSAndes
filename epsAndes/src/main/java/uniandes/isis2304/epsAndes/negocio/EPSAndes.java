@@ -142,6 +142,14 @@ public class EPSAndes {
 		return nuevoServicio;
 	}
 	
+	public ServicioSalud getServicioSaludById(long id) 
+	{
+		log.info("Consultando servicioSalud por id");
+		ServicioSalud resp = pp.getServicioSaludByID(id);
+		log.info("Consultando servicioSalud por id "+ id + " : " + resp);
+		return resp;
+	}
+	
 	public Orden addOrden (Timestamp fecha, boolean valido, long medicoRemitente,
 			long servicio, long afiliado)
 	{

@@ -686,6 +686,9 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public ServicioSalud getServicioSaludByID(long id) {
+		return sqlServicioSalud.getServicioSaludById(pmf.getPersistenceManager(), id);
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO HORARIO//////////////////////////////////

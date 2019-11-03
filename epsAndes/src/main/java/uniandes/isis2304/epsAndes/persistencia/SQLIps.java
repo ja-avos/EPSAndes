@@ -43,14 +43,14 @@ public class SQLIps {
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(id);
 		q.setResultClass(IPS.class);
-		return (IPS) q.executeList();
+		return (IPS) q.executeUnique();
 	}
 	
 	public List<Object> darCantidadServiciosPrestadosPorIPS (PersistenceManager pm,
 			Timestamp fechaInicio, Timestamp fechaFin)
 	{
 	    String sql = "SELECT id, localizacion, nombre, count (distinct servicio) as servicios_Prestados";
-	    sql += " FROM " + pe.getTableReserva();
+	    sql += " FROM " + pe.getTableIPS();
 	    sql += " INNER JOIN " + pe.getTableHorario() + " ON horario = id_horario";
 	    sql += " RIGHT OUTER JOIN " + pe.getTableIPS() + " ON ips = id_IPS";
 	    sql += " WHERE fecha BETWEEN ? AND ?";

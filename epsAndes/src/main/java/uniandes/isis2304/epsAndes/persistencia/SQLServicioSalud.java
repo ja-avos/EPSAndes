@@ -53,4 +53,14 @@ public class SQLServicioSalud {
 	    q.setParameters(fechaInicio, fechaFin);
 		return q.executeList();
 	}
+	
+	public ServicioSalud getServicioSaludById (PersistenceManager pm, long id)
+	{
+		String sql = "SELECT *";
+		sql += " FROM " + pe.getTableServicioSalud();
+		sql += " WHERE id_servicio = ?";
+		Query q = pm.newQuery(SQL, sql);
+	    q.setParameters(id);
+	    return (ServicioSalud) q.executeUnique(); 
+	}
 }
