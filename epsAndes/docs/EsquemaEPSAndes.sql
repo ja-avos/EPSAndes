@@ -4,7 +4,9 @@
 -- Copie el contenido de este archivo en una pesta�a SQL de SQL Developer
 -- Ejec�telo como un script - Utilice el bot�n correspondiente de la pesta�a utilizada
 
---Eliminacion de tablas
+--Eliminacion de tablas Y SECUENCIAS
+DROP SEQUENCE EPSANDES_SEQUENCE;
+
 DROP TABLE CONSULTA;
 DROP TABLE HOSPITALIZACION;
 DROP TABLE PROCEDIMIENTO;
@@ -243,14 +245,14 @@ CREATE TABLE SERVICIO_DESHABILITADO
 -- Creaci�n de la tabla Campana y especificaci�n de sus restricciones
 CREATE TABLE CAMPANA
     (ID_CAMPANA NUMBER,
-     ACEPTADA NUMBER(1, 0),
+     CANCELADA NUMBER(1, 0),
      FECHA_INICIO TIMESTAMP NOT NULL,
      FECHA_FIN TIMESTAMP NOT NULL,
      CONSTRAINT CAMPANA_PK PRIMARY KEY (ID_CAMPANA));
      
 ALTER TABLE CAMPANA
-	ADD CONSTRAINT CK_CAMPANA_ACEPTADA
-    CHECK (ACEPTADA IN (0, 1))
+	ADD CONSTRAINT CK_CAMPANA_CANCELADA
+    CHECK (CANCELADA IN (0, 1))
 ENABLE;
 
 -- Creaci�n de la tabla Participan y especificaci�n de sus restricciones
