@@ -4,16 +4,16 @@ public class Terapia implements VOTerapia{
 	
 	private long reserva;
 	
-	private int numeroSesiones;
+	private int numero_Sesiones;
 	
 	public Terapia() {
 		this.reserva = 0;
-		this.numeroSesiones = 0;
+		this.numero_Sesiones = 0;
 	}
 	
 	public Terapia(long reserva, int numeroSesiones) {
 		this.reserva = reserva;
-		this.numeroSesiones = numeroSesiones;
+		this.numero_Sesiones = numeroSesiones;
 	}
 
 	public long getReserva() {
@@ -23,16 +23,16 @@ public class Terapia implements VOTerapia{
 	public void setReserva(long reserva) {
 		this.reserva = reserva;
 	}
-
-	public int getNumeroSesiones() {
-		return numeroSesiones;
-	}
-
-	public void setNumeroSesiones(int numeroSesiones) {
-		this.numeroSesiones = numeroSesiones;
-	}
 	
+	public int getNumero_Sesiones() {
+		return numero_Sesiones;
+	}
+
+	public void setNumero_Sesiones(int numero_Sesiones) {
+		this.numero_Sesiones = numero_Sesiones;
+	}
+
 	public String toString() {
-		return "Terapia [reserva=" + reserva + ", numeroSesiones=" + numeroSesiones + "]";
+		return "Terapia [reserva=" + reserva + ", numeroSesiones=" + numero_Sesiones + "]";
 	}
 }

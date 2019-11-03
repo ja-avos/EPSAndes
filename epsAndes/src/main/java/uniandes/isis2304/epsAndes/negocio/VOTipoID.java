@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VOTipoID {
 
-	public long getIdTipo();
+	public long getId_Tipo();
 	
 	public String getNombre();
 	

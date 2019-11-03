@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public interface VOHorario {
 
-	public long getIdHorario();
+	public long getId_Horario();
 	
 	public long getIPS();
 	
@@ -14,9 +14,9 @@ public interface VOHorario {
 	
 	public int getDia();
 	
-	public Timestamp getHoraInicio();
+	public Timestamp getHora_Inicio();
 	
-	public Timestamp getHoraFin();
+	public Timestamp getHora_Fin();
 	
 	public String toString();
 }

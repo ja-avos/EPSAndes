@@ -10,7 +10,7 @@ public class Orden implements VOOrden{
 	
 	private boolean valido;
 	
-	private long medicoRemitente;
+	private long medico_Remit;
 	
 	private long servicio;
 	
@@ -20,7 +20,7 @@ public class Orden implements VOOrden{
 		this.codigo = 0;
 		this.fecha = new Timestamp(0);
 		this.valido = false;
-		this.medicoRemitente = 0;
+		this.medico_Remit = 0;
 		this.servicio = 0;
 		this.afiliado = 0;
 	}
@@ -30,7 +30,7 @@ public class Orden implements VOOrden{
 		this.codigo = codigo;
 		this.fecha = fecha;
 		this.valido = valido;
-		this.medicoRemitente = medicoRemitente;
+		this.medico_Remit = medicoRemitente;
 		this.servicio = servicio;
 		this.afiliado = afiliado;
 	}
@@ -58,13 +58,13 @@ public class Orden implements VOOrden{
 	public void setValido(boolean valido) {
 		this.valido = valido;
 	}
-	
-	public long getMedicoRemitente() {
-		return medicoRemitente;
+
+	public long getMedico_Remit() {
+		return medico_Remit;
 	}
 
-	public void setMedicoRemitente(long medicoRemitente) {
-		this.medicoRemitente = medicoRemitente;
+	public void setMedico_Remit(long medico_Remit) {
+		this.medico_Remit = medico_Remit;
 	}
 
 	public long getServicio() {

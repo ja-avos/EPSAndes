@@ -5,9 +5,9 @@ import java.sql.Timestamp;
 
 public interface VOAfiliado {
 
-	public long getIdAfiliado();
+	public long getId_Afiliado();
 	
-	public Timestamp getFechaNacimiento();
+	public Timestamp getFecha_Nacimiento();
 	
 	public long getUsuario();
 	

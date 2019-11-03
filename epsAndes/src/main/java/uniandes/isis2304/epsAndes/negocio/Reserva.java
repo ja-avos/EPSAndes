@@ -6,7 +6,7 @@ public class Reserva implements VOReserva{
 
 	private long codigo;
 	
-	private boolean servicioPrestado;
+	private boolean servicio_Prestado;
 	
 	private Timestamp fecha;
 	
@@ -18,7 +18,7 @@ public class Reserva implements VOReserva{
 	
 	public Reserva() {
 		this.codigo = 0;
-		this.servicioPrestado = false;
+		this.servicio_Prestado = false;
 		this.fecha = new Timestamp(0);
 		this.horario = 0;
 		this.afiliado = 0;
@@ -28,7 +28,7 @@ public class Reserva implements VOReserva{
 	public Reserva(long codigo, boolean servicioPrestado, Timestamp fecha, 
 			long horario, long afiliado, long orden) {
 		this.codigo = codigo;
-		this.servicioPrestado = servicioPrestado;
+		this.servicio_Prestado = servicioPrestado;
 		this.fecha = fecha;
 		this.horario = horario;
 		this.afiliado = afiliado;
@@ -43,12 +43,12 @@ public class Reserva implements VOReserva{
 		this.codigo = codigo;
 	}
 
-	public boolean isServicioPrestado() {
-		return servicioPrestado;
+	public boolean isServicio_Prestado() {
+		return servicio_Prestado;
 	}
 
-	public void setServicioPrestado(boolean servicioPrestado) {
-		this.servicioPrestado = servicioPrestado;
+	public void setServicio_Prestado(boolean servicio_Prestado) {
+		this.servicio_Prestado = servicio_Prestado;
 	}
 
 	public Timestamp getFecha() {
@@ -84,7 +84,7 @@ public class Reserva implements VOReserva{
 	}
 
 	public String toString() {
-		return "Reserva [codigo=" + codigo + ", servicioPrestado=" + String.valueOf(servicioPrestado) +
+		return "Reserva [codigo=" + codigo + ", servicioPrestado=" + String.valueOf(servicio_Prestado) +
 				", fecha=" + fecha.toString() + ", horario=" + horario +
 				", afiliado=" + afiliado + ", orden=" + orden + "]";
 	}

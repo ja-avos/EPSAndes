@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VOIps {
 	
-	public long getId();
+	public long getId_IPS();
 	
 	public String getLocalizacion();
 	

@@ -33,14 +33,6 @@ public class Usuario implements VOUsuario{
 		this.rol = rol;
 	}
 
-	public long getId_Usuario() {
-		return id_Usuario;
-	}
-
-	public void setId_Usuario(long id_Usuario) {
-		this.id_Usuario = id_Usuario;
-	}
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -65,14 +57,6 @@ public class Usuario implements VOUsuario{
 		this.id = id;
 	}
 
-	public long getTipo_ID() {
-		return tipo_ID;
-	}
-
-	public void setTipo_ID(long tipo_ID) {
-		this.tipo_ID = tipo_ID;
-	}
-
 	public long getRol() {
 		return rol;
 	}
@@ -81,6 +65,22 @@ public class Usuario implements VOUsuario{
 		this.rol = rol;
 	}
 	
+	public long getId_Usuario() {
+		return id_Usuario;
+	}
+
+	public void setId_Usuario(long id_Usuario) {
+		this.id_Usuario = id_Usuario;
+	}
+
+	public long getTipo_ID() {
+		return tipo_ID;
+	}
+
+	public void setTipo_ID(long tipo_ID) {
+		this.tipo_ID = tipo_ID;
+	}
+
 	public String toString() {
 		return "Usuario [idUsuario=" + id_Usuario + ", nombre=" + nombre +
 				", correo=" + correo + ", id=" + id + ", tipoID=" + tipo_ID +

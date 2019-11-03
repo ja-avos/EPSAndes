@@ -2,30 +2,30 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public class Recepcionista implements VORecepcionista{
 	
-	private long idRecepcionista;
+	private long id_Recepcionista;
 	
 	private long usuario;
 	
 	private long IPS;
 	
 	public Recepcionista() {
-		this.idRecepcionista = 0;
+		this.id_Recepcionista = 0;
 		this.usuario = 0;
 		this.IPS = 0;
 	}
 	
 	public Recepcionista(long idRecepcionista, long usuario, long IPS) {
-		this.idRecepcionista = idRecepcionista;
+		this.id_Recepcionista = idRecepcionista;
 		this.usuario = usuario;
 		this.IPS = IPS;
 	}
 
-	public long getIdRecepcionista() {
-		return idRecepcionista;
+	public long getId_Recepcionista() {
+		return id_Recepcionista;
 	}
 
-	public void setIdRecepcionista(long idRecepcionista) {
-		this.idRecepcionista = idRecepcionista;
+	public void setId_Recepcionista(long id_Recepcionista) {
+		this.id_Recepcionista = id_Recepcionista;
 	}
 
 	public long getUsuario() {
@@ -45,7 +45,7 @@ public class Recepcionista implements VORecepcionista{
 	}
 
 	public String toString() {
-		return "Recepcionista [idRecepcionista=" + idRecepcionista + 
+		return "Recepcionista [idRecepcionista=" + id_Recepcionista + 
 				", usuario=" + usuario + ", IPS=" + IPS + "]";
 	}
 }

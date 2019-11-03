@@ -3,8 +3,6 @@ package uniandes.isis2304.epsAndes.negocio;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonObject;
@@ -112,6 +110,14 @@ public class EPSAndes {
 		return nuevaIPS;
 	}
 	
+	public IPS getIPSById (long id)
+	{
+		log.info("Consultando IPS por id");
+		IPS resp = pp.getIPSById(id);
+		log.info("Consultando IPS por id " + id + " : " + resp);
+		return resp;
+	}
+	
 	public TrabajaEn addTrabajaEn (long ips, long medico)
 	{
 		log.info ("Adicionando trabajaEn [" + ips + ", " + medico + "]");
@@ -136,6 +142,14 @@ public class EPSAndes {
 		return nuevoServicio;
 	}
 	
+	public ServicioSalud getServicioSaludById(long id) 
+	{
+		log.info("Consultando servicioSalud por id");
+		ServicioSalud resp = pp.getServicioSaludByID(id);
+		log.info("Consultando servicioSalud por id "+ id + " : " + resp);
+		return resp;
+	}
+	
 	public Orden addOrden (Timestamp fecha, boolean valido, long medicoRemitente,
 			long servicio, long afiliado)
 	{
@@ -144,6 +158,25 @@ public class EPSAndes {
         		afiliado);
         log.info ("Adicionando Orden: " + resp + " tuplas insertadas");
         return resp;
+	}
+	
+	public Orden getOrdenAfiliadoPara (long afiliado, long servicio) throws Exception 
+	{
+		log.info("Consultando si un afiliado tiene una orden para un servicio");
+		Orden resp = pp.getOrdenDeAfiliadoPara(afiliado, servicio);
+		log.info("COnsultando si un afiliado " + afiliado + " tiene una orden "
+				+ "para "+ servicio + " : " + resp);
+		if (resp == null) throw new Exception ("El afiliado no tiene una orden para"
+				+ " el servicio de salud solicitado");
+		return resp;
+	}
+	
+	public long usarOrden (long orden)
+	{
+		log.info("Invalidando una orden");
+		long cambios = pp.useOrden(orden);
+		log.info("Invalidando orden " + orden + " tuplas modificadas " + cambios);
+		return cambios;
 	}
 	
 	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
@@ -156,15 +189,43 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public List<Horario> getHorariosByIPS(long ips)
+	{
+		log.info("Consultando Horario por IPS");
+		List<Horario> resp = pp.getHorariosByIPS(ips);
+		log.info ("Consultando horario por IPS " + ips + " : " + resp);
+		return resp;
+	}
+	
+	public long getDisponibilidad (Timestamp fecha, long horario) {
+		log.info ("Calculando disponibilidad para una fecha y horario");
+		long resp = pp.getDisponibilidad(horario, fecha);
+		log.info("Calculando disponibilidad para " + fecha + " en horario "+
+				horario + " : " + resp);
+		return resp;
+	}
+	
+	public List<Object[]> getDisponibilidadDeHorario (Timestamp fecha, long idServicio) {
+		return pp.getDisponibilidadDeHorario(fecha, idServicio);
+	}
+	
 	public Reserva addReserva (boolean servicioPrestado, Timestamp fecha, long horario,
-			long afiliado, long orden)
+			long afiliado, long orden) throws Exception
 	{
 		log.info ("Adicionando Reserva [" + horario + ", " + afiliado + "]");
-        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
-        		afiliado, orden);
-        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
-        return resp;
+		long disponibilidad = pp.getDisponibilidad(horario, fecha);
+		if (disponibilidad != 0) {
+	        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
+	        		afiliado, orden);
+	        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
+	        return resp;
+		} else {
+			log.info("No hay disponibilidad para adicionar reserva para el afiliado" +
+					afiliado + " en el horario "+ horario);
+			throw new Exception ("No hay disponibilidad para reservar en este horario");
+		}
 	}
+	
 	
 	public TipoConsulta addTipoConsulta(String nombre)
 	{
@@ -232,6 +293,17 @@ public class EPSAndes {
         		" y " + fechaFin);
         List<Object []> tuplas = pp.darCantidadServiciosPrestadosPorIPS(fechaInicio, fechaFin);
         log.info ("Listando IPS y cuántos servicios ha prestado entre: " + fechaInicio +
+        		" y " + fechaFin + "Listo!");
+        return tuplas;
+	}
+	
+	public List<ServicioSalud> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
+			Timestamp fechaFin)
+	{
+        log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
+        		" y " + fechaFin);
+        List<ServicioSalud> tuplas = pp.dar20ServiciosMasSolicitados(fechaInicio, fechaFin);
+        log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
         		" y " + fechaFin + "Listo!");
         return tuplas;
 	}

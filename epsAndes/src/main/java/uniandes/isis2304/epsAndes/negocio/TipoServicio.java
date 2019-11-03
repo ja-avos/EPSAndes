@@ -2,26 +2,26 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public class TipoServicio implements VOTipoServicio{
 
-	private long idServicio;
+	private long id_Servicio;
 	
 	private String nombre;
 	
 	public TipoServicio() {
-		this.idServicio = 0;
+		this.id_Servicio = 0;
 		this.nombre = "";
 	}
 	
 	public TipoServicio(long idServicio, String nombre) {
-		this.idServicio = idServicio;
+		this.id_Servicio = idServicio;
 		this.nombre = nombre;
 	}
 
-	public long getIdServicio() {
-		return idServicio;
+	public long getId_Servicio() {
+		return id_Servicio;
 	}
 
-	public void setIdServicio(long idServicio) {
-		this.idServicio = idServicio;
+	public void setId_Servicio(long id_Servicio) {
+		this.id_Servicio = id_Servicio;
 	}
 
 	public String getNombre() {
@@ -33,6 +33,6 @@ public class TipoServicio implements VOTipoServicio{
 	}
 	
 	public String toString() {
-		return "TipoServicio [idServicio=" + idServicio + ", nombre= " + nombre + "]";
+		return "TipoServicio [idServicio=" + id_Servicio + ", nombre= " + nombre + "]";
 	}
 }

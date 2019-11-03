@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VORecepcionista {
 	
-	public long getIdRecepcionista();
+	public long getId_Recepcionista();
 	
 	public long getUsuario();
 	

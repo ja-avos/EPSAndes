@@ -1,5 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -46,5 +47,24 @@ public class SQLReserva {
 		q.setResultClass(Reserva.class);
 		q.setParameters(servicioPrestado);
 		return (List<Reserva>) q.executeList();
+	}
+	
+	public long getCantidadReservas (PersistenceManager pm, Timestamp fecha,
+			long idHorario)
+	{
+		String sql = "";
+		sql += "SELECT COUNT (codigo)";
+		sql += " FROM " + pe.getTableReserva();
+		sql += " WHERE fecha = ? AND horario = ?";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(fecha, idHorario);
+		return ((BigDecimal) q.executeUnique()).longValue ();
+	}
+	
+	public long setOrden (PersistenceManager pm, long codigo, long orden)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableOrden() + " SET orden = ? WHERE codigo = ?");
+	     q.setParameters(orden, codigo);
+	     return (long) q.executeUnique();
 	}
 }

@@ -6,7 +6,7 @@ public interface VOHospitalizacion {
 
 	public long getReserva();
 	
-	public Timestamp getFechaSalida();
+	public Timestamp getFecha_Salida();
 	
 	public String getObservacion();
 	

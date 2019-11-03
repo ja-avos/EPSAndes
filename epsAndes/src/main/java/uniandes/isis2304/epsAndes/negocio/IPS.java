@@ -2,30 +2,30 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public class IPS implements VOIps{
 
-	private long id;
+	private long id_IPS;
 	
 	private String localizacion;
 	
 	private String nombre;
 	
 	public IPS() {
-		this.id = 0;
+		this.id_IPS = 0;
 		this.localizacion = "";
 		this.nombre = "";
 	}
 	
 	public IPS(long id, String localizacion, String nombre) {
-		this.id = id;
+		this.id_IPS = id;
 		this.localizacion = localizacion;
 		this.nombre = nombre;
 	}
 
-	public long getId() {
-		return id;
+	public long getId_IPS() {
+		return id_IPS;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setId_IPS(long id_IPS) {
+		this.id_IPS = id_IPS;
 	}
 
 	public String getLocalizacion() {
@@ -45,6 +45,6 @@ public class IPS implements VOIps{
 	}
 
 	public String toString() {
-		return "IPS [id=" + id + ", nombre=" + nombre + ", localizacion=" + localizacion + "]";
+		return "IPS [id=" + id_IPS + ", nombre=" + nombre + ", localizacion=" + localizacion + "]";
 	}
 }

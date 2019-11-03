@@ -10,7 +10,7 @@ public interface VOOrden {
 	
 	public boolean isValido();
 	
-	public long getMedicoRemitente();
+	public long getMedico_Remit();
 	
 	public long getServicio();
 	
