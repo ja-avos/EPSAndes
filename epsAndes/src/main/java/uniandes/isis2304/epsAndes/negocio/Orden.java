@@ -1,12 +1,12 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Orden implements VOOrden{
 
 	private long codigo;
 	
-	private Date fecha;
+	private Timestamp fecha;
 	
 	private boolean valido;
 	
@@ -18,14 +18,14 @@ public class Orden implements VOOrden{
 	
 	public Orden() {
 		this.codigo = 0;
-		this.fecha = new Date(0);
+		this.fecha = new Timestamp(0);
 		this.valido = false;
 		this.medicoRemitente = 0;
 		this.servicio = 0;
 		this.afiliado = 0;
 	}
 	
-	public Orden(long codigo, Date fecha, boolean valido, long medicoRemitente,
+	public Orden(long codigo, Timestamp fecha, boolean valido, long medicoRemitente,
 			long servicio, long afiliado) {
 		this.codigo = codigo;
 		this.fecha = fecha;
@@ -43,11 +43,11 @@ public class Orden implements VOOrden{
 		this.codigo = codigo;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

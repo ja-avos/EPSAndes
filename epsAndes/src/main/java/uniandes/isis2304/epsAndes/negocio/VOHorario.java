@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public interface VOHorario {
 
@@ -14,9 +14,9 @@ public interface VOHorario {
 	
 	public int getDia();
 	
-	public Date getHoraInicio();
+	public Timestamp getHoraInicio();
 	
-	public Date getHoraFin();
+	public Timestamp getHoraFin();
 	
 	public String toString();
 }

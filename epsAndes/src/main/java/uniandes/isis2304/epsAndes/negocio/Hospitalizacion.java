@@ -1,22 +1,22 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Hospitalizacion implements VOHospitalizacion{
 
 	private long reserva;
 	
-	private Date fechaSalida;
+	private Timestamp fechaSalida;
 	
 	private String observacion;
 	
 	public Hospitalizacion() {
 		this.reserva = 0;
-		this.fechaSalida = new Date(0);
+		this.fechaSalida = new Timestamp(0);
 		this.observacion = "";
 	}
 	
-	public Hospitalizacion(long reserva, Date fechaSalida, String observacion) {
+	public Hospitalizacion(long reserva, Timestamp fechaSalida, String observacion) {
 		this.reserva = reserva;
 		this.fechaSalida = fechaSalida;
 		this.observacion = observacion;
@@ -30,11 +30,11 @@ public class Hospitalizacion implements VOHospitalizacion{
 		this.reserva = reserva;
 	}
 
-	public Date getFechaSalida() {
+	public Timestamp getFechaSalida() {
 		return fechaSalida;
 	}
 
-	public void setFechaSalida(Date fechaSalida) {
+	public void setFechaSalida(Timestamp fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
 

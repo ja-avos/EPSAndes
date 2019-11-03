@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -21,8 +21,8 @@ public class SQLHorario {
 	}
 	
 	public long addHorario (PersistenceManager pm, long idHorario, long IPS,
-			long servicio, int capacidad, int dia, Date horaInicio,
-			Date horaFin) 
+			long servicio, int capacidad, int dia, Timestamp horaInicio,
+			Timestamp horaFin) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableHorario() + 
         		"(id_Horario, ips, servicio, capacidad, dia, hora_inicio, hora_fin) "

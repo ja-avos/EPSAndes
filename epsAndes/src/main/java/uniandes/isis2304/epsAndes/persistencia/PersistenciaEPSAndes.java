@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -388,7 +388,7 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO AFILIADOS///////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
-	public Afiliado addAfiliado(Date fechaNacimiento, long usuario) 
+	public Afiliado addAfiliado(Timestamp fechaNacimiento, long usuario) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -647,7 +647,7 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	
 	public Horario addHorario(long IPS, long servicio, int capacidad, int dia,
-			Date horaInicio, Date horaFin) 
+			Timestamp horaInicio, Timestamp horaFin) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -685,7 +685,7 @@ public class PersistenciaEPSAndes {
 	/////////////////////////MANEJO ORDEN///////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	public Orden addOrden(Date fecha, boolean validoBool, long medicoRemitente,
+	public Orden addOrden(Timestamp fecha, boolean validoBool, long medicoRemitente,
 			long servicio, long afiliado) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -726,7 +726,7 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	
 	
-	public Reserva addReserva(boolean servicioPrestadoBool, Date fecha,
+	public Reserva addReserva(boolean servicioPrestadoBool, Timestamp fecha,
 			long horario, long afiliado, long orden) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();

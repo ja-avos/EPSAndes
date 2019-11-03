@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -15,7 +15,7 @@ public class SQLOrden {
 		this.pe = pe;
 	}
 	
-	public long addOrden (PersistenceManager pm, long codigo, Date fecha, int valido,
+	public long addOrden (PersistenceManager pm, long codigo, Timestamp fecha, int valido,
 			long medicoRemitente, long servicio, long afiliado) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableOrden() + 

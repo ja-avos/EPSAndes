@@ -1,12 +1,12 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public interface VOHospitalizacion {
 
 	public long getReserva();
 	
-	public Date getFechaSalida();
+	public Timestamp getFechaSalida();
 	
 	public String getObservacion();
 	

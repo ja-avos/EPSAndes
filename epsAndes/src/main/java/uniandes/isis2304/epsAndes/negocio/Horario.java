@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Horario implements VOHorario{
 
@@ -14,9 +14,9 @@ public class Horario implements VOHorario{
 	
 	private int dia;
 	
-	private Date horaInicio;
+	private Timestamp horaInicio;
 	
-	private Date horaFin;
+	private Timestamp horaFin;
 	
 	public Horario() {
 		this.idHorario = 0;
@@ -24,12 +24,12 @@ public class Horario implements VOHorario{
 		this.servicio = 0;
 		this.capacidad = 0;
 		this.dia = 1;
-		this.horaInicio = new Date(0);
-		this.horaFin = new Date(0);
+		this.horaInicio = new Timestamp(0);
+		this.horaFin = new Timestamp(0);
 	}
 	
 	public Horario(long idHorario, long IPS, long servicio, int capacidad,
-			int dia, Date horaInicio, Date horaFin) {
+			int dia, Timestamp horaInicio, Timestamp horaFin) {
 		this.idHorario = idHorario;
 		this.IPS = IPS;
 		this.servicio = servicio;
@@ -79,19 +79,19 @@ public class Horario implements VOHorario{
 		this.dia = dia;
 	}
 
-	public Date getHoraInicio() {
+	public Timestamp getHoraInicio() {
 		return horaInicio;
 	}
 
-	public void setHoraInicio(Date horaInicio) {
+	public void setHoraInicio(Timestamp horaInicio) {
 		this.horaInicio = horaInicio;
 	}
 
-	public Date getHoraFin() {
+	public Timestamp getHoraFin() {
 		return horaFin;
 	}
 
-	public void setHoraFin(Date horaFin) {
+	public void setHoraFin(Timestamp horaFin) {
 		this.horaFin = horaFin;
 	}
 	

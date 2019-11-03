@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reserva implements VOReserva{
 
@@ -8,7 +8,7 @@ public class Reserva implements VOReserva{
 	
 	private boolean servicioPrestado;
 	
-	private Date fecha;
+	private Timestamp fecha;
 	
 	private long horario;
 	
@@ -19,13 +19,13 @@ public class Reserva implements VOReserva{
 	public Reserva() {
 		this.codigo = 0;
 		this.servicioPrestado = false;
-		this.fecha = new Date(0);
+		this.fecha = new Timestamp(0);
 		this.horario = 0;
 		this.afiliado = 0;
 		this.orden = 0;
 	}
 	
-	public Reserva(long codigo, boolean servicioPrestado, Date fecha, 
+	public Reserva(long codigo, boolean servicioPrestado, Timestamp fecha, 
 			long horario, long afiliado, long orden) {
 		this.codigo = codigo;
 		this.servicioPrestado = servicioPrestado;
@@ -51,11 +51,11 @@ public class Reserva implements VOReserva{
 		this.servicioPrestado = servicioPrestado;
 	}
 
-	public Date getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 

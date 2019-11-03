@@ -1,12 +1,12 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public interface VOOrden {
 
 	public long getCodigo();
 	
-	public Date getFecha();
+	public Timestamp getFecha();
 	
 	public boolean isValido();
 	

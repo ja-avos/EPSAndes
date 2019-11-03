@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -16,7 +16,7 @@ class SQLAfiliado {
 		this.pe = pe;
 	}
 	
-	public long addAfiliado (PersistenceManager pm, long idAfiliado, Date fechaNacimiento,
+	public long addAfiliado (PersistenceManager pm, long idAfiliado, Timestamp fechaNacimiento,
 			long usuario) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableAfiliado() + 

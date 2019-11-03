@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -21,7 +21,7 @@ public class SQLReserva {
 	}
 	
 	public long addReserva (PersistenceManager pm, long codigo, int servicioPrestado,
-			Date fecha, long horario, long afiliado, long orden) 
+			Timestamp fecha, long horario, long afiliado, long orden) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableReserva() + 
         		"(codigo, servicio_prestado, fecha, horario, afiliado, orden) "

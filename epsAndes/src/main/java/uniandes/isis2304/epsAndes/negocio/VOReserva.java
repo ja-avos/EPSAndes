@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public interface VOReserva {
 
@@ -8,7 +8,7 @@ public interface VOReserva {
 	
 	public boolean isServicioPrestado();
 	
-	public Date getFecha();
+	public Timestamp getFecha();
 	
 	public long getHorario();
 	
