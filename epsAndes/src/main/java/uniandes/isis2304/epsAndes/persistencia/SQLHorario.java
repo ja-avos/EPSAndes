@@ -43,6 +43,15 @@ public class SQLHorario {
 		return (List<Horario>) q.executeList();
 	}
 	
+	public List<Horario> getHorariosByIPS (PersistenceManager pm, long ips)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableHorario() + 
+				" WHERE ips = ?");
+		q.setResultClass(Horario.class);
+		q.setParameters(ips);
+		return (List<Horario>) q.executeList();
+	}
+	
 	public List<Horario> getHorarios (PersistenceManager pm, int dia,
 			long idServicio) 
 	{

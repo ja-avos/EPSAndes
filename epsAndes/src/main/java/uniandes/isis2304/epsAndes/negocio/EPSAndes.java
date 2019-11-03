@@ -170,6 +170,14 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public List<Horario> getHorariosByIPS(long ips)
+	{
+		log.info("Consultando Horario por IPS");
+		List<Horario> resp = pp.getHorariosByIPS(ips);
+		log.info ("Consultando horario por IPS " + ips + " : " + resp);
+		return resp;
+	}
+	
 	public long getDisponibilidad (Timestamp fecha, long horario) {
 		log.info ("Calculando disponibilidad para una fecha y horario");
 		long resp = pp.getDisponibilidad(horario, fecha);
