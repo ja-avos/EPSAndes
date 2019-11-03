@@ -8,10 +8,10 @@
         <exclude-unlisted-classes/>
         <properties>
             <!-- ENABLE THESE FOR Oracle -->
-            <property name="javax.jdo.option.ConnectionURL" value="jdbc:oracle:thin:@fn3.oracle.virtual.uniandes.edu.co:1521:prod"/>
+            <property name="javax.jdo.option.ConnectionURL" value="jdbc:oracle:thin:@204.110.52.42:1521:orcl"/>
             <property name="javax.jdo.option.ConnectionDriverName" value="oracle.jdbc.driver.OracleDriver"/>
-            <property name="javax.jdo.option.ConnectionUserName" value="ISIS2304D031920"/>
-            <property name="javax.jdo.option.ConnectionPassword" value="fLjzplIezqmn"/>
+            <property name="javax.jdo.option.ConnectionUserName" value="EPS"/>
+            <property name="javax.jdo.option.ConnectionPassword" value="EPS_ANDES"/>
             <property name="javax.jdo.option.Mapping" value="oracle"/>
 
             <property name="datanucleus.schema.autoCreateAll" value="false"/>

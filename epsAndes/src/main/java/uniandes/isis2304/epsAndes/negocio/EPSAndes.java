@@ -3,6 +3,8 @@ package uniandes.isis2304.epsAndes.negocio;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import org.apache.log4j.Logger;
 
 import com.google.gson.JsonObject;
@@ -64,6 +66,13 @@ public class EPSAndes {
 	}
 	
 	public Usuario getUserByEmail(String correo) throws Exception {
+		String msg = "";
+		for(Rol u : pp.getRoles())
+		{
+			msg+= "\n" + u.getRol();
+		}
+		pp.addRol2("");
+		System.out.println("Usuarios: " + msg);
 		log.info("Dar información de usuario por correo: " + correo);
 		Usuario usuario = pp.getUserByEmail(correo);
 		log.info ("Buscando usuario por correo: " + usuario != null ? usuario : "NO EXISTE");

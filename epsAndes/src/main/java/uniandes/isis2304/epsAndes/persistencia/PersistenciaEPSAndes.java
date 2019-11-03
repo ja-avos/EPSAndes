@@ -91,7 +91,9 @@ public class PersistenciaEPSAndes {
 	
 	private PersistenciaEPSAndes()
 	{
-		pmf = JDOHelper.getPersistenceManagerFactory("EPSAndes");		
+		pmf = JDOHelper.getPersistenceManagerFactory("EPSAndes");
+		System.out.println(pmf.getConnectionUserName());
+		System.out.println(pmf.getConnectionURL());
 		crearClasesSQL ();
 		
 		// Define los nombres por defecto de las tablas de la base de datos
@@ -323,6 +325,11 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
+	
+	public void addRol2(String rol)
+	{
+		sqlRol.addRol(pmf.getPersistenceManager(), 10, "Hola");
+	}
 
 	public List<Rol> getRoles ()
 	{
@@ -364,6 +371,16 @@ public class PersistenciaEPSAndes {
             }
             pm.close();
         }
+	}
+	
+	public Usuario getUserByID(Long id)
+	{
+		return sqlUsuario.getUsuarioByID(pmf.getPersistenceManager(), id);
+	}
+	
+	public List<Usuario> getUsers()
+	{
+		return sqlUsuario.getUsers(pmf.getPersistenceManager());
 	}
 
 	public Usuario getUserByEmail (String correo) 
