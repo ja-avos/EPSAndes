@@ -23,22 +23,22 @@ public class Usuario implements VOUsuario{
 		this.rol = 0;
 	}
 	
-	public Usuario(long idUsuario, String nombre, String correo, long id,
-			long tipoID, long rol) {
-		this.id_Usuario = idUsuario;
+	public Usuario(long id_Usuario, String nombre, String correo, long id,
+			long tipo_ID, long rol) {
+		this.id_Usuario = id_Usuario;
 		this.nombre = nombre;
 		this.correo = correo;
 		this.id = id;
-		this.tipo_ID = tipoID;
+		this.tipo_ID = tipo_ID;
 		this.rol = rol;
 	}
 
-	public long getIdUsuario() {
+	public long getId_Usuario() {
 		return id_Usuario;
 	}
 
-	public void setIdUsuario(long idUsuario) {
-		this.id_Usuario = idUsuario;
+	public void setId_Usuario(long id_Usuario) {
+		this.id_Usuario = id_Usuario;
 	}
 
 	public String getNombre() {
@@ -65,12 +65,12 @@ public class Usuario implements VOUsuario{
 		this.id = id;
 	}
 
-	public long getTipoID() {
+	public long getTipo_ID() {
 		return tipo_ID;
 	}
 
-	public void setTipoID(long tipoID) {
-		this.tipo_ID = tipoID;
+	public void setTipo_ID(long tipo_ID) {
+		this.tipo_ID = tipo_ID;
 	}
 
 	public long getRol() {

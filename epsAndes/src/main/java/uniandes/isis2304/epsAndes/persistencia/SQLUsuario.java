@@ -38,16 +38,23 @@ public class SQLUsuario {
 	public Usuario getUsuarioByID (PersistenceManager pm, long idUsuario) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + 
-				" WHERE idUsuario = ?");
+				" WHERE Id_Usuario = ?");
 		q.setResultClass(Usuario.class);
 		q.setParameters(idUsuario);
 		return (Usuario) q.executeUnique();
+	}
+	
+	public List<Usuario> getUsers(PersistenceManager pm)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario());
+		q.setResultClass(Usuario.class);
+		return (List<Usuario>) q.executeList();
 	}
 	
 	public Usuario getUserByEmail (PersistenceManager pm, String correo) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + " WHERE correo = ?");
 		q.setResultClass(Usuario.class);
 		q.setParameters(correo);
-		return (Usuario) q.executeList();
+		return (Usuario) q.executeUnique();
 	}
 }

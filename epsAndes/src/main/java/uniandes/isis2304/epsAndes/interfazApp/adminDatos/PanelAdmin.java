@@ -1,4 +1,4 @@
-package uniandes.isis2304.epsAndes.interfazApp;
+package uniandes.isis2304.epsAndes.interfazApp.adminDatos;
 
 import javax.swing.JPanel;
 

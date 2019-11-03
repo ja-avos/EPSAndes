@@ -2,7 +2,7 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public interface VOUsuario {
 	
-	public long getIdUsuario();
+	public long getId_Usuario();
 	
 	public String getNombre();
 	
@@ -10,7 +10,7 @@ public interface VOUsuario {
 	
 	public long getId();
 	
-	public long getTipoID();
+	public long getTipo_ID();
 	
 	public long getRol();
 	
