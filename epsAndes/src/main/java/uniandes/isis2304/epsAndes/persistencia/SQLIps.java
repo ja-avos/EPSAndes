@@ -41,7 +41,7 @@ public class SQLIps {
 	    String sql = "SELECT id, localizacion, nombre, count (distinct servicio) as servicios_Prestados";
 	    sql += " FROM " + pe.getTableReserva();
 	    sql += " INNER JOIN " + pe.getTableHorario() + " ON horario = id_horario";
-	    sql += " RIGHT OUTER JOIN " + pe.getTableIPS() + " ON ips = id";
+	    sql += " RIGHT OUTER JOIN " + pe.getTableIPS() + " ON ips = id_IPS";
 	    sql += " WHERE fecha BETWEEN ? AND ?";
 	    sql	+= " GROUP BY id, localizacion, nombre";
 		

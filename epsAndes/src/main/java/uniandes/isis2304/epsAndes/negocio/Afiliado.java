@@ -5,30 +5,30 @@ import java.sql.Timestamp;
 
 public class Afiliado implements VOAfiliado{
 	
-	private long idAfiliado;
+	private long id_Afiliado;
 	
 	private Timestamp fechaNacimiento;
 	
 	private long usuario;
 	
 	public Afiliado() {
-		this.idAfiliado = 0;
+		this.id_Afiliado = 0;
 		this.fechaNacimiento = new Timestamp(0);
 		this.usuario = 0;
 	}
 	
 	public Afiliado(long idAfiliado, Timestamp fechaNacimiento, long usuario) {
-		this.idAfiliado = idAfiliado;
+		this.id_Afiliado = idAfiliado;
 		this.fechaNacimiento = fechaNacimiento;
 		this.usuario = usuario;
 	}
 
 	public long getIdAfiliado() {
-		return idAfiliado;
+		return id_Afiliado;
 	}
 
 	public void setIdAfiliado(long idAfiliado) {
-		this.idAfiliado = idAfiliado;
+		this.id_Afiliado = idAfiliado;
 	}
 
 	public Timestamp getFechaNacimiento() {
@@ -48,7 +48,7 @@ public class Afiliado implements VOAfiliado{
 	}
 	
 	public String toString() {
-		return "Afiliado [idAfiliado=" + idAfiliado + ", fechaNacimiento=" +
+		return "Afiliado [idAfiliado=" + id_Afiliado + ", fechaNacimiento=" +
 				fechaNacimiento + ", usuario=" + usuario + "]";
 	}
 }

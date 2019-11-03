@@ -6,19 +6,19 @@ public class Hospitalizacion implements VOHospitalizacion{
 
 	private long reserva;
 	
-	private Timestamp fechaSalida;
+	private Timestamp fecha_Salida;
 	
 	private String observacion;
 	
 	public Hospitalizacion() {
 		this.reserva = 0;
-		this.fechaSalida = new Timestamp(0);
+		this.fecha_Salida = new Timestamp(0);
 		this.observacion = "";
 	}
 	
 	public Hospitalizacion(long reserva, Timestamp fechaSalida, String observacion) {
 		this.reserva = reserva;
-		this.fechaSalida = fechaSalida;
+		this.fecha_Salida = fechaSalida;
 		this.observacion = observacion;
 	}
 
@@ -31,11 +31,11 @@ public class Hospitalizacion implements VOHospitalizacion{
 	}
 
 	public Timestamp getFechaSalida() {
-		return fechaSalida;
+		return fecha_Salida;
 	}
 
 	public void setFechaSalida(Timestamp fechaSalida) {
-		this.fechaSalida = fechaSalida;
+		this.fecha_Salida = fechaSalida;
 	}
 
 	public String getObservacion() {
@@ -48,6 +48,6 @@ public class Hospitalizacion implements VOHospitalizacion{
 	
 	public String toString() {
 		return "Hospitalizacion [reserva=" + reserva + ", fechaSalida=" +
-				fechaSalida.toString() + ", observacion=" + observacion + "]";
+				fecha_Salida.toString() + ", observacion=" + observacion + "]";
 	}
 }

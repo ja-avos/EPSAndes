@@ -2,26 +2,26 @@ package uniandes.isis2304.epsAndes.negocio;
 
 public class Rol implements VORol{
 	
-	private long idRol;
+	private long id_Rol;
 	
 	private String rol;
 	
 	public Rol() {
-		this.idRol = 0;
+		this.id_Rol = 0;
 		this.rol = "";
 	}
 	
 	public Rol(long idRol, String rol) {
-		this.idRol = idRol;
+		this.id_Rol = idRol;
 		this.rol = rol;
 	}
 
 	public long getIdRol() {
-		return idRol;
+		return id_Rol;
 	}
 
 	public void setIdRol(long idRol) {
-		this.idRol = idRol;
+		this.id_Rol = idRol;
 	}
 
 	public String getRol() {
@@ -33,6 +33,6 @@ public class Rol implements VORol{
 	}
 	
 	public String toString() {
-		return "Rol [idRol=" + idRol + ", rol=" + rol + "]";
+		return "Rol [idRol=" + id_Rol + ", rol=" + rol + "]";
 	}
 }

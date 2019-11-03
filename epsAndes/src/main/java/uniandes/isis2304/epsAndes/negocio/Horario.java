@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Horario implements VOHorario{
 
-	private long idHorario;
+	private long id_Horario;
 	
 	private long IPS;
 	
@@ -14,37 +14,37 @@ public class Horario implements VOHorario{
 	
 	private int dia;
 	
-	private Timestamp horaInicio;
+	private Timestamp hora_Inicio;
 	
-	private Timestamp horaFin;
+	private Timestamp hora_Fin;
 	
 	public Horario() {
-		this.idHorario = 0;
+		this.id_Horario = 0;
 		this.IPS = 0;
 		this.servicio = 0;
 		this.capacidad = 0;
 		this.dia = 1;
-		this.horaInicio = new Timestamp(0);
-		this.horaFin = new Timestamp(0);
+		this.hora_Inicio = new Timestamp(0);
+		this.hora_Fin = new Timestamp(0);
 	}
 	
 	public Horario(long idHorario, long IPS, long servicio, int capacidad,
 			int dia, Timestamp horaInicio, Timestamp horaFin) {
-		this.idHorario = idHorario;
+		this.id_Horario = idHorario;
 		this.IPS = IPS;
 		this.servicio = servicio;
 		this.capacidad = capacidad;
 		this.dia = dia;
-		this.horaInicio = horaInicio;
-		this.horaFin = horaFin;
+		this.hora_Inicio = horaInicio;
+		this.hora_Fin = horaFin;
 	}
 
 	public long getIdHorario() {
-		return idHorario;
+		return id_Horario;
 	}
 
 	public void setIdHorario(long idHorario) {
-		this.idHorario = idHorario;
+		this.id_Horario = idHorario;
 	}
 
 	public long getIPS() {
@@ -80,25 +80,25 @@ public class Horario implements VOHorario{
 	}
 
 	public Timestamp getHoraInicio() {
-		return horaInicio;
+		return hora_Inicio;
 	}
 
 	public void setHoraInicio(Timestamp horaInicio) {
-		this.horaInicio = horaInicio;
+		this.hora_Inicio = horaInicio;
 	}
 
 	public Timestamp getHoraFin() {
-		return horaFin;
+		return hora_Fin;
 	}
 
 	public void setHoraFin(Timestamp horaFin) {
-		this.horaFin = horaFin;
+		this.hora_Fin = horaFin;
 	}
 	
 	public String toString() {
-		return "Horario [idHorario=" + idHorario + ", IPS=" + IPS +
+		return "Horario [idHorario=" + id_Horario + ", IPS=" + IPS +
 				", servicio=" + servicio + ", capacidad" + capacidad +
-				", dia=" + dia + ", horaInicio" + horaInicio.toString() + 
-				", horaFin=" + horaFin.toString() + "]";
+				", dia=" + dia + ", horaInicio" + hora_Inicio.toString() + 
+				", horaFin=" + hora_Fin.toString() + "]";
 	}
 }

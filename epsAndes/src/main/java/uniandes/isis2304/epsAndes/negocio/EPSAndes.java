@@ -227,6 +227,17 @@ public class EPSAndes {
         return tuplas;
 	}
 	
+	public List<Object> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
+			Timestamp fechaFin)
+	{
+        log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
+        		" y " + fechaFin);
+        List<Object> tuplas = pp.dar20ServiciosMasSolicitados(fechaInicio, fechaFin);
+        log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
+        		" y " + fechaFin + "Listo!");
+        return tuplas;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");

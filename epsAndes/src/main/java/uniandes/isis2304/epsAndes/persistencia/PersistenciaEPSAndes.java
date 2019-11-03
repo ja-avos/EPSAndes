@@ -36,7 +36,6 @@ import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
-import uniandes.isis2304.parranderos.negocio.Bebedor;
 
 
 public class PersistenciaEPSAndes {
@@ -1006,6 +1005,28 @@ public class PersistenciaEPSAndes {
 			Object [] resp = new Object [2];
 			resp [0] = new IPS(id, localizacion, nombre);
 			resp [1] = cantServicios;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	
+	public List<Object> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
+			Timestamp fechaFin)
+	{
+		List<Object> respuesta = new LinkedList <Object> ();
+		List<Object> tuplas = sqlServicioSalud.dar20MasSolicitados(pmf.getPersistenceManager(), 
+				fechaInicio, fechaFin); 
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long id_servicio = ((BigDecimal) datos [0]).longValue ();
+			String nombre = (String) datos [1];
+			long tipo = ((BigDecimal) datos [2]).longValue ();
+
+			Object resp = new Object();
+			resp = new ServicioSalud(id_servicio, nombre, tipo);
 			
 			respuesta.add(resp);
         }

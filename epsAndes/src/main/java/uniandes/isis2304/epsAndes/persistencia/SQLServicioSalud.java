@@ -1,5 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -33,5 +34,23 @@ public class SQLServicioSalud {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableServicioSalud());
 		q.setResultClass(ServicioSalud.class);
 		return (List<ServicioSalud>) q.executeList();
+	}
+	
+	public List<Object> dar20MasSolicitados (PersistenceManager pm,
+			Timestamp fechaInicio, Timestamp fechaFin)
+	{
+		String sql = "SELECT * FROM (";
+		sql += "	SELECT id_servicio, nombre, tipo";
+	    sql += " 		FROM " + pe.getTableReserva();
+	    sql += " 		INNER JOIN " + pe.getTableHorario() + " ON horario = id_horario";
+	    sql += " 		RIGHT OUTER JOIN " + pe.getTableServicioSalud() + " ON servicio = id_servicio";
+	    sql += " 	WHERE fecha BETWEEN ? AND ?";
+	    sql	+= " 	GROUP BY id_servicio, nombre, tipo";
+	    sql	+= " 	ORDER BY COUNT(*))";
+	    sql	+= "WHERE ROWNUM < 21;";
+		
+	    Query q = pm.newQuery(SQL, sql);
+	    q.setParameters(fechaInicio, fechaFin);
+		return q.executeList();
 	}
 }
