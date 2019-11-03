@@ -48,8 +48,8 @@ public class SQLHorario {
 	{
 		String sql = "";
 		sql += "SELECT *";
-		sql += "FROM " + pe.getTableHorario();
-		sql += "WHERE dia = ? AND servicio = ?";
+		sql += " FROM " + pe.getTableHorario();
+		sql += " WHERE dia = ? AND servicio = ?";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(dia, idServicio);
 		q.setResultClass(Horario.class);
@@ -60,8 +60,8 @@ public class SQLHorario {
 	{
 		String sql = "";
 		sql += "SELECT capacidad";
-		sql += "FROM " + pe.getTableHorario();
-		sql += "WHERE id_horario = ?";
+		sql += " FROM " + pe.getTableHorario();
+		sql += " WHERE id_horario = ?";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(idHorario);
 		return ((BigDecimal) q.executeUnique()).longValue ();

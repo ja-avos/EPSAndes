@@ -54,8 +54,8 @@ public class SQLReserva {
 	{
 		String sql = "";
 		sql += "SELECT COUNT (codigo)";
-		sql += "FROM " + pe.getTableReserva();
-		sql += "WHERE fecha = ? AND horario = ?";
+		sql += " FROM " + pe.getTableReserva();
+		sql += " WHERE fecha = ? AND horario = ?";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(fecha, idHorario);
 		return ((BigDecimal) q.executeUnique()).longValue ();

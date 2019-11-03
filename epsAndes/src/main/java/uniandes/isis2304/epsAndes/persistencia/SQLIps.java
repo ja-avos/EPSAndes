@@ -37,9 +37,9 @@ public class SQLIps {
 	
 	public IPS getIPSById (PersistenceManager pm, long id)
 	{
-		String sql = "SELECT * ";
-		sql += "FROM " + pe.getTableIPS();
-		sql += "WHERE id_ips = ?";
+		String sql = "SELECT *";
+		sql += " FROM " + pe.getTableIPS();
+		sql += " WHERE id_ips = ?";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(id);
 		q.setResultClass(IPS.class);

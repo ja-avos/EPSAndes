@@ -47,7 +47,7 @@ public class SQLServicioSalud {
 	    sql += " 	WHERE fecha BETWEEN ? AND ?";
 	    sql	+= " 	GROUP BY id_servicio, nombre, tipo";
 	    sql	+= " 	ORDER BY COUNT(*))";
-	    sql	+= "WHERE ROWNUM < 21;";
+	    sql	+= " WHERE ROWNUM < 21;";
 		
 	    Query q = pm.newQuery(SQL, sql);
 	    q.setParameters(fechaInicio, fechaFin);
