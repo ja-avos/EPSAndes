@@ -1,5 +1,6 @@
 package uniandes.isis2304.epsAndes.persistencia;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,7 @@ import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
+import uniandes.isis2304.parranderos.negocio.Bebedor;
 
 
 public class PersistenciaEPSAndes {
@@ -998,6 +1000,34 @@ public class PersistenciaEPSAndes {
             }
             pm.close();
         }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO REQS DE CONSULTA/////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public List<Object []> darCantidadServiciosPrestadosPorIPS (Timestamp fechaInicio,
+			Timestamp fechaFin)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlIPS.darCantidadServiciosPrestadosPorIPS(pmf.getPersistenceManager(), 
+				fechaInicio, fechaFin);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long id = ((BigDecimal) datos [0]).longValue ();
+			String localizacion = (String) datos [1];
+			String nombre = (String) datos [2];
+			int cantServicios = ((BigDecimal) datos [3]).intValue ();
+
+			Object [] resp = new Object [2];
+			resp [0] = new IPS(id, localizacion, nombre);
+			resp [1] = cantServicios;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
 	}
 	
 	///////////////////////////////////////////////////////////////////////

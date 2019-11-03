@@ -225,7 +225,16 @@ public class EPSAndes {
         return resp;
 	}
 	
-	
+	public List<Object []> darCantidadServiciosPrestadosPorIPS (Timestamp fechaInicio,
+			Timestamp fechaFin)
+	{
+        log.info ("Listando IPS y cuántos servicios ha prestado entre: " + fechaInicio +
+        		" y " + fechaFin);
+        List<Object []> tuplas = pp.darCantidadServiciosPrestadosPorIPS(fechaInicio, fechaFin);
+        log.info ("Listando IPS y cuántos servicios ha prestado entre: " + fechaInicio +
+        		" y " + fechaFin + "Listo!");
+        return tuplas;
+	}
 	
 	public long [] limpiarEPS ()
 	{
