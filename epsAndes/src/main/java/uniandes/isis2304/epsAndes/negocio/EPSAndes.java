@@ -1,6 +1,6 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -71,7 +71,7 @@ public class EPSAndes {
 		return nuevoMedico;
 	}
 	
-	public Afiliado addAfiliado (Date fechaNacimiento, long usuario)
+	public Afiliado addAfiliado (Timestamp fechaNacimiento, long usuario)
 	{
 		log.info("Adicionando afiliado: " + usuario);
 		Afiliado nuevoAfiliado = pp.addAfiliado(fechaNacimiento, usuario);
@@ -119,7 +119,7 @@ public class EPSAndes {
 		return nuevoServicio;
 	}
 	
-	public Orden addOrden (Date fecha, boolean valido, long medicoRemitente,
+	public Orden addOrden (Timestamp fecha, boolean valido, long medicoRemitente,
 			long servicio, long afiliado)
 	{
 		log.info ("Adicionando Orden [" + medicoRemitente + ", " + afiliado + "]");
@@ -130,7 +130,7 @@ public class EPSAndes {
 	}
 	
 	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
-			Date horaInicio, Date horaFin)
+			Timestamp horaInicio, Timestamp horaFin)
 	{
 		log.info ("Adicionando Horario [" + IPS + ", " + servicio + "]");
         Horario resp = pp.addHorario(IPS, servicio, capacidad, dia, horaInicio,
@@ -139,7 +139,7 @@ public class EPSAndes {
         return resp;
 	}
 	
-	public Reserva addReserva (boolean servicioPrestado, Date fecha, long horario,
+	public Reserva addReserva (boolean servicioPrestado, Timestamp fecha, long horario,
 			long afiliado, long orden)
 	{
 		log.info ("Adicionando Reserva [" + horario + ", " + afiliado + "]");
