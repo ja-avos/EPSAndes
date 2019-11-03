@@ -110,6 +110,14 @@ public class EPSAndes {
 		return nuevaIPS;
 	}
 	
+	public IPS getIPSById (long id)
+	{
+		log.info("Consultando IPS por id");
+		IPS resp = pp.getIPSById(id);
+		log.info("Consultando IPS por id " + id + " : " + resp);
+		return resp;
+	}
+	
 	public TrabajaEn addTrabajaEn (long ips, long medico)
 	{
 		log.info ("Adicionando trabajaEn [" + ips + ", " + medico + "]");
@@ -154,6 +162,18 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public long getDisponibilidad (Timestamp fecha, long horario) {
+		log.info ("Calculando disponibilidad para una fecha y horario");
+		long resp = pp.getDisponibilidad(horario, fecha);
+		log.info("Calculando disponibilidad para " + fecha + " en horario "+
+				horario + " : " + resp);
+		return resp;
+	}
+	
+	public List<Object[]> getDisponibilidadDeHorario (Timestamp fecha, long idServicio) {
+		return pp.getDisponibilidadDeHorario(fecha, idServicio);
+	}
+	
 	public Reserva addReserva (boolean servicioPrestado, Timestamp fecha, long horario,
 			long afiliado, long orden)
 	{
@@ -163,6 +183,7 @@ public class EPSAndes {
         log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
         return resp;
 	}
+	
 	
 	public TipoConsulta addTipoConsulta(String nombre)
 	{
@@ -234,12 +255,12 @@ public class EPSAndes {
         return tuplas;
 	}
 	
-	public List<Object> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
+	public List<ServicioSalud> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
 			Timestamp fechaFin)
 	{
         log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
         		" y " + fechaFin);
-        List<Object> tuplas = pp.dar20ServiciosMasSolicitados(fechaInicio, fechaFin);
+        List<ServicioSalud> tuplas = pp.dar20ServiciosMasSolicitados(fechaInicio, fechaFin);
         log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
         		" y " + fechaFin + "Listo!");
         return tuplas;

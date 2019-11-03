@@ -536,6 +536,9 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public IPS getIPSById(long id) {
+		return sqlIPS.getIPSById(pmf.getPersistenceManager(), id);
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO TRABAJA_EN///////////////////////////////
@@ -721,7 +724,24 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
-	
+	public List<Object[]> getDisponibilidadDeHorario (Timestamp fecha, long servicio)
+	{
+		int dia = fecha.getDay() + 1;
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Horario> tuplas = sqlHorario.getHorarios(pmf.getPersistenceManager(), dia, servicio);
+        for ( Horario horario : tuplas)
+        {
+			long disponibilidad = getDisponibilidad(horario.getId_Horario(), fecha);
+
+			Object [] resp = new Object [2];
+			resp [0] = horario;
+			resp [1] = disponibilidad;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////MANEJO ORDEN///////////////////////////////////
@@ -1002,6 +1022,43 @@ public class PersistenciaEPSAndes {
 	}
 	
 	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO CONSULTA/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+
+	public Consulta addConsulta(long reserva, String observacion, int prioridad, String receta, 
+			long tipo) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+		Transaction tx=pm.currentTransaction();
+		try
+		{
+			tx.begin();
+			long tuplasInsertadas = sqlConsulta.addConsulta(pm, reserva, observacion, prioridad, 
+			receta, tipo); 
+			tx.commit();
+			
+			log.trace ("Inserción de consulta: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
+			
+			return new Consulta(reserva, observacion, prioridad, receta, tipo);
+		}
+		catch (Exception e)
+		{
+		//e.printStackTrace();
+			log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+			return null;
+		}
+		finally
+		{
+			if (tx.isActive())
+			{
+				tx.rollback();
+			}
+			pm.close();
+		}
+	}
+
+	
+	///////////////////////////////////////////////////////////////////////
 	///////////////////////MANEJO REQS DE CONSULTA/////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
@@ -1029,10 +1086,10 @@ public class PersistenciaEPSAndes {
 		return respuesta;
 	}
 	
-	public List<Object> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
+	public List<ServicioSalud> dar20ServiciosMasSolicitados (Timestamp fechaInicio,
 			Timestamp fechaFin)
 	{
-		List<Object> respuesta = new LinkedList <Object> ();
+		List<ServicioSalud> respuesta = new LinkedList <ServicioSalud> ();
 		List<Object> tuplas = sqlServicioSalud.dar20MasSolicitados(pmf.getPersistenceManager(), 
 				fechaInicio, fechaFin); 
         for ( Object tupla : tuplas)
@@ -1042,7 +1099,7 @@ public class PersistenciaEPSAndes {
 			String nombre = (String) datos [1];
 			long tipo = ((BigDecimal) datos [2]).longValue ();
 
-			Object resp = new Object();
+			ServicioSalud resp = new ServicioSalud();
 			resp = new ServicioSalud(id_servicio, nombre, tipo);
 			
 			respuesta.add(resp);
@@ -1051,40 +1108,15 @@ public class PersistenciaEPSAndes {
 		return respuesta;
 	}
 	
-	///////////////////////////////////////////////////////////////////////
-	///////////////////////MANEJO CONSULTA/////////////////////////////////
-	///////////////////////////////////////////////////////////////////////
-	
-	public Consulta addConsulta(long reserva, String observacion, int prioridad, String receta, 
-			long tipo) 
+	public List<Horario> getHorarios(int dia, long idServicio)
 	{
-		PersistenceManager pm = pmf.getPersistenceManager();
-        Transaction tx=pm.currentTransaction();
-        try
-        {
-            tx.begin();
-            long tuplasInsertadas = sqlConsulta.addConsulta(pm, reserva, observacion, prioridad, 
-            		receta, tipo); 
-            tx.commit();
-
-            log.trace ("Inserción de consulta: " + reserva + ": " + tuplasInsertadas + " tuplas insertadas");
-            
-            return new Consulta(reserva, observacion, prioridad, receta, tipo);
-        }
-        catch (Exception e)
-        {
-//        	e.printStackTrace();
-        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-        	return null;
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-            pm.close();
-        }
+		return sqlHorario.getHorarios(pmf.getPersistenceManager(), dia, idServicio);
+	}
+	
+	public long getDisponibilidad (long horario, Timestamp fecha)
+	{
+		return sqlHorario.getCapacidad(pmf.getPersistenceManager(), horario) -
+				sqlReserva.getCantidadReservas(pmf.getPersistenceManager(), fecha, horario);
 	}
 	
 	///////////////////////////////////////////////////////////////////////

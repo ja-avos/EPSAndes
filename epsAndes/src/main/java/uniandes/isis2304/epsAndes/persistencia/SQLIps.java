@@ -31,8 +31,19 @@ public class SQLIps {
 	public List<IPS> getIpss (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableIPS());
-		q.setResultClass(Rol.class);
+		q.setResultClass(IPS.class);
 		return (List<IPS>) q.executeList();
+	}
+	
+	public IPS getIPSById (PersistenceManager pm, long id)
+	{
+		String sql = "SELECT * ";
+		sql += "FROM " + pe.getTableIPS();
+		sql += "WHERE id_ips = ?";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(id);
+		q.setResultClass(IPS.class);
+		return (IPS) q.executeList();
 	}
 	
 	public List<Object> darCantidadServiciosPrestadosPorIPS (PersistenceManager pm,
