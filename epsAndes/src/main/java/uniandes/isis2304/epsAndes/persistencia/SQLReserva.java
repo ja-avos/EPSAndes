@@ -60,4 +60,11 @@ public class SQLReserva {
 		q.setParameters(fecha, idHorario);
 		return ((BigDecimal) q.executeUnique()).longValue ();
 	}
+	
+	public long setOrden (PersistenceManager pm, long codigo, long orden)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableOrden() + " SET orden = ? WHERE codigo = ?");
+	     q.setParameters(orden, codigo);
+	     return (long) q.executeUnique();
+	}
 }

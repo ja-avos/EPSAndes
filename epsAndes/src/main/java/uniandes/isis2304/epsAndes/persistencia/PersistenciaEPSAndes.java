@@ -789,7 +789,37 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public Orden getOrdenDeAfiliadoPara (long afiliado, long servicio)
+	{
+		return sqlOrden.getOrden(pmf.getPersistenceManager(), afiliado, servicio);
+	}
 	
+	public long useOrden (long codigoOrden) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp2 = sqlOrden.invalidarOrden(pmf.getPersistenceManager(), codigoOrden);
+            tx.commit();
+            return resp2;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////MANEJO RESERVA/////////////////////////////////

@@ -35,7 +35,16 @@ public class SQLOrden {
         return (long) q.executeUnique();
 	}
 	
-	public Orden getOrden (PersistenceManager pm ) {
-		return null;
+	public Orden getOrden (PersistenceManager pm, long afiliado, long servicio) {
+		String sql1 = "SELECT *";
+		sql1 += " FROM " + pe.getTableOrden();
+		sql1 += " WHERE afiliado = ? AND servicio = ? AND valido = 1";
+		sql1 += " ORDER BY fecha DESC";
+		
+		String sql = "SELECT * FROM ( " + sql1 + ") WHERE ROWNUM = 1";
+		Query q = pm.newQuery(SQL, sql1);
+		q.setParameters(afiliado, servicio);
+		q.setResultClass(Orden.class);
+		return (Orden) q.executeUnique();
 	}
 }

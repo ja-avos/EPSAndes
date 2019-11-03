@@ -160,6 +160,25 @@ public class EPSAndes {
         return resp;
 	}
 	
+	public Orden getOrdenAfiliadoPara (long afiliado, long servicio) throws Exception 
+	{
+		log.info("Consultando si un afiliado tiene una orden para un servicio");
+		Orden resp = pp.getOrdenDeAfiliadoPara(afiliado, servicio);
+		log.info("COnsultando si un afiliado " + afiliado + " tiene una orden "
+				+ "para "+ servicio + " : " + resp);
+		if (resp == null) throw new Exception ("El afiliado no tiene una orden para"
+				+ " el servicio de salud solicitado");
+		return resp;
+	}
+	
+	public long usarOrden (long orden)
+	{
+		log.info("Invalidando una orden");
+		long cambios = pp.useOrden(orden);
+		log.info("Invalidando orden " + orden + " tuplas modificadas " + cambios);
+		return cambios;
+	}
+	
 	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
 			Timestamp horaInicio, Timestamp horaFin)
 	{
