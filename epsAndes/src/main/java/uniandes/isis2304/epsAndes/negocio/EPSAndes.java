@@ -217,7 +217,7 @@ public class EPSAndes {
 	{
 		log.info ("Adicionando Horario [" + IPS + ", " + servicio + "]");
         Horario resp = pp.addHorario(IPS, servicio, capacidad, dia, horaInicio,
-        		horaFin, deshabilitado);
+        		horaFin);
         log.info ("Adicionando Horario: " + resp + " tuplas insertadas");
         return resp;
 	}
@@ -339,6 +339,59 @@ public class EPSAndes {
         log.info ("Listando Servicios y cuáles son los más solicitados: " + fechaInicio +
         		" y " + fechaFin + "Listo!");
         return tuplas;
+	}
+	
+	public Participan addParticipan(long id_afiliado, long id_campana) {
+		log.info("Asociando un afiliado a una campaña");
+		Participan participan = pp.addParticipan(id_afiliado, id_campana);
+		log.info("Asociadno afiliado" + id_afiliado + " a campaña" + id_campana);
+		return participan;
+	}
+	
+	public long[] cancelarCampana(long campana) {
+		log.info("Cancelando camapaña");
+		long[] cancelados = pp.cancelarCampana(campana);
+		log.info("Cancelando campaña " + campana + " campañas modificadas "+ cancelados[0] +
+				" reservas eliminadas: " + cancelados[1]);
+		return cancelados;
+	}
+	
+	public long cancelarServicioCampana(long campana, long servicio) {
+		log.info("Cancelando servicio para campaña");
+		long cancelados = pp.cancelarServicioCampana(campana, servicio);
+		log.info("Cancelando servicio " + servicio + " para campaña " + campana + " : " + cancelados);
+		return cancelados;
+	}
+	
+	public Campana addCampana(Timestamp fecha_inicio, Timestamp fecha_fin, 
+			TipoServicio[] servicios, long[] cantidades) {
+		log.info("Añadiendo campaña");
+		Campana campana = pp.addCampana(fecha_inicio, fecha_fin, servicios, cantidades, false);
+		log.info("Añadinedo campaña " + campana);
+		return campana;
+	}
+	
+	public String[] deshabilitarServicio(long servicio, long ips, Timestamp fecha_inicio,
+    		Timestamp fecha_fin) {
+		log.info("Deshabilitando servicio");
+		String[] info = pp.deshabilitarServicio(servicio, ips, fecha_inicio, fecha_fin);
+		log.info("Deshabilitando servicio : \n\t" + info[0] + "\n\t" + info[1] + 
+				"\n\t"+ info[2] + "\n\t" + info[3]);
+		return info;
+	}
+	
+	public long habilitarServicio(long servicio, long ips) {
+		log.info("Habilitar servicio");
+		long horariosHabilitados = pp.habilitarServicio(servicio, ips);
+		log.info("Habilitar servicio : "+ horariosHabilitados);
+		return horariosHabilitados;
+	}
+	
+	public List<ServicioSalud> serviciosSinDemanda(int n) {
+		log.info("Calculando servicios sin demanda");
+		List<ServicioSalud> resp = pp.serviciosSinDemanda(n);
+		log.info("Calculando servicios sin demanda : " + resp);
+		return resp;
 	}
 	
 	public long [] limpiarEPS ()
