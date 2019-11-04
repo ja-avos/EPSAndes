@@ -1,111 +1,155 @@
 {
-	"title": "Demostración de Parranderos Uniandes",
+	"title": "Demostración de EPSAndes",
 	"frameH": 600,
 	"frameW": 800,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoBebida",
+		{ "menuTitle": "Tipos",
 		  "options":
 			[
 				{
-					"label": "CRD de TipoBebida",
-					"event": "demoTipoBebida"
+					"label": "CRD de Rol",
+					"event": "demoRol"
+				},
+				{
+					"label": "CRD de TipoID",
+					"event": "demoTipoID"
+				},
+				{
+					"label": "CRD de TipoServicio",
+					"event": "demoTipoServicio"
+				},
+				{
+					"label": "CRD de TipoConsulta",
+					"event": "demoTipoConsulta"
 				}
 			]
 		},		
-		{ "menuTitle": "Bebida",
+		{ "menuTitle": "Usuario",
 		  "options":
 			[
 				{
-					"label": "CRD Bebida",
-					"event": "demoBebida"
+					"label": "CRD Usuario",
+					"event": "demoUsuario"
 				},
 				{
-					"label": "Eliminar Bebidas no servidas 1",
-					"event": "demoElimNoServidas1"
+					"label": "Eliminar usuario 1",
+					"event": "demoElimUsuario1"
 				},
 				{
-					"label": "Eliminar Bebidas no servidas 2",
-					"event": "demoElimNoServidas2"
+					"label": "CRD Afiliado",
+					"event": "demoAfiliado"
+				},
+				{
+					"label": "Eliminar Afiliado 1",
+					"event": "demoElimAfiliado1"
+				},
+				{
+					"label": "CRD Medico",
+					"event": "demoMedico"
+				},
+				{
+					"label": "Eliminar medico 1",
+					"event": "demoElimMedico1"
+				},
+				{
+					"label": "CRD Gerente",
+					"event": "demoGerente"
+				},
+				{
+					"label": "Eliminar gerente 1",
+					"event": "demoElimGerente1"
+				},
+				{
+					"label": "CRD Admin Datos",
+					"event": "demoAdminDatos"
+				},
+				{
+					"label": "Eliminar Admin Datos 1",
+					"event": "demoElimAdminDatos1"
+				},
+				{
+					"label": "CRD Recepcionista",
+					"event": "demoRecepcionista"
+				},
+				{
+					"label": "Eliminar Recepcionista 1",
+					"event": "demoElimRecepcionista1"
 				}
 			]
 		},
-		{ "menuTitle": "Bar",
+		{ "menuTitle": "IPS",
 		  "options":
 			[
 				{
-					"label": "CRD Bar",
-					"event": "demoBar"
+					"label": "CRD IPS",
+					"event": "IPS"
 				},
 				{
-					"label": "Bares y Bebidas",
-					"event": "demoBaresBebidas"
+					"label": "IPS y Servicios",
+					"event": "demoIPSServicios"
 				},
 				{
-					"label": "Aumentar sedes en una ciudad",
-					"event": "demoAumentarSedesBaresEnCiudad"
+					"label": "IPS y Medicos",
+					"event": "demoIPSMedicos"
 				}
 			]
 		},
-		{ "menuTitle": "Bebedor",
+		{ "menuTitle": "ServicioSalud",
 		  "options":
 			[
 				{
-					"label": "CRD Bebedor",
-					"event": "demoBebedor"
-				},
-				{
-					"label": "Cambiar ciudad",
-					"event": "demoCambiarCiudadBebedor"
-				},
-				{
-					"label": "Bebedor y cuántas visita realiza",
-					"event": "demoBebedoresYNumVisitasRealizadas"
-				},
-				{
-					"label": "Bebedores de una ciudad",
-					"event": "demoBebedoresDeCiudad"
-				},
-				{
-					"label": "Dar Bebedor Completo",
-					"event": "demoDarBebedorCompleto"
-				},
-				{
-					"label": "* Eliminar Bebedor y sus visitas 1",
-					"event": "demoEliminarBebedorYVisitas_v1"
-				},
-				{
-					"label": "* Eliminar Bebedor y sus visitas 2",
-					"event": "demoEliminarBebedorYVisitas_v2"
+					"label": "CRD ServicioSalud",
+					"event": "demoServicioSalud"
 				}
 			]
 		},
-		{ "menuTitle": "Gustan",
+		{ "menuTitle": "Orden",
 		  "options":
 			[
 				{
-					"label": "CRD Gustan",
-					"event": "demoGustan"
+					"label": "CRD Orden",
+					"event": "demoOrden"
+				},
+				{
+					"label": "Reserva con Orden Invalida",
+					"event": "demoOrdenInvalida"
+				},
+				{
+					"label": "Reserva sin orden",
+					"event": "demoSinOrden"
 				}
 			]
 		},
-		{ "menuTitle": "Sirven",
+		{ "menuTitle": "Campana",
 		  "options":
 			[
 				{
-					"label": "CRD Sirven",
-					"event": "demoSirven"
+					"label": "CRD Campana",
+					"event": "demoCampana"
+				},
+				{
+					"label": "Campana sin servicios suficientes",
+					"event": "demoCampanaNoServicios"
+				},
+				{
+					"label": "Liberar reservas Campana",
+					"event": "demoCampanaLiberar"
 				}
 			]
 		},
-		{ "menuTitle": "Visitan",
+		{ "menuTitle": "ServicioDeshabilitado",
 		  "options":
 			[
 				{
-					"label": "CRD Visitan",
-					"event": "demoVisitan"
-				}			
+					"label": "CRD ServicioDeshabilitado",
+					"event": "demoDeshabilitado"
+				},
+				{
+					"label": "Habilitar Servicios",
+					"event": "demoHabilitar"
+				}
 			]
 		},
 		{ "menuTitle": "Mantenimiento",
@@ -137,8 +181,8 @@
 		  "options":
 			[
 				{
-					"label": "Presentación general",
-					"event": "mostrarPresentacionGeneral"
+					"label": "Documento general",
+					"event": "mostrarDocumentoGeneral"
 				},
 				{
 					"label": "Modelo conceptual",
@@ -151,14 +195,6 @@
 				{
 					"label": "Script creación de la BD",
 					"event": "mostrarScriptBD"
-				},
-				{
-					"label": "Arquitectura de referencia",
-					"event": "mostrarArqRef"
-				},
-				{
-					"label": "Javadoc Parranderos",
-					"event": "mostrarJavadoc"
 				}
 			]
 		},		

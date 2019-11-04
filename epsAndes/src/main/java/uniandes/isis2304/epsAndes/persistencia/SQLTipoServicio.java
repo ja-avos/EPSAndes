@@ -41,4 +41,12 @@ public class SQLTipoServicio {
 		q.setResultClass(TipoServicio.class);
 		return (List<TipoServicio>) q.executeList();
 	}
+	
+	public long eliminarPorId(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableTipoServicio() + 
+				" WHERE ID_SERVICIO = ?");
+		q.setParameters(id);
+		return (long) q.executeUnique();
+	}
 }

@@ -6,6 +6,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.VORol;
 
 class SQLRol {
 	
@@ -40,5 +41,13 @@ class SQLRol {
 		q.setResultClass(Rol.class);
 		q.setParameters(rol);
 		return (List<Rol>) q.executeList();
+	}
+	
+	public long eliminarPorId(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableRol() + 
+				" WHERE ID_ROL = ?");
+		q.setParameters(id);
+		return (long) q.executeUnique();
 	}
 }

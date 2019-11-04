@@ -45,6 +45,7 @@ import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.TrabajaEn;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
+import uniandes.isis2304.epsAndes.negocio.VORol;
 
 
 public class PersistenciaEPSAndes {
@@ -116,6 +117,7 @@ public class PersistenciaEPSAndes {
 		tablas = new LinkedList<String> ();
 		tablas.add ("epsandes_sequence");
 		tablas.add("AFILIADO");
+		tablas.add("CAMPANA");
 		tablas.add("CONSULTA");
 		tablas.add("EXAMEN_DIAGNOSTICO");
 		tablas.add("HORARIO");
@@ -123,10 +125,12 @@ public class PersistenciaEPSAndes {
 		tablas.add("IPS");
 		tablas.add("MEDICO");
 		tablas.add("ORDEN");
+		tablas.add("PARTICIPAN");
 		tablas.add("PROCEDIMIENTO");
 		tablas.add("RECEPCIONISTA");
 		tablas.add("RESERVA");
 		tablas.add("ROL");
+		tablas.add("SERVICIO_DESHABILITADO");
 		tablas.add("SERVICIO_SALUD");
 		tablas.add("TERAPIA");
 		tablas.add("TIPO_CONSULTA");
@@ -134,9 +138,6 @@ public class PersistenciaEPSAndes {
 		tablas.add("TIPO_SERVICIO");
 		tablas.add("TRABAJA_EN");
 		tablas.add("USUARIO");
-		tablas.add("CAMPANA");
-		tablas.add("PARTICIPAN");
-		tablas.add("SERVICIO_DESHABILITADO");
 	}
 	
 	private PersistenciaEPSAndes (JsonObject tableConfig)
@@ -224,87 +225,87 @@ public class PersistenciaEPSAndes {
 	}
 	
 	public String getTableConsulta() {
-		return tablas.get(2);
-	}
-	
-	public String getTableExamenDiagnostico() {
 		return tablas.get(3);
 	}
 	
-	public String getTableHorario() {
+	public String getTableExamenDiagnostico() {
 		return tablas.get(4);
 	}
 	
-	public String getTableHospitalizacion() {
+	public String getTableHorario() {
 		return tablas.get(5);
 	}
 	
-	public String getTableIPS() {
+	public String getTableHospitalizacion() {
 		return tablas.get(6);
 	}
 	
-	public String getTableMedico() {
+	public String getTableIPS() {
 		return tablas.get(7);
 	}
 	
-	public String getTableOrden() {
+	public String getTableMedico() {
 		return tablas.get(8);
 	}
 	
-	public String getTableProcedimiento() {
+	public String getTableOrden() {
 		return tablas.get(9);
 	}
 	
-	public String getTableRecepcionista() {
-		return tablas.get(10);
-	}
-	
-	public String getTableReserva() {
+	public String getTableProcedimiento() {
 		return tablas.get(11);
 	}
 	
-	public String getTableRol() {
+	public String getTableRecepcionista() {
 		return tablas.get(12);
 	}
 	
-	public String getTableServicioSalud() {
+	public String getTableReserva() {
 		return tablas.get(13);
 	}
 	
-	public String getTableTerapia() {
+	public String getTableRol() {
 		return tablas.get(14);
 	}
 	
-	public String getTableTipoConsulta() {
-		return tablas.get(15);
-	}
-	
-	public String getTableTipoID() {
+	public String getTableServicioSalud() {
 		return tablas.get(16);
 	}
 	
-	public String getTableTipoServicio() {
+	public String getTableTerapia() {
 		return tablas.get(17);
 	}
 	
-	public String getTableTrabajaEn() {
+	public String getTableTipoConsulta() {
 		return tablas.get(18);
 	}
 	
-	public String getTableUsuario() {
+	public String getTableTipoID() {
 		return tablas.get(19);
 	}
 	
-	public String getTableCampana() {
+	public String getTableTipoServicio() {
 		return tablas.get(20);
 	}
 	
-	public String getTableParticipan() {
+	public String getTableTrabajaEn() {
 		return tablas.get(21);
 	}
 	
-	public String getTableServicioDeshabilitado() {
+	public String getTableUsuario() {
 		return tablas.get(22);
+	}
+	
+	public String getTableCampana() {
+		return tablas.get(2);
+	}
+	
+	public String getTableParticipan() {
+		return tablas.get(10);
+	}
+	
+	public String getTableServicioDeshabilitado() {
+		return tablas.get(15);
 	}
 	
 	private long nextval ()
@@ -359,17 +360,21 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
-	
-	public void addRol2(String rol)
-	{
-		sqlRol.addRol(pmf.getPersistenceManager(), 10, "Hola");
-	}
 
 	public List<Rol> getRoles ()
 	{
 		return sqlRol.getRoles(pmf.getPersistenceManager());
 	}
 	
+	public long eliminarRolPorId(long id)
+	{
+		return sqlRol.eliminarPorId(pmf.getPersistenceManager(), id);
+	}
+	
+	public Rol getRolByNombre(String rol)
+	{
+		return sqlRol.getRolesByName(pmf.getPersistenceManager(), rol).isEmpty() ? null : sqlRol.getRolesByName(pmf.getPersistenceManager(), rol).get(0);
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////
@@ -643,9 +648,22 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
-
 	
 	
+	public TipoID getTipoIDByNombre(String nombre)
+	{
+		return sqlTipoId.getTiposIdByName(pmf.getPersistenceManager(), nombre).isEmpty() ? null : sqlTipoId.getTiposIdByName(pmf.getPersistenceManager(), nombre).get(0);
+	}
+	
+	public List<TipoID> getTiposID()
+	{
+		return sqlTipoId.getTiposId(pmf.getPersistenceManager());
+	}
+	
+	public long eliminarTipoIDPorId(long id)
+	{
+		return sqlTipoId.eliminarTipoIdPorId(pmf.getPersistenceManager(), id);
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	/////////////////////////MANEJO TIPO_SERVICIO///////////////////////
@@ -681,8 +699,21 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
-
 	
+	public TipoServicio getTipoServicioByNombre(String servicio)
+	{
+		return sqlTipoServicio.getTipoServicioByName(pmf.getPersistenceManager(), servicio).isEmpty() ? null : sqlTipoServicio.getTipoServicioByName(pmf.getPersistenceManager(), servicio).get(0);
+	}
+	
+	public List<TipoServicio> getTiposServicio()
+	{
+		return sqlTipoServicio.getTiposServicio(pmf.getPersistenceManager());
+	}
+	
+	public long eliminarTipoServicioPorId(long id)
+	{
+		return sqlTipoServicio.eliminarPorId(pmf.getPersistenceManager(), id);
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO SERVICIO_SALUD///////////////////////////
@@ -1167,6 +1198,21 @@ public class PersistenciaEPSAndes {
             }
             pm.close();
         }
+	}
+	
+	public TipoConsulta getTipoConsultaByNombre(String nombre)
+	{
+		return sqlTipoConsulta.getTipoConsultaByName(pmf.getPersistenceManager(), nombre).isEmpty() ? null : sqlTipoConsulta.getTipoConsultaByName(pmf.getPersistenceManager(), nombre).get(0);
+	}
+	
+	public List<TipoConsulta> getTiposConsulta()
+	{
+		return sqlTipoConsulta.getTiposConsulta(pmf.getPersistenceManager());
+	}
+	
+	public long eliminarTipoConsultaPorId(long id)
+	{
+		return sqlTipoConsulta.eliminarPorId(pmf.getPersistenceManager(), id);
 	}
 	
 	///////////////////////////////////////////////////////////////////////

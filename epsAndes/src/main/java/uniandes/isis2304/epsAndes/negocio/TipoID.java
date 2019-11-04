@@ -33,6 +33,6 @@ public class TipoID implements VOTipoID{
 	}
 	
 	public String toString() {
-		return "TipoServicio [idServicio=" + id_Tipo + ", nombre= " + nombre + "]";
+		return "TipoID [idTipo=" + id_Tipo + ", nombre= " + nombre + "]";
 	}
 }
