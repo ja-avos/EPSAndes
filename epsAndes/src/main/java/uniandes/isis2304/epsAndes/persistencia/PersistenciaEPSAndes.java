@@ -725,7 +725,7 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	
 	public Horario addHorario(long IPS, long servicio, int capacidad, int dia,
-			Timestamp horaInicio, Timestamp horaFin, long deshabilitado) 
+			Timestamp horaInicio, Timestamp horaFin) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -739,8 +739,7 @@ public class PersistenciaEPSAndes {
 
             log.trace ("Inserción de horario: [" + IPS + ", " + servicio + "]. " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Horario(idHorario, IPS, servicio, capacidad, dia, horaInicio, horaFin,
-            		deshabilitado);
+            return new Horario(idHorario, IPS, servicio, capacidad, dia, horaInicio, horaFin, 0);
         }
         catch (Exception e)
         {
@@ -808,12 +807,14 @@ public class PersistenciaEPSAndes {
         }
      }
         
-    public long deshabilitarServicio(long servicio, long ips, Timestamp fecha_inicio,
+    public String[] deshabilitarServicio(long servicio, long ips, Timestamp fecha_inicio,
     		Timestamp fecha_fin) {
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
+        	String[] resp = new String[4];
+        	
             tx.begin();
             long deshabilitado = 0;
             ServicioDeshabilitado findServicioDeshabilitado = sqlServicioDeshabilitado.findServicioDeshabilitado(pmf.getPersistenceManager(),
@@ -824,20 +825,30 @@ public class PersistenciaEPSAndes {
             	deshabilitado = nextval ();
             	sqlServicioDeshabilitado.addServicioDeshabilitado(pmf.getPersistenceManager(), fecha_inicio, fecha_fin, deshabilitado);
             }
-            
-            long resp2 = sqlHorario.deshabilitar(pmf.getPersistenceManager(),
+			
+			List<Reserva> porReasignar = sqlReserva.getReservasFechas(pmf.getPersistenceManager(), fecha_inicio, fecha_fin, servicio, ips);
+			
+			long deshabilitados = sqlHorario.deshabilitar(pmf.getPersistenceManager(),
             		servicio, ips, deshabilitado);
+			resp[0] = "servicios deshabilitados: " + deshabilitados;
+			
+			long eliminados = sqlReserva.deleteReservasFechas(pmf.getPersistenceManager(), fecha_inicio, fecha_fin, servicio, ips);
+            resp[1] = "reservas eliminadas: " + eliminados;
+            
+            
+            
             
             //TODO
             
             tx.commit();
-            return resp2;
+            return resp;
         }
         catch (Exception e)
         {
 //            	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-            return -1;
+        	String[] resp = new String[4];
+            return resp;
         }
         finally
         {
@@ -932,6 +943,7 @@ public class PersistenciaEPSAndes {
         try
         {
             tx.begin();
+            
             long codigo = nextval ();
             int servicioPrestado = servicioPrestadoBool? 1:0;
             long tuplasInsertadas = sqlReserva.addReserva(pm, codigo, 
@@ -1241,8 +1253,6 @@ public class PersistenciaEPSAndes {
 				sqlReserva.getCantidadReservas(pmf.getPersistenceManager(), fecha, horario);
 	}
 	
-	public 
-	
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////MANEJO CAMPANA//////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
@@ -1332,22 +1342,25 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
-	public long cancelarCampana(long campana, long servicio) {
+	public long[] cancelarCampana(long campana) {
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
             long resp1 = sqlCampana.cancelCampana(pmf.getPersistenceManager(), campana);
-            long resp = sqlReserva.deleteReservasCamapana(pmf.getPersistenceManager(), campana);
+            long resp2 = sqlReserva.deleteReservasCamapana(pmf.getPersistenceManager(), campana);
             tx.commit();
-            return resp + resp1;
+            long[] resp = new long[2];
+            resp[0] = resp1;
+            resp[1] = resp2;
+            return resp;
         }
         catch (Exception e)
         {
 //        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
-            return -1;
+            return null;
         }
         finally
         {

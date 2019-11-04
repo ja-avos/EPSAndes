@@ -118,4 +118,19 @@ public class SQLReserva {
         q.setResultClass(Reserva.class);
         return (List<Reserva>) q.executeList();
 	}
+	
+	public long setAfiliado (PersistenceManager pm, long codigo, long afiliado)
+	{
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableReserva() + " SET afiliado = ? WHERE codigo = ?");
+	     q.setParameters(afiliado, codigo);
+	     return (long) q.executeUnique();
+	}
+	
+	public Reserva getReservaById (PersistenceManager pm, long codigo) {
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableReserva() + 
+				" WHERE codigo = ?");
+		q.setResultClass(Reserva.class);
+		q.setParameters(codigo);
+		return (Reserva) q.executeUnique();
+	}
 }
