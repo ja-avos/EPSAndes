@@ -49,9 +49,13 @@ import com.google.gson.stream.JsonReader;
 
 import uniandes.isis2304.epsAndes.negocio.EPSAndes;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.TipoConsulta;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
+import uniandes.isis2304.epsAndes.negocio.TipoServicio;
 import uniandes.isis2304.epsAndes.negocio.VORol;
+import uniandes.isis2304.epsAndes.negocio.VOTipoConsulta;
 import uniandes.isis2304.epsAndes.negocio.VOTipoID;
+import uniandes.isis2304.epsAndes.negocio.VOTipoServicio;
 
 /**
  * Clase principal de la interfaz
@@ -273,9 +277,9 @@ public class InterfazEPSAndesDemo extends JFrame implements ActionListener
 			resultado += "\n\n************ Generando datos de prueba ************ \n";
 			if (errorTipoBebida)
 			{
-				resultado += "*** Exception creando tipo de bebida !!\n";
-				resultado += "*** Es probable que ese tipo de bebida ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
-				resultado += "*** Revise el log de parranderos para más detalles\n";
+				resultado += "*** Exception creando Rol !!\n";
+				resultado += "*** Es probable que ese rol ya existiera y hay restricción de UNICIDAD sobre el nombre del rol\n";
+				resultado += "*** Revise el log de epsandes para más detalles\n";
 			}
 			resultado += "Adicionado el rol con nombre: " + nombreRol + "\n";
 			resultado += "\n\n************ Ejecutando la demo ************ \n";
@@ -316,11 +320,11 @@ public class InterfazEPSAndesDemo extends JFrame implements ActionListener
 			resultado += "\n\n************ Generando datos de prueba ************ \n";
 			if (errorTipo)
 			{
-				resultado += "*** Exception creando tipo de bebida !!\n";
-				resultado += "*** Es probable que ese tipo de bebida ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
-				resultado += "*** Revise el log de parranderos para más detalles\n";
+				resultado += "*** Exception creando tipo de id !!\n";
+				resultado += "*** Es probable que ese tipo de id ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de id\n";
+				resultado += "*** Revise el log de epsandes para más detalles\n";
 			}
-			resultado += "Adicionado el rol con nombre: " + nombreTipo + "\n";
+			resultado += "Adicionado el tipoId con nombre: " + nombreTipo + "\n";
 			resultado += "\n\n************ Ejecutando la demo ************ \n";
 			resultado +=  "\n" + listarTiposID (lista);
 			resultado += "\n\n************ Limpiando la base de datos ************ \n";
@@ -331,70 +335,93 @@ public class InterfazEPSAndesDemo extends JFrame implements ActionListener
 		} 
     	catch (Exception e) 
     	{
-//			e.printStackTrace();
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
 
-	/* ****************************************************************
-	 * 			Demos de Bebida
-	 *****************************************************************/
-    /**
-     * Demostración de creación, consulta y borrado de Bebidas.
-     * Incluye también los tipos de bebida pues el tipo de bebida es llave foránea en las bebidas
-     * Muestra la traza de la ejecución en el panelDatos
-     * 
-     * Pre: La base de datos está vacía
-     * Post: La base de datos está vacía
-     */
-    @SuppressWarnings ("unused")
-	public void demoBebida( )
+    public void demoTipoServicio( )
     {
     	try 
     	{
     		// Ejecución de la demo y recolección de los resultados
 			// ATENCIÓN: En una aplicación real, los datos JAMÁS están en el código
-			String nombreTipoBebida = "Vino tinto";
-			String nombreBebida = "120";
-			boolean errorTipoBebida = false;
-			VOTipoBebida tipoBebida = parranderos.adicionarTipoBebida (nombreTipoBebida);
-			if (tipoBebida == null)
+			String nombreTipo = "ConsultaUrg";
+			boolean errorTipo = false;
+			VOTipoServicio tipo = eps.addTipoServicio(nombreTipo);
+			if (tipo== null)
 			{
-				tipoBebida = parranderos.darTipoBebidaPorNombre (nombreTipoBebida);
-				errorTipoBebida = true;
+				tipo = eps.getTipoServicioByNombre(nombreTipo);
+				errorTipo = true;
 			}
-			VOBebida bebida = parranderos.adicionarBebida(nombreBebida, tipoBebida.getId (), 10);
-			
-			List <VOTipoBebida> listaTiposBebida = parranderos.darVOTiposBebida();
-			List <VOBebida> listaBebidas = parranderos.darVOBebidas();
-			long bebEliminadas = parranderos.eliminarBebidaPorNombre(nombreBebida);
-			long tbEliminados = parranderos.eliminarTipoBebidaPorId (tipoBebida.getId ());
+			List <TipoServicio> lista = eps.darTiposServicio();
+			long tbEliminados = eps.eliminarTipoServicioPorId(tipo.getId_Servicio());
 			
 			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
-			String resultado = "Demo de creación y listado de Bebidas\n\n";
-			resultado += "\n\n************ Generando datos de prueba ************ \n\n";
-			if (errorTipoBebida)
+			String resultado = "Demo de creación y listado de TipoServicio\n\n";
+			resultado += "\n\n************ Generando datos de prueba ************ \n";
+			if (errorTipo)
 			{
-				resultado += "*** Exception creando tipo de bebida !!\n";
-				resultado += "*** Es probable que ese tipo de bebida ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de bebida\n";
-				resultado += "*** Revise el log de parranderos para más detalles\n";
+				resultado += "*** Exception creando tipo de servicio !!\n";
+				resultado += "*** Es probable que ese tipo de servicio ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de servicio\n";
+				resultado += "*** Revise el log de epsandes para más detalles\n";
 			}
-			resultado += "Adicionado el tipo de bebida con nombre: " + nombreTipoBebida + "\n";
-			resultado += "Adicionada la bebida con nombre: " + nombreBebida + "\n";
+			resultado += "Adicionado el tipoServicio con nombre: " + nombreTipo + "\n";
 			resultado += "\n\n************ Ejecutando la demo ************ \n";
-			resultado +=  "\n" + listarTiposBebida (listaTiposBebida);
-			resultado += "\n" + listarBebidas (listaBebidas);
+			resultado +=  "\n" + listarTiposServicio (lista);
 			resultado += "\n\n************ Limpiando la base de datos ************ \n";
-			resultado += bebEliminadas + " Bebidas eliminadas\n";
-			resultado += tbEliminados + " Tipos de bebida eliminados\n";
+			resultado += tbEliminados + " TiposServicio eliminados\n";
 			resultado += "\n Demo terminada";
    
 			panelDatos.actualizarInterfaz(resultado);
 		} 
     	catch (Exception e) 
     	{
-//			e.printStackTrace();
+			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
+    public void demoTipoConsulta( )
+    {
+    	try 
+    	{
+    		// Ejecución de la demo y recolección de los resultados
+			// ATENCIÓN: En una aplicación real, los datos JAMÁS están en el código
+			String nombreTipo = "ConsultaUrgen";
+			boolean errorTipo = false;
+			VOTipoConsulta tipo = eps.addTipoConsulta(nombreTipo);
+			if (tipo== null)
+			{
+				tipo = eps.getTipoConsultaByNombre(nombreTipo);
+				errorTipo = true;
+			}
+			List <TipoConsulta> lista = eps.darTiposConsulta();
+			long tbEliminados = eps.eliminarTipoConsultaPorId(tipo.getId_Tipo());
+			
+			// Generación de la cadena de caracteres con la traza de la ejecución de la demo
+			String resultado = "Demo de creación y listado de TipoConsulta\n\n";
+			resultado += "\n\n************ Generando datos de prueba ************ \n";
+			if (errorTipo)
+			{
+				resultado += "*** Exception creando tipo de consulta !!\n";
+				resultado += "*** Es probable que ese tipo de consulta ya existiera y hay restricción de UNICIDAD sobre el nombre del tipo de consulta\n";
+				resultado += "*** Revise el log de epsandes para más detalles\n";
+			}
+			resultado += "Adicionado el tipoConsulta con nombre: " + nombreTipo + "\n";
+			resultado += "\n\n************ Ejecutando la demo ************ \n";
+			resultado +=  "\n" + listarTiposConsulta (lista);
+			resultado += "\n\n************ Limpiando la base de datos ************ \n";
+			resultado += tbEliminados + " TiposConsulta eliminados\n";
+			resultado += "\n Demo terminada";
+   
+			panelDatos.actualizarInterfaz(resultado);
+		} 
+    	catch (Exception e) 
+    	{
+			e.printStackTrace();
 			String resultado = generarMensajeError(e);
 			panelDatos.actualizarInterfaz(resultado);
 		}
@@ -1633,7 +1660,28 @@ public class InterfazEPSAndesDemo extends JFrame implements ActionListener
         }
         return resp;
 	}
-
+    
+    private String listarTiposServicio(List<TipoServicio> lista) 
+    {
+    	String resp = "Los tiposServicio existentes son:\n";
+    	int i = 1;
+        for (VOTipoServicio tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
+    
+    private String listarTiposConsulta(List<TipoConsulta> lista) 
+    {
+    	String resp = "Los tiposConsulta existentes son:\n";
+    	int i = 1;
+        for (VOTipoConsulta tb : lista)
+        {
+        	resp += i++ + ". " + tb.toString() + "\n";
+        }
+        return resp;
+	}
 
     /**
      * Genera una cadena de caracteres con la lista de bebidas recibida: una línea por cada bebida

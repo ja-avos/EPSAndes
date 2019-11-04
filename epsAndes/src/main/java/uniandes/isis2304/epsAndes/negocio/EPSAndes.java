@@ -167,6 +167,30 @@ public class EPSAndes {
         return nuevoTipo;
 	}
 	
+	public TipoServicio getTipoServicioByNombre(String nombre)
+	{
+		log.info ("Consultando TipoServicio: " + nombre);
+        TipoServicio nuevoTipo = pp.getTipoServicioByNombre(nombre);		
+        log.info ("Consultando TipoServicio: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
+	public List<TipoServicio> darTiposServicio()
+	{
+        log.info ("Listando Tipos Servicio");
+        List<TipoServicio> tipos = pp.getTiposServicio();
+        log.info ("Listando Tipos Servicio: " + tipos.size() + " tipos existentes");
+        return tipos;
+	}
+	
+	public long eliminarTipoServicioPorId(long id)
+	{
+		log.info ("Eliminando TipoServicio: " + id);
+        long tipo = pp.eliminarTipoServicioPorId(id);
+        log.info ("Eliminando TipoServicio: " + id + " tipo eliminado");
+        return tipo;
+	}
+	
 	public ServicioSalud addServicioSalud (String nombre, long tipo)
 	{
 		log.info("Adicionando el ServicioSalud: " + nombre);
@@ -266,6 +290,30 @@ public class EPSAndes {
         TipoConsulta nuevoTipo = pp.addTipoConsulta(nombre);
         log.info ("Adicionando tipoConsulta: " + nuevoTipo);
         return nuevoTipo;
+	}
+	
+	public TipoConsulta getTipoConsultaByNombre(String nombre)
+	{
+		log.info ("Consultando TipoConsulta: " + nombre);
+        TipoConsulta nuevoTipo = pp.getTipoConsultaByNombre(nombre);		
+        log.info ("Consultando TipoConsulta: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
+	public List<TipoConsulta> darTiposConsulta()
+	{
+        log.info ("Listando Tipos Consulta");
+        List<TipoConsulta> tipos = pp.getTiposConsulta();
+        log.info ("Listando Tipos Consulta: " + tipos.size() + " tipos existentes");
+        return tipos;
+	}
+	
+	public long eliminarTipoConsultaPorId(long id)
+	{
+		log.info ("Eliminando TipoConsulta: " + id);
+        long tipo = pp.eliminarTipoConsultaPorId(id);
+        log.info ("Eliminando TipoConsulta: " + id + " tipo eliminado");
+        return tipo;
 	}
 	
 	public Consulta addConsulta(long reserva, String observacion, int prioridad, String receta, 

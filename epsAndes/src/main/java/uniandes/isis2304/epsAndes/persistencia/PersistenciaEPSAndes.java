@@ -699,8 +699,21 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
-
 	
+	public TipoServicio getTipoServicioByNombre(String servicio)
+	{
+		return sqlTipoServicio.getTipoServicioByName(pmf.getPersistenceManager(), servicio).isEmpty() ? null : sqlTipoServicio.getTipoServicioByName(pmf.getPersistenceManager(), servicio).get(0);
+	}
+	
+	public List<TipoServicio> getTiposServicio()
+	{
+		return sqlTipoServicio.getTiposServicio(pmf.getPersistenceManager());
+	}
+	
+	public long eliminarTipoServicioPorId(long id)
+	{
+		return sqlTipoServicio.eliminarPorId(pmf.getPersistenceManager(), id);
+	}
 	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO SERVICIO_SALUD///////////////////////////
@@ -1190,6 +1203,21 @@ public class PersistenciaEPSAndes {
             }
             pm.close();
         }
+	}
+	
+	public TipoConsulta getTipoConsultaByNombre(String nombre)
+	{
+		return sqlTipoConsulta.getTipoConsultaByName(pmf.getPersistenceManager(), nombre).isEmpty() ? null : sqlTipoConsulta.getTipoConsultaByName(pmf.getPersistenceManager(), nombre).get(0);
+	}
+	
+	public List<TipoConsulta> getTiposConsulta()
+	{
+		return sqlTipoConsulta.getTiposConsulta(pmf.getPersistenceManager());
+	}
+	
+	public long eliminarTipoConsultaPorId(long id)
+	{
+		return sqlTipoConsulta.eliminarPorId(pmf.getPersistenceManager(), id);
 	}
 	
 	///////////////////////////////////////////////////////////////////////

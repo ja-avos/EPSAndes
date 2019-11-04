@@ -33,6 +33,6 @@ public class TipoConsulta implements VOTipoConsulta{
 	}
 	
 	public String toString() {
-		return "TipoServicio [idServicio=" + id_Tipo + ", nombre= " + nombre + "]";
+		return "TipoConsulta [idConsulta=" + id_Tipo + ", nombre= " + nombre + "]";
 	}
 }

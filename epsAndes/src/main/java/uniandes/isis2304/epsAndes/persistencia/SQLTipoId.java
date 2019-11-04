@@ -30,7 +30,7 @@ public class SQLTipoId {
 	public List<TipoID> getTiposId (PersistenceManager pm)
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoID());
-		q.setResultClass(Rol.class);
+		q.setResultClass(TipoID.class);
 		return (List<TipoID>) q.executeList();
 	}
 	
@@ -39,7 +39,7 @@ public class SQLTipoId {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoID() +
 				" WHERE NOMBRE = ?");
 		q.setParameters(name);
-		q.setResultClass(Rol.class);
+		q.setResultClass(TipoID.class);
 		return (List<TipoID>) q.executeList();
 	}
 	
