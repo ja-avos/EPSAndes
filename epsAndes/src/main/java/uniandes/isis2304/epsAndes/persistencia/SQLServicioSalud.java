@@ -64,4 +64,20 @@ public class SQLServicioSalud {
 	    q.setParameters(id);
 	    return (ServicioSalud) q.executeUnique(); 
 	}
+	
+	public List<ServicioSalud> getServiciosSinDemanda(PersistenceManager pm,
+			Timestamp fecha_inicio, Timestamp fecha_fin, long totalWeeks, long n) {
+		String sql = "SELECT id_servicio, nombre, tipo";
+		sql += " FROM " + pe.getTableServicioSalud();
+		sql += " 	INNER JOIN " + pe.getTableHorario();
+		sql += " 	ON id_servicio = servicio";
+		sql += "	INNER JOIN " + pe.getTableReserva();
+		sql += "	ON id_horario = horario";
+		sql += " WHERE fecha BETWEEN ? AND ?";
+		sql += " GROUP BY id_servicio, nombre, tipo";
+		sql += " HAVING COUNT(DISTINCT codigo)/? < ?";
+		Query q = pm.newQuery(SQL, sql);
+	    q.setParameters(fecha_inicio, fecha_fin, totalWeeks, n);
+	    return (List<ServicioSalud>) q.executeList(); 
+	}
 }

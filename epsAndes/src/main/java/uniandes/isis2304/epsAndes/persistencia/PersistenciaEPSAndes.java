@@ -3,6 +3,9 @@ package uniandes.isis2304.epsAndes.persistencia;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.Month;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -1404,6 +1407,20 @@ public class PersistenciaEPSAndes {
             }
             pm.close();
         }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////CNSULTAS IT2	///////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public List<ServicioSalud> serviciosSinDemanda(int n) {
+		LocalDate hoy = LocalDate.now();
+		Timestamp hoyt = new Timestamp(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth(), 0, 0, 0, 0);
+		LocalDate inicioAño = LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
+		Timestamp inicioAñot = new Timestamp(hoy.getYear(), 1, 1, 0, 0, 0, 0);
+		long weeks = ChronoUnit.WEEKS.between(inicioAño, hoy);
+		return sqlServicioSalud.getServiciosSinDemanda(pmf.getPersistenceManager(), 
+				inicioAñot, hoyt, weeks, n);
 	}
 	
 	///////////////////////////////////////////////////////////////////////

@@ -354,6 +354,13 @@ public class EPSAndes {
 		return horariosHabilitados;
 	}
 	
+	public List<ServicioSalud> serviciosSinDemanda(int n) {
+		log.info("Calculando servicios sin demanda");
+		List<ServicioSalud> resp = pp.serviciosSinDemanda(n);
+		log.info("Calculando servicios sin demanda : " + resp);
+		return resp;
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");
