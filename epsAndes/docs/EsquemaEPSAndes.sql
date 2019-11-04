@@ -1,13 +1,39 @@
---- Sentencias SQL para la creación del esquema de EPSAndes
+--- Sentencias SQL para la creaciï¿½n del esquema de EPSAndes
 
 -- USO
--- Copie el contenido de este archivo en una pestaña SQL de SQL Developer
--- Ejecútelo como un script - Utilice el botón correspondiente de la pestaña utilizada
+-- Copie el contenido de este archivo en una pestaï¿½a SQL de SQL Developer
+-- Ejecï¿½telo como un script - Utilice el botï¿½n correspondiente de la pestaï¿½a utilizada
 
--- Creación del secuenciador
+--Eliminacion de tablas Y SECUENCIAS
+DROP SEQUENCE EPSANDES_SEQUENCE;
+
+DROP TABLE CONSULTA;
+DROP TABLE HOSPITALIZACION;
+DROP TABLE PROCEDIMIENTO;
+DROP TABLE TERAPIA;
+DROP TABLE EXAMEN_DIAGNOSTICO;
+DROP TABLE RESERVA;
+DROP TABLE HORARIO;
+DROP TABLE ORDEN;
+DROP TABLE TRABAJA_EN;
+DROP TABLE PARTICIPAN;
+DROP TABLE RECEPCIONISTA;
+DROP TABLE AFILIADO;
+DROP TABLE MEDICO;
+DROP TABLE SERVICIO_SALUD;
+DROP TABLE IPS;
+DROP TABLE USUARIO;
+DROP TABLE CAMPANA;
+DROP TABLE SERVICIO_DESHABILITADO;
+DROP TABLE TIPO_CONSULTA;
+DROP TABLE TIPO_SERVICIO;
+DROP TABLE TIPO_ID;
+DROP TABLE ROL;
+
+-- Creaciï¿½n del secuenciador
 create sequence epsandes_sequence;
 
--- Creaación de la tabla TipoServicio y especificación de sus restricciones
+-- Creaaciï¿½n de la tabla TipoServicio y especificaciï¿½n de sus restricciones
 CREATE TABLE TIPO_SERVICIO
    (ID_SERVICIO NUMBER, 
 	NOMBRE VARCHAR2(255 BYTE) NOT NULL, 
@@ -18,7 +44,7 @@ ALTER TABLE TIPO_SERVICIO
 	UNIQUE (NOMBRE)
 ENABLE;
 
--- Creaación de la tabla TIPO_ID y especificación de sus restricciones
+-- Creaaciï¿½n de la tabla TIPO_ID y especificaciï¿½n de sus restricciones
 CREATE TABLE TIPO_ID
    (ID_TIPO NUMBER, 
 	NOMBRE VARCHAR2(50 BYTE) NOT NULL,
@@ -29,7 +55,7 @@ ALTER TABLE TIPO_ID
     UNIQUE(NOMBRE)
 ENABLE;
 
--- Creación de la tabla TIPO_CONSULTA y especificación de sus restricciones
+-- Creaciï¿½n de la tabla TIPO_CONSULTA y especificaciï¿½n de sus restricciones
 CREATE TABLE TIPO_CONSULTA
    (ID_TIPO NUMBER,
 	NOMBRE VARCHAR2(255 BYTE) NOT NULL,
@@ -40,7 +66,7 @@ ALTER TABLE TIPO_CONSULTA
     UNIQUE(NOMBRE)
 ENABLE;
 
--- Creación de la tabla ROL y especificación de sus restricciones
+-- Creaciï¿½n de la tabla ROL y especificaciï¿½n de sus restricciones
 CREATE TABLE ROL
    (ID_ROL NUMBER,
 	ROL VARCHAR2(255 BYTE) NOT NULL,
@@ -51,14 +77,14 @@ ALTER TABLE ROL
     UNIQUE(ROL)
 ENABLE;
 
--- Creación de la tabla IPS y especificación de sus restricciones
+-- Creaciï¿½n de la tabla IPS y especificaciï¿½n de sus restricciones
 CREATE TABLE IPS
    (ID_IPS NUMBER,
 	NOMBRE VARCHAR2(255 BYTE) NOT NULL, 
 	LOCALIZACION VARCHAR2(255 BYTE) NOT NULL, 
 	CONSTRAINT IPS_PK PRIMARY KEY (ID_IPS));
 
--- Creaación de la tabla USUARIO y especificación de sus restricciones
+-- Creaaciï¿½n de la tabla USUARIO y especificaciï¿½n de sus restricciones
 CREATE TABLE USUARIO
    (ID_USUARIO NUMBER,
 	NOMBRE VARCHAR2(255 BYTE) NOT NULL, 
@@ -95,7 +121,7 @@ ADD CONSTRAINT FK_USUARIO_ROL
     REFERENCES ROL(ID_ROL)
 ENABLE;
 
--- Creación de la tabla AFILIADO y especificación de sus restricciones
+-- Creaciï¿½n de la tabla AFILIADO y especificaciï¿½n de sus restricciones
 CREATE TABLE AFILIADO
    (ID_AFILIADO NUMBER,
 	FECHA_NACIMIENTO TIMESTAMP NOT NULL, 
@@ -108,7 +134,7 @@ ALTER TABLE AFILIADO
     REFERENCES USUARIO(ID_USUARIO)
 ENABLE;
 
--- Creación de la tabla MEDICO y especificación de sus restricciones
+-- Creaciï¿½n de la tabla MEDICO y especificaciï¿½n de sus restricciones
 CREATE TABLE MEDICO
    (ID_MEDICO NUMBER,
 	REGISTRO_MEDICO NUMBER NOT NULL, 
@@ -121,7 +147,7 @@ ALTER TABLE MEDICO
     UNIQUE(REGISTRO_MEDICO)
 ENABLE;
 
--- Creación de la tabla RECEPCIONISTA y especificación de sus restricciones
+-- Creaciï¿½n de la tabla RECEPCIONISTA y especificaciï¿½n de sus restricciones
 CREATE TABLE RECEPCIONISTA
    (ID_RECEPCIONISTA NUMBER,
 	USUARIO NUMBER NOT NULL, 
@@ -140,7 +166,7 @@ ALTER TABLE RECEPCIONISTA
     REFERENCES IPS(ID_IPS)
 ENABLE;
 
--- Creación de la tabla TRABAJA_EN y especificación de sus restricciones
+-- Creaciï¿½n de la tabla TRABAJA_EN y especificaciï¿½n de sus restricciones
 CREATE TABLE TRABAJA_EN
    (IPS NUMBER,
 	MEDICO NUMBER,
@@ -158,7 +184,7 @@ ALTER TABLE TRABAJA_EN
     REFERENCES MEDICO(ID_MEDICO)
 ENABLE;
 
--- Creación de la tabla SERVICIO_SALUD y especificación de sus restricciones
+-- Creaciï¿½n de la tabla SERVICIO_SALUD y especificaciï¿½n de sus restricciones
 CREATE TABLE SERVICIO_SALUD
    (ID_SERVICIO NUMBER,
 	NOMBRE VARCHAR2(255 BYTE) NOT NULL, 
@@ -176,7 +202,7 @@ ALTER TABLE SERVICIO_SALUD
     REFERENCES TIPO_SERVICIO(ID_SERVICIO)
 ENABLE;
 
--- Creación de la tabla ORDEN y especificación de sus restricciones
+-- Creaciï¿½n de la tabla ORDEN y especificaciï¿½n de sus restricciones
 CREATE TABLE ORDEN
    (CODIGO NUMBER,
 	FECHA TIMESTAMP NOT NULL, 
@@ -209,7 +235,46 @@ ALTER TABLE ORDEN
     REFERENCES AFILIADO(ID_AFILIADO)
 ENABLE;
 
--- Creación de la tabla ORDEN y especificación de sus restricciones
+-- Creaciï¿½n de la tabla ServicioDeshabilitado y especificaciï¿½n de sus restricciones
+CREATE TABLE SERVICIO_DESHABILITADO
+    (ID NUMBER,
+     FECHA_INICIO TIMESTAMP NOT NULL,
+     FECHA_FIN TIMESTAMP NOT NULL,
+     CONSTRAINT SERVICIO_DESHABILITADO_PK PRIMARY KEY (ID));
+     
+-- Creaciï¿½n de la tabla Campana y especificaciï¿½n de sus restricciones
+CREATE TABLE CAMPANA
+    (ID_CAMPANA NUMBER,
+     CANCELADA NUMBER(1, 0),
+     FECHA_INICIO TIMESTAMP NOT NULL,
+     FECHA_FIN TIMESTAMP NOT NULL,
+     CONSTRAINT CAMPANA_PK PRIMARY KEY (ID_CAMPANA));
+     
+ALTER TABLE CAMPANA
+	ADD CONSTRAINT CK_CAMPANA_CANCELADA
+    CHECK (CANCELADA IN (0, 1))
+ENABLE;
+
+-- Creaciï¿½n de la tabla Participan y especificaciï¿½n de sus restricciones
+
+CREATE TABLE PARTICIPAN
+   (AFILIADO NUMBER,
+	CAMPANA NUMBER,
+	CONSTRAINT PARTICIPAN_PK PRIMARY KEY (AFILIADO, CAMPANA));
+
+ALTER TABLE PARTICIPAN
+	ADD CONSTRAINT FK_PARTICIPAN_AFILIADO
+	FOREIGN KEY (AFILIADO)
+    REFERENCES AFILIADO(ID_AFILIADO)
+ENABLE;
+
+ALTER TABLE PARTICIPAN
+	ADD CONSTRAINT FK_PARTICIPAN_CAMPANA
+	FOREIGN KEY (CAMPANA)
+    REFERENCES CAMPANA(ID_CAMPANA)
+ENABLE;
+
+-- Creaciï¿½n de la tabla Horario y especificaciï¿½n de sus restricciones
 CREATE TABLE HORARIO
    (ID_HORARIO NUMBER,
 	IPS NUMBER NOT NULL,
@@ -218,6 +283,7 @@ CREATE TABLE HORARIO
     DIA NUMBER(1, 0) NOT NULL,
     HORA_INICIO TIMESTAMP NOT NULL,
     HORA_FIN TIMESTAMP NOT NULL,
+    DESHABILITADO NUMBER,
 	CONSTRAINT HORARIO_PK PRIMARY KEY (ID_HORARIO));
     
 ALTER TABLE HORARIO
@@ -237,7 +303,13 @@ ALTER TABLE HORARIO
     REFERENCES SERVICIO_SALUD(ID_SERVICIO)
 ENABLE;
 
--- Creación de la tabla RESERVA y especificación de sus restricciones
+ALTER TABLE HORARIO
+	ADD CONSTRAINT FK_HORARIO_DESHABILITADO
+	FOREIGN KEY (DESHABILITADO)
+    REFERENCES SERVICIO_DESHABILITADO(ID)
+ENABLE;
+
+-- Creaciï¿½n de la tabla RESERVA y especificaciï¿½n de sus restricciones
 CREATE TABLE RESERVA
    (CODIGO NUMBER,
     SERVICIO_PRESTADO NUMBER(1,0) NOT NULL,
@@ -245,6 +317,7 @@ CREATE TABLE RESERVA
     ORDEN NUMBER NOT NULL,
     HORARIO NUMBER NOT NULL,
 	FECHA TIMESTAMP NOT NULL,
+    CAMPANA NUMBER,
 	CONSTRAINT RESERVA_PK PRIMARY KEY (CODIGO));
     
 ALTER TABLE RESERVA
@@ -275,7 +348,13 @@ ALTER TABLE RESERVA
     REFERENCES HORARIO(ID_HORARIO)
 ENABLE;
 
--- Creación de la tabla CONSULTA y especificación de sus restricciones
+ALTER TABLE RESERVA
+	ADD CONSTRAINT FK_RESERVA_CAMPANA
+	FOREIGN KEY (CAMPANA)
+    REFERENCES CAMPANA(ID_CAMPANA)
+ENABLE;
+
+-- Creaciï¿½n de la tabla CONSULTA y especificaciï¿½n de sus restricciones
 CREATE TABLE CONSULTA
    (RESERVA NUMBER,
     OBSERVACION VARCHAR2(1000 BYTE) NOT NULL,
@@ -301,7 +380,7 @@ ALTER TABLE CONSULTA
     REFERENCES TIPO_CONSULTA(ID_TIPO)
 ENABLE;
 
--- Creación de la tabla EXAMEN_DIAGNOSTICO y especificación de sus restricciones
+-- Creaciï¿½n de la tabla EXAMEN_DIAGNOSTICO y especificaciï¿½n de sus restricciones
 CREATE TABLE EXAMEN_DIAGNOSTICO
    (RESERVA NUMBER,
     DIAGNOSTICO VARCHAR2(1000 BYTE) NOT NULL,
@@ -313,7 +392,7 @@ ALTER TABLE EXAMEN_DIAGNOSTICO
     REFERENCES RESERVA(CODIGO)
 ENABLE;
 
--- Creación de la tabla TERAPIA y especificación de sus restricciones
+-- Creaciï¿½n de la tabla TERAPIA y especificaciï¿½n de sus restricciones
 CREATE TABLE TERAPIA
    (RESERVA NUMBER,
     NUMERO_SESIONES NUMBER NOT NULL,
@@ -330,7 +409,7 @@ ALTER TABLE TERAPIA
     REFERENCES RESERVA(CODIGO)
 ENABLE;
 
--- Creación de la tabla PROCEDIMIENTO y especificación de sus restricciones
+-- Creaciï¿½n de la tabla PROCEDIMIENTO y especificaciï¿½n de sus restricciones
 CREATE TABLE PROCEDIMIENTO
    (RESERVA NUMBER,
     DESCRIPCION VARCHAR2(1000 BYTE) NOT NULL,
@@ -342,7 +421,7 @@ ALTER TABLE PROCEDIMIENTO
     REFERENCES RESERVA(CODIGO)
 ENABLE;
 
--- Creación de la tabla HOSPITALIZACION y especificación de sus restricciones
+-- Creaciï¿½n de la tabla HOSPITALIZACION y especificaciï¿½n de sus restricciones
 CREATE TABLE HOSPITALIZACION
    (RESERVA NUMBER,
     FECHA_SALIDA TIMESTAMP,
