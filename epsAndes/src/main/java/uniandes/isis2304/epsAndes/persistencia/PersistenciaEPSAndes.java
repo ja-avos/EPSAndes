@@ -838,11 +838,6 @@ public class PersistenciaEPSAndes {
 			long eliminados = sqlReserva.deleteReservasFechas(pmf.getPersistenceManager(), fecha_inicio, fecha_fin, servicio, ips);
             resp[1] = "reservas eliminadas: " + eliminados;
             
-            
-            
-            
-            //TODO
-            
             tx.commit();
             return resp;
         }
@@ -1245,6 +1240,11 @@ public class PersistenciaEPSAndes {
 		return sqlServicioSalud.dar20MasSolicitados(pmf.getPersistenceManager(), fechaInicio, fechaFin);
 	}
 	
+	public long utilizacionServicios (long afiliado, Timestamp fechaInicio,
+			Timestamp fechaFin) {
+		return sqlReserva.utilizacionDeServicios(pmf.getPersistenceManager(), afiliado, fechaInicio, fechaFin);
+	}
+	
 	public List<Horario> getHorarios(int dia, long idServicio)
 	{
 		return sqlHorario.getHorarios(pmf.getPersistenceManager(), dia, idServicio);
@@ -1280,6 +1280,7 @@ public class PersistenciaEPSAndes {
             calendarFin.set(Calendar.DAY_OF_MONTH, fecha_fin.getDate());
             calendarFin.set(Calendar.MONTH, fecha_fin.getMonth());
             calendarFin.set(Calendar.YEAR, fecha_fin.getYear());
+            
             addReservaCampana(servicios, cantidades, calendarInicio, calendarFin);
             tx.commit();
 
@@ -1421,6 +1422,14 @@ public class PersistenciaEPSAndes {
 		long weeks = ChronoUnit.WEEKS.between(inicioAño, hoy);
 		return sqlServicioSalud.getServiciosSinDemanda(pmf.getPersistenceManager(), 
 				inicioAñot, hoyt, weeks, n);
+	}
+	
+	public List<Object[]> afiliadosExigentes() {
+		LocalDate hoy = LocalDate.now();
+		Timestamp fechaFin = new Timestamp(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth(), 0, 0, 0, 0);
+		LocalDate inicioAño = LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
+		Timestamp fechaInicio = new Timestamp(hoy.getYear(), 1, 1, 0, 0, 0, 0);
+		return sqlAfiliado.afiliadosExigentes(pmf.getPersistenceManager(), fechaInicio, fechaFin);
 	}
 	
 	///////////////////////////////////////////////////////////////////////

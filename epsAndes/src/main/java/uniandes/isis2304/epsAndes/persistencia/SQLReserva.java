@@ -133,4 +133,14 @@ public class SQLReserva {
 		q.setParameters(codigo);
 		return (Reserva) q.executeUnique();
 	}
+	
+	public long utilizacionDeServicios(PersistenceManager pm, long afiliado, 
+			Timestamp fechaInicio, Timestamp fechaFin) {
+		String sql = "SELECT COUNT(*)/COUNT(servicio_prestado)";
+		sql += " FROM "+ pe.getTableReserva();
+		sql += " WHERE afiliado = ? AND fecha BETWEEN ? AND ?";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(afiliado, fechaInicio, fechaFin);
+		return ((BigDecimal) q.executeUnique()).longValue ();
+	}
 }

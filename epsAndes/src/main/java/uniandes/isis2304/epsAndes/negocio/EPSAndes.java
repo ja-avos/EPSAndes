@@ -361,6 +361,17 @@ public class EPSAndes {
 		return resp;
 	}
 	
+	public List<Object[]> afiliadosExigentes() {
+		log.info("Calculando afiliados exigentes");
+		List<Object[]> afiliados = pp.afiliadosExigentes();
+		log.info("Calculando afiliados exigentes :" + afiliados);
+		return afiliados;
+	}
+	
+	public long utilizacionServicion(long afiliado, Timestamp fechaInicio, Timestamp fechaFin) {
+		return pp.utilizacionServicios(afiliado, fechaInicio, fechaFin);
+	}
+	
 	public long [] limpiarEPS ()
 	{
         log.info ("Limpiando la BD de EPSAndes");

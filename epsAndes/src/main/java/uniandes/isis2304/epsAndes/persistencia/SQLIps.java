@@ -50,10 +50,10 @@ public class SQLIps {
 			Timestamp fechaInicio, Timestamp fechaFin)
 	{
 	    String sql = "SELECT id, localizacion, nombre, count (distinct servicio) as servicios_Prestados";
-	    sql += " FROM " + pe.getTableIPS();
+	    sql += " FROM " + pe.getTableReserva();
 	    sql += " INNER JOIN " + pe.getTableHorario() + " ON horario = id_horario";
 	    sql += " RIGHT OUTER JOIN " + pe.getTableIPS() + " ON ips = id_IPS";
-	    sql += " WHERE fecha BETWEEN ? AND ?";
+	    sql += " WHERE servicio_prestado = 1 AND fecha BETWEEN ? AND ?";
 	    sql	+= " GROUP BY id, localizacion, nombre";
 		
 	    Query q = pm.newQuery(SQL, sql);

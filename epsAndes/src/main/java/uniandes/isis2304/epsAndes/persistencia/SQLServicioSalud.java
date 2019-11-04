@@ -69,9 +69,9 @@ public class SQLServicioSalud {
 			Timestamp fecha_inicio, Timestamp fecha_fin, long totalWeeks, long n) {
 		String sql = "SELECT id_servicio, nombre, tipo";
 		sql += " FROM " + pe.getTableServicioSalud();
-		sql += " 	INNER JOIN " + pe.getTableHorario();
+		sql += " 	LEFT OUTER JOIN " + pe.getTableHorario();
 		sql += " 	ON id_servicio = servicio";
-		sql += "	INNER JOIN " + pe.getTableReserva();
+		sql += "	LEFT OUTER JOIN " + pe.getTableReserva();
 		sql += "	ON id_horario = horario";
 		sql += " WHERE fecha BETWEEN ? AND ?";
 		sql += " GROUP BY id_servicio, nombre, tipo";
