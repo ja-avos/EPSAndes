@@ -16,5 +16,7 @@ public interface VOReserva {
 	
 	public long getOrden();
 	
+	public long getCampana();
+	
 	public String toString();
 }

@@ -2,6 +2,9 @@ package uniandes.isis2304.epsAndes.persistencia;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,6 +21,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import uniandes.isis2304.epsAndes.negocio.Afiliado;
+import uniandes.isis2304.epsAndes.negocio.Campana;
 import uniandes.isis2304.epsAndes.negocio.Consulta;
 import uniandes.isis2304.epsAndes.negocio.ExamenDiagnostico;
 import uniandes.isis2304.epsAndes.negocio.Horario;
@@ -25,10 +29,12 @@ import uniandes.isis2304.epsAndes.negocio.Hospitalizacion;
 import uniandes.isis2304.epsAndes.negocio.IPS;
 import uniandes.isis2304.epsAndes.negocio.Medico;
 import uniandes.isis2304.epsAndes.negocio.Orden;
+import uniandes.isis2304.epsAndes.negocio.Participan;
 import uniandes.isis2304.epsAndes.negocio.Procedimiento;
 import uniandes.isis2304.epsAndes.negocio.Recepcionista;
 import uniandes.isis2304.epsAndes.negocio.Reserva;
 import uniandes.isis2304.epsAndes.negocio.Rol;
+import uniandes.isis2304.epsAndes.negocio.ServicioDeshabilitado;
 import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
 import uniandes.isis2304.epsAndes.negocio.Terapia;
 import uniandes.isis2304.epsAndes.negocio.TipoConsulta;
@@ -90,6 +96,12 @@ public class PersistenciaEPSAndes {
 	
 	private SQLConsulta sqlConsulta;
 	
+	private SQLCampana sqlCampana;
+	
+	private SQLParticipan sqlParticipan;
+	
+	private SQLServicioDeshabilitado sqlServicioDeshabilitado;
+	
 	private PersistenciaEPSAndes()
 	{
 		pmf = JDOHelper.getPersistenceManagerFactory("EPSAndes");
@@ -119,6 +131,9 @@ public class PersistenciaEPSAndes {
 		tablas.add("TIPO_SERVICIO");
 		tablas.add("TRABAJA_EN");
 		tablas.add("USUARIO");
+		tablas.add("CAMPANA");
+		tablas.add("PARTICIPAN");
+		tablas.add("SERVICIO_DESHABILITADO");
 	}
 	
 	private PersistenciaEPSAndes (JsonObject tableConfig)
@@ -190,6 +205,9 @@ public class PersistenciaEPSAndes {
 		sqlHospitalizacion = new SQLHospitalizacion(this);
 		sqlTipoConsulta = new SQLTipoConsulta(this);
 		sqlConsulta = new SQLConsulta(this);
+		sqlCampana = new SQLCampana(this);
+		sqlParticipan = new SQLParticipan(this);
+		sqlServicioDeshabilitado = new SQLServicioDeshabilitado(this);
 		sqlUtil = new SQLUtil(this);
 	}
 	
@@ -272,6 +290,18 @@ public class PersistenciaEPSAndes {
 	
 	public String getTableUsuario() {
 		return tablas.get(19);
+	}
+	
+	public String getTableCampana() {
+		return tablas.get(20);
+	}
+	
+	public String getTableParticipan() {
+		return tablas.get(21);
+	}
+	
+	public String getTableServicioDeshabilitado() {
+		return tablas.get(22);
 	}
 	
 	private long nextval ()
@@ -695,7 +725,7 @@ public class PersistenciaEPSAndes {
 	////////////////////////////////////////////////////////////////////////
 	
 	public Horario addHorario(long IPS, long servicio, int capacidad, int dia,
-			Timestamp horaInicio, Timestamp horaFin) 
+			Timestamp horaInicio, Timestamp horaFin, long deshabilitado) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -709,7 +739,8 @@ public class PersistenciaEPSAndes {
 
             log.trace ("Inserción de horario: [" + IPS + ", " + servicio + "]. " + tuplasInsertadas + " tuplas insertadas");
             
-            return new Horario(idHorario, IPS, servicio, capacidad, dia, horaInicio, horaFin);
+            return new Horario(idHorario, IPS, servicio, capacidad, dia, horaInicio, horaFin,
+            		deshabilitado);
         }
         catch (Exception e)
         {
@@ -749,6 +780,73 @@ public class PersistenciaEPSAndes {
 	public List<Horario> getHorariosByIPS(long ips) 
 	{
 		return sqlHorario.getHorariosByIPS(pmf.getPersistenceManager(), ips);
+	}
+	
+	public long habilitarServicio(long servicio, long ips) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp2 = sqlHorario.habilitar(pmf.getPersistenceManager(), servicio, ips);
+            tx.commit();
+            return resp2;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+     }
+        
+    public long deshabilitarServicio(long servicio, long ips, Timestamp fecha_inicio,
+    		Timestamp fecha_fin) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long deshabilitado = 0;
+            ServicioDeshabilitado findServicioDeshabilitado = sqlServicioDeshabilitado.findServicioDeshabilitado(pmf.getPersistenceManager(),
+            		fecha_inicio, fecha_fin);
+			if (findServicioDeshabilitado != null) {
+            	deshabilitado = findServicioDeshabilitado.getId();
+            } else {
+            	deshabilitado = nextval ();
+            	sqlServicioDeshabilitado.addServicioDeshabilitado(pmf.getPersistenceManager(), fecha_inicio, fecha_fin, deshabilitado);
+            }
+            
+            long resp2 = sqlHorario.deshabilitar(pmf.getPersistenceManager(),
+            		servicio, ips, deshabilitado);
+            
+            //TODO
+            
+            tx.commit();
+            return resp2;
+        }
+        catch (Exception e)
+        {
+//            	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -827,7 +925,7 @@ public class PersistenciaEPSAndes {
 	
 	
 	public Reserva addReserva(boolean servicioPrestadoBool, Timestamp fecha,
-			long horario, long afiliado, long orden) 
+			long horario, long afiliado, long orden, long campana) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -837,7 +935,7 @@ public class PersistenciaEPSAndes {
             long codigo = nextval ();
             int servicioPrestado = servicioPrestadoBool? 1:0;
             long tuplasInsertadas = sqlReserva.addReserva(pm, codigo, 
-            		servicioPrestado, fecha, horario, afiliado, orden);
+            		servicioPrestado, fecha, horario, afiliado, orden, campana);
             tx.commit();
 
             log.trace ("Inserción de orden: [" + horario + ", " + afiliado + "]. " + tuplasInsertadas + " tuplas insertadas");
@@ -887,6 +985,8 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
+	
+	
 	
 	///////////////////////////////////////////////////////////////////////
 	///////////////////////MANEJO EXAMEN_DIAGNOSTICO///////////////////////
@@ -1139,6 +1239,158 @@ public class PersistenciaEPSAndes {
 	{
 		return sqlHorario.getCapacidad(pmf.getPersistenceManager(), horario) -
 				sqlReserva.getCantidadReservas(pmf.getPersistenceManager(), fecha, horario);
+	}
+	
+	public 
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO CAMPANA//////////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public Campana addCampana(Timestamp fecha_inicio, Timestamp fecha_fin, 
+			TipoServicio[] servicios, long[] cantidades, boolean cancelada) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long id_Campana = nextval ();
+            long tuplasInsertadas = sqlCampana.addCampana(pmf.getPersistenceManager(), 
+            		id_Campana, fecha_inicio, fecha_fin);
+            Calendar calendarInicio = Calendar.getInstance();
+            calendarInicio.set(Calendar.DAY_OF_MONTH, fecha_inicio.getDate());
+            calendarInicio.set(Calendar.MONTH, fecha_inicio.getMonth());
+            calendarInicio.set(Calendar.YEAR, fecha_inicio.getYear());
+            
+            Calendar calendarFin = Calendar.getInstance();
+            calendarFin.set(Calendar.DAY_OF_MONTH, fecha_fin.getDate());
+            calendarFin.set(Calendar.MONTH, fecha_fin.getMonth());
+            calendarFin.set(Calendar.YEAR, fecha_fin.getYear());
+            addReservaCampana(servicios, cantidades, calendarInicio, calendarFin);
+            tx.commit();
+
+            log.trace ("Inserción de campana: " + id_Campana + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Campana(id_Campana, fecha_inicio, fecha_fin, cancelada);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	private void addReservaCampana(TipoServicio[] tipos, long[] cantidades,
+			Calendar fecha_inicio, Calendar fecha_fin) 
+	{
+		for (int i = 0; i < tipos.length; i ++) {
+			TipoServicio tipo = tipos[i];
+			long cantidadRequerida = cantidades[i];
+			List<Horario> horarios = sqlHorario.getHorariosPorTipoServicio
+					(pmf.getPersistenceManager(), tipo.getId_Servicio());
+			for (Calendar actual = fecha_inicio; actual.equals(fecha_fin);
+					actual.add(Calendar.DAY_OF_YEAR, 1)) {
+				
+			}
+				
+		}
+	}
+	
+	public long cancelarServicioCampana(long campana, long servicio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp = sqlReserva.deleteReservaCamapana(pmf.getPersistenceManager(), campana, servicio);
+            tx.commit();
+            return resp;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	public long cancelarCampana(long campana, long servicio) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long resp1 = sqlCampana.cancelCampana(pmf.getPersistenceManager(), campana);
+            long resp = sqlReserva.deleteReservasCamapana(pmf.getPersistenceManager(), campana);
+            tx.commit();
+            return resp + resp1;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+            return -1;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	///////////////////////////////////////////////////////////////////////
+	///////////////////////MANEJO PARTICIPAN///////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+	
+	public Participan addParticipan(long id_afiliado, long id_campana) 
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long tuplasInsertadas = sqlParticipan.addParticipan(pmf.getPersistenceManager(), id_afiliado, id_campana);
+    		tx.commit();
+
+            log.trace ("Inserción de Participan: [" + id_afiliado + ", " + id_campana + "]. " + tuplasInsertadas + " tuplas insertadas");
+
+            return new Participan(id_afiliado, id_campana);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
 	}
 	
 	///////////////////////////////////////////////////////////////////////

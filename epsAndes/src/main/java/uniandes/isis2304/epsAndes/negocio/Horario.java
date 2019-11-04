@@ -18,6 +18,8 @@ public class Horario implements VOHorario{
 	
 	private Timestamp hora_Fin;
 	
+	private long deshabilitado;
+	
 	public Horario() {
 		this.id_Horario = 0;
 		this.IPS = 0;
@@ -26,10 +28,11 @@ public class Horario implements VOHorario{
 		this.dia = 1;
 		this.hora_Inicio = new Timestamp(0);
 		this.hora_Fin = new Timestamp(0);
+		this.deshabilitado = 0;
 	}
 	
 	public Horario(long idHorario, long IPS, long servicio, int capacidad,
-			int dia, Timestamp horaInicio, Timestamp horaFin) {
+			int dia, Timestamp horaInicio, Timestamp horaFin, long deshabilitado) {
 		this.id_Horario = idHorario;
 		this.IPS = IPS;
 		this.servicio = servicio;
@@ -37,6 +40,7 @@ public class Horario implements VOHorario{
 		this.dia = dia;
 		this.hora_Inicio = horaInicio;
 		this.hora_Fin = horaFin;
+		this.deshabilitado = deshabilitado;
 	}
 
 	public long getIPS() {
@@ -93,6 +97,14 @@ public class Horario implements VOHorario{
 
 	public void setHora_Fin(Timestamp hora_Fin) {
 		this.hora_Fin = hora_Fin;
+	}
+
+	public long getDeshabilitado() {
+		return deshabilitado;
+	}
+
+	public void setDeshabilitado(long deshabilitado) {
+		this.deshabilitado = deshabilitado;
 	}
 
 	public String toString() {

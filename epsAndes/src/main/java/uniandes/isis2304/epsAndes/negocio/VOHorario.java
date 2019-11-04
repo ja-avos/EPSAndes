@@ -18,5 +18,7 @@ public interface VOHorario {
 	
 	public Timestamp getHora_Fin();
 	
+	public long getDeshabilitado();
+	
 	public String toString();
 }

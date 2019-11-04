@@ -58,7 +58,7 @@ public class SQLHorario {
 		String sql = "";
 		sql += "SELECT *";
 		sql += " FROM " + pe.getTableHorario();
-		sql += " WHERE dia = ? AND servicio = ?";
+		sql += " WHERE dia = ? AND servicio = ? AND deshabilitado IS NULL";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(dia, idServicio);
 		q.setResultClass(Horario.class);
@@ -73,6 +73,42 @@ public class SQLHorario {
 		sql += " WHERE id_horario = ?";
 		Query q = pm.newQuery(SQL, sql);
 		q.setParameters(idHorario);
+		return ((BigDecimal) q.executeUnique()).longValue ();
+	}
+	
+	public List<Horario> getHorariosPorTipoServicio(PersistenceManager pm, long tipo_servicio)
+	{
+		String sql = "";
+		sql += " SELECT id_horario, ips, servicio, capacidad, dia, hora_inicio, hora_fin, deshabilitado";
+		sql += " FROM " + pe.getTableHorario();
+		sql += " INNER JOIN " + pe.getTableServicioSalud();
+		sql += " ON servicio = id_servicio";
+		sql += " WHERE tipo = ?";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(tipo_servicio);
+		q.setResultClass(Horario.class);
+		return (List<Horario>) q.executeList();
+	}
+	
+	public long habilitar(PersistenceManager pm, long servicio, long ips) {
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableHorario() + " SET deshabilitado = null WHERE servicio = ?");
+	     q.setParameters(servicio);
+	     return (long) q.executeUnique();
+	}
+	
+	public long deshabilitar(PersistenceManager pm, long servicio, long ips, long deshabilitado) {
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableHorario() + " SET deshabilitado = ? WHERE servicio = ?");
+	     q.setParameters(deshabilitado, servicio);
+	     return (long) q.executeUnique();
+	}
+	
+	public long isDeshabilitado(PersistenceManager pm, long servicio, long ips) {
+		String sql = "";
+		sql += "SELECT deshabilitado";
+		sql += " FROM " + pe.getTableHorario();
+		sql += " WHERE servicio = ? AND ips = ?";
+		Query q = pm.newQuery(SQL, sql);
+		q.setParameters(servicio, ips);
 		return ((BigDecimal) q.executeUnique()).longValue ();
 	}
 }

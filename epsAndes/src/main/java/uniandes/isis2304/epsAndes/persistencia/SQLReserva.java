@@ -22,12 +22,12 @@ public class SQLReserva {
 	}
 	
 	public long addReserva (PersistenceManager pm, long codigo, int servicioPrestado,
-			Timestamp fecha, long horario, long afiliado, long orden) 
+			Timestamp fecha, long horario, long afiliado, long orden, long campana) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableReserva() + 
-        		"(codigo, servicio_prestado, fecha, horario, afiliado, orden) "
-        		+ "values (?,?,?,?,?,?)");
-        q.setParameters(codigo, servicioPrestado, fecha, horario, afiliado, orden);
+        		"(codigo, servicio_prestado, fecha, horario, afiliado, orden, campana) "
+        		+ "values (?,?,?,?,?,?,?)");
+        q.setParameters(codigo, servicioPrestado, fecha, horario, afiliado, orden, campana);
         return (long) q.executeUnique();
 	}
 	
@@ -63,8 +63,59 @@ public class SQLReserva {
 	
 	public long setOrden (PersistenceManager pm, long codigo, long orden)
 	{
-		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableOrden() + " SET orden = ? WHERE codigo = ?");
+		Query q = pm.newQuery(SQL, "UPDATE " + pe.getTableReserva() + " SET orden = ? WHERE codigo = ?");
 	     q.setParameters(orden, codigo);
 	     return (long) q.executeUnique();
+	}
+	
+	public long deleteReservaCamapana (PersistenceManager pm, long campana, long servicio) {
+		String sql = "";
+		sql += "DELETE " + pe.getTableReserva() ;
+		sql += " FROM " + pe.getTableReserva();
+		sql += " INNER JOIN " + pe.getTableHorario();
+		sql += " ON horario = id_horario";
+		sql += " WHERE servicio = ? AND campana = ?";
+		Query q = pm.newQuery(SQL, sql);
+        q.setParameters(servicio, campana);
+        return (long) q.executeUnique();
+	}
+	
+	public long deleteReservasCamapana (PersistenceManager pm, long campana) {
+		String sql = "";
+		sql += "DELETE " + pe.getTableReserva() ;
+		sql += " FROM " + pe.getTableReserva();
+		sql += " INNER JOIN " + pe.getTableHorario();
+		sql += " ON horario = id_horario";
+		sql += " WHERE campana = ?";
+		Query q = pm.newQuery(SQL, sql);
+        q.setParameters(campana);
+        return (long) q.executeUnique();
+	}
+	
+	public long deleteReservasFechas (PersistenceManager pm, Timestamp fecha_inicio,
+			Timestamp fecha_fin, long servicio, long ips) {
+		String sql = "";
+		sql += "DELETE " + pe.getTableReserva() ;
+		sql += " FROM " + pe.getTableReserva();
+		sql += " INNER JOIN " + pe.getTableHorario();
+		sql += " ON horario = id_horario";
+		sql += " WHERE servicio = ? AND ips = ? AND fecha BETWEEN ? AND ?";
+		Query q = pm.newQuery(SQL, sql);
+        q.setParameters(servicio, ips, fecha_inicio, fecha_fin);
+        return (long) q.executeUnique();
+	}
+	
+	public List<Reserva> getReservasFechas (PersistenceManager pm, Timestamp fecha_inicio,
+			Timestamp fecha_fin, long servicio, long ips) {
+		String sql = "";
+		sql += "SELECT " + pe.getTableReserva() + ".*";
+		sql += " FROM " + pe.getTableReserva();
+		sql += " INNER JOIN " + pe.getTableHorario();
+		sql += " ON horario = id_horario";
+		sql += " WHERE servicio = ? AND ips = ? AND fecha BETWEEN ? AND ?";
+		Query q = pm.newQuery(SQL, sql);
+        q.setParameters(servicio, ips, fecha_inicio, fecha_fin);
+        q.setResultClass(Reserva.class);
+        return (List<Reserva>) q.executeList();
 	}
 }

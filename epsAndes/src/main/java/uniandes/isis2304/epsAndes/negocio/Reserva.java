@@ -16,6 +16,8 @@ public class Reserva implements VOReserva{
 	
 	private long orden;
 	
+	private long campana;
+	
 	public Reserva() {
 		this.codigo = 0;
 		this.servicio_Prestado = false;
@@ -81,6 +83,15 @@ public class Reserva implements VOReserva{
 
 	public void setOrden(long orden) {
 		this.orden = orden;
+	}
+	
+
+	public long getCampana() {
+		return campana;
+	}
+
+	public void setCampana(long campana) {
+		this.campana = campana;
 	}
 
 	public String toString() {
