@@ -3,13 +3,28 @@
 	"unidadPersistencia": "EPSAndes",
 	"tablas":
 	[
-		"Parranderos_sequence",
-		"A_TIPOBEBIDA",
-		"A_BEBIDA",
-		"A_BAR",
-		"A_BEBEDOR",
-		"A_GUSTAN",
-		"A_SIRVEN",
-		"A_VISITAN"
+		"Epsandes_sequence",
+		"AFILIADO",
+		"CAMPANA",
+		"CONSULTA",
+		"EXAMEN_DIAGNOSTICO",
+		"HORARIO",
+		"HOSPITALIZACION",
+		"IPS",
+		"MEDICO",
+		"ORDEN",
+		"PARTICIPAN",
+		"PROCEDIMIENTO",
+		"RECEPCIONISTA",
+		"RESERVA",
+		"ROL",
+		"SERVICIO_DESHABILITADO",
+		"SERVICIO_SALUD",
+		"TERAPIA",
+		"TIPO_CONSULTA",
+		"TIPO_ID",
+		"TIPO_SERVICIO",
+		"TRABAJA_EN",
+		"USUARIO"
 	]
 }

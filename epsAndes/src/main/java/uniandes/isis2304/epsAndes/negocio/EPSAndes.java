@@ -38,6 +38,14 @@ public class EPSAndes {
         return nuevoRol;
 	}
 	
+	public Rol getRolByNombre(String rol)
+	{
+		log.info ("Consultando Rol: " + rol);
+        Rol nuevoRol = pp.getRolByNombre(rol);		
+        log.info ("Consultando Rol: " + nuevoRol);
+        return nuevoRol;
+	}
+	
 	public List<Rol> darRoles ()
 	{
         log.info ("Listando Roles");
@@ -46,12 +54,44 @@ public class EPSAndes {
         return roles;
 	}
 	
+	public long eliminarRolPorId(long id)
+	{
+		log.info ("Eliminando Rol: " + id);
+        long rol = pp.eliminarRolPorId(id);
+        log.info ("Eliminando Roles: " + id + " rol eliminado");
+        return rol;
+	}
+	
 	public TipoID addTipoID (String nombre)
 	{
         log.info ("Adicionando tipoID: " + nombre);
         TipoID nuevoTipo = pp.addTipoID(nombre);	
         log.info ("Adicionando tipoID: " + nuevoTipo);
         return nuevoTipo;
+	}
+	
+	public TipoID getTipoIDByNombre(String nombre)
+	{
+		log.info ("Consultando TipoID: " + nombre);
+        TipoID nuevoTipo = pp.getTipoIDByNombre(nombre);		
+        log.info ("Consultando TipoID: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
+	public List<TipoID> darTiposID()
+	{
+		log.info ("Listando TiposId");
+        List<TipoID> tipos = pp.getTiposID();
+        log.info ("Listando TiposId: " + tipos.size() + " tipos existentes");
+        return tipos;
+	}
+	
+	public long eliminarTipoIDPorId(long id)
+	{
+		log.info ("Eliminando TipoID: " + id);
+        long tipo = pp.eliminarTipoIDPorId(id);
+        log.info ("Eliminando TipoID: " + id + " tipo eliminado");
+        return tipo;
 	}
 	
 	public Usuario addUsuario (String nombre, String correo, long id,
@@ -64,13 +104,6 @@ public class EPSAndes {
 	}
 	
 	public Usuario getUserByEmail(String correo) throws Exception {
-		String msg = "";
-		for(Rol u : pp.getRoles())
-		{
-			msg+= "\n" + u.getRol();
-		}
-		pp.addRol2("");
-		System.out.println("Usuarios: " + msg);
 		log.info("Dar información de usuario por correo: " + correo);
 		Usuario usuario = pp.getUserByEmail(correo);
 		log.info ("Buscando usuario por correo: " + usuario != null ? usuario : "NO EXISTE");
@@ -180,11 +213,11 @@ public class EPSAndes {
 	}
 	
 	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
-			Timestamp horaInicio, Timestamp horaFin)
+			Timestamp horaInicio, Timestamp horaFin, Long deshabilitado)
 	{
 		log.info ("Adicionando Horario [" + IPS + ", " + servicio + "]");
         Horario resp = pp.addHorario(IPS, servicio, capacidad, dia, horaInicio,
-        		horaFin);
+        		horaFin, deshabilitado);
         log.info ("Adicionando Horario: " + resp + " tuplas insertadas");
         return resp;
 	}
@@ -210,13 +243,13 @@ public class EPSAndes {
 	}
 	
 	public Reserva addReserva (boolean servicioPrestado, Timestamp fecha, long horario,
-			long afiliado, long orden) throws Exception
+			long afiliado, long orden, Long campana) throws Exception
 	{
 		log.info ("Adicionando Reserva [" + horario + ", " + afiliado + "]");
 		long disponibilidad = pp.getDisponibilidad(horario, fecha);
 		if (disponibilidad != 0) {
 	        Reserva resp = pp.addReserva(servicioPrestado, fecha, horario, 
-	        		afiliado, orden);
+	        		afiliado, orden, campana);
 	        log.info ("Adicionando Reserva: " + resp + " tuplas insertadas");
 	        return resp;
 		} else {

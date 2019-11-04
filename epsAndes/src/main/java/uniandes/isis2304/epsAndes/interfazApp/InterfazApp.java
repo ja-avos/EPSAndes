@@ -2,6 +2,7 @@ package uniandes.isis2304.epsAndes.interfazApp;
 
 import java.awt.BorderLayout;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComboBox;

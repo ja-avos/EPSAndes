@@ -33,4 +33,21 @@ public class SQLTipoId {
 		q.setResultClass(Rol.class);
 		return (List<TipoID>) q.executeList();
 	}
+	
+	public List<TipoID> getTiposIdByName(PersistenceManager pm, String name)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoID() +
+				" WHERE NOMBRE = ?");
+		q.setParameters(name);
+		q.setResultClass(Rol.class);
+		return (List<TipoID>) q.executeList();
+	}
+	
+	public long eliminarTipoIdPorId(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableTipoID() +
+				" WHERE ID_TIPO = ?");
+		q.setParameters(id);
+		return (long) q.executeUnique();
+	}
 }
