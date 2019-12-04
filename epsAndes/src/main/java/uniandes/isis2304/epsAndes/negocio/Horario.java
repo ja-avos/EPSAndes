@@ -10,9 +10,9 @@ public class Horario implements VOHorario{
 	
 	private long servicio;
 	
-	private int capacidad;
+	private long capacidad;
 	
-	private int dia;
+	private long dia;
 	
 	private Timestamp hora_Inicio;
 	
@@ -31,8 +31,8 @@ public class Horario implements VOHorario{
 		this.deshabilitado = 0;
 	}
 	
-	public Horario(long idHorario, long IPS, long servicio, int capacidad,
-			int dia, Timestamp horaInicio, Timestamp horaFin, long deshabilitado) {
+	public Horario(long idHorario, long IPS, long servicio, long capacidad,
+			long dia, Timestamp horaInicio, Timestamp horaFin, long deshabilitado) {
 		this.id_Horario = idHorario;
 		this.IPS = IPS;
 		this.servicio = servicio;
@@ -59,19 +59,19 @@ public class Horario implements VOHorario{
 		this.servicio = servicio;
 	}
 
-	public int getCapacidad() {
+	public long getCapacidad() {
 		return capacidad;
 	}
 
-	public void setCapacidad(int capacidad) {
+	public void setCapacidad(long capacidad) {
 		this.capacidad = capacidad;
 	}
 
-	public int getDia() {
+	public long getDia() {
 		return dia;
 	}
 
-	public void setDia(int dia) {
+	public void setDia(long dia) {
 		this.dia = dia;
 	}
 	

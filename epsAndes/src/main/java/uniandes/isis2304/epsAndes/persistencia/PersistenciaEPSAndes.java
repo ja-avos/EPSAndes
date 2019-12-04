@@ -360,6 +360,11 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
+	
+	public Rol getRolByID(Long id)
+	{
+		return sqlRol.getRolByID(pmf.getPersistenceManager(), id);
+	}
 
 	public List<Rol> getRoles ()
 	{
@@ -412,6 +417,11 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public void deleteUsuario(long id)
+	{
+		sqlUsuario.deleteUsuario(pmf.getPersistenceManager(), id);
+	}
+	
 	public Usuario getUserByID(Long id)
 	{
 		return sqlUsuario.getUsuarioByID(pmf.getPersistenceManager(), id);
@@ -462,6 +472,16 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public void deleteMedico(long id)
+	{
+		sqlMedico.deleteMedico(pmf.getPersistenceManager(), id);
+	}
+	
+	public List<Medico> getMedicos()
+	{
+		return sqlMedico.getMedicos(pmf.getPersistenceManager());
+	}
+	
 	
 	
 	///////////////////////////////////////////////////////////////////////
@@ -498,9 +518,18 @@ public class PersistenciaEPSAndes {
             pm.close();
         }
 	}
-
-
-
+	
+	public void deleteAfiliado(long id)
+	{
+		sqlAfiliado.deleteAfiliado(pmf.getPersistenceManager(), id);
+	}
+	
+	public List<Afiliado> getAfiliados()
+	{
+		return sqlAfiliado.getAfiliados(pmf.getPersistenceManager());
+	}
+	
+	
 	////////////////////////////////////////////////////////////////////////
 	//////////////////////////MANEJO RECEPCIONISTA//////////////////////////
 	////////////////////////////////////////////////////////////////////////
@@ -560,7 +589,7 @@ public class PersistenciaEPSAndes {
         }
         catch (Exception e)
         {
-//        	e.printStackTrace();
+        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
         	return null;
         }
@@ -574,8 +603,18 @@ public class PersistenciaEPSAndes {
         }
 	}
 	
+	public void deleteIPS(long id)
+	{
+		sqlIPS.deleteIPS(pmf.getPersistenceManager(), id);
+	}
+	
 	public IPS getIPSById(long id) {
 		return sqlIPS.getIPSById(pmf.getPersistenceManager(), id);
+	}
+	
+	public List<IPS> getIPSs()
+	{
+		return sqlIPS.getIpss(pmf.getPersistenceManager());
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -653,6 +692,11 @@ public class PersistenciaEPSAndes {
 	public TipoID getTipoIDByNombre(String nombre)
 	{
 		return sqlTipoId.getTiposIdByName(pmf.getPersistenceManager(), nombre).isEmpty() ? null : sqlTipoId.getTiposIdByName(pmf.getPersistenceManager(), nombre).get(0);
+	}
+	
+	public TipoID getTipoIDByID(Long id)
+	{
+		return sqlTipoId.getTipoIDByID(pmf.getPersistenceManager(), id);
 	}
 	
 	public List<TipoID> getTiposID()
@@ -754,11 +798,15 @@ public class PersistenciaEPSAndes {
 		return sqlServicioSalud.getServicioSaludById(pmf.getPersistenceManager(), id);
 	}
 	
+	public List<ServicioSalud> getServiciosSalud() {
+		return sqlServicioSalud.getServiciosSalud(pmf.getPersistenceManager());
+	}
+	
 	////////////////////////////////////////////////////////////////////////
 	////////////////////////MANEJO HORARIO//////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	
-	public Horario addHorario(long IPS, long servicio, int capacidad, int dia,
+	public Horario addHorario(long IPS, long servicio, long capacidad, long dia,
 			Timestamp horaInicio, Timestamp horaFin) 
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
@@ -777,7 +825,7 @@ public class PersistenciaEPSAndes {
         }
         catch (Exception e)
         {
-//        	e.printStackTrace();
+        	e.printStackTrace();
         	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
         	return null;
         }
@@ -812,7 +860,32 @@ public class PersistenciaEPSAndes {
 	
 	public List<Horario> getHorariosByIPS(long ips) 
 	{
-		return sqlHorario.getHorariosByIPS(pmf.getPersistenceManager(), ips);
+		try {
+			List<Horario> h = sqlHorario.getHorariosByIPS(pmf.getPersistenceManager(), ips);
+			System.out.println(h.size() + "\t" + ips);
+			return h;			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<Horario> getHorarios() 
+	{
+		try {
+			List<Horario> h = sqlHorario.getHorarios(pmf.getPersistenceManager());
+			return h;			
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public void deleteHorario(long id)
+	{
+		sqlHorario.deleteHorario(pmf.getPersistenceManager(), id);
 	}
 	
 	public long habilitarServicio(long servicio, long ips) {

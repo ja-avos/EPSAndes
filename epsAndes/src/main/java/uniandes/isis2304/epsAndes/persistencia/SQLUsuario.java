@@ -28,6 +28,14 @@ public class SQLUsuario {
         return (long) q.executeUnique();
 	}
 	
+	public void deleteUsuario(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableUsuario() +
+				" WHERE ID_USUARIO = ?");
+		q.setParameters(id);
+		q.executeUnique();
+	}
+	
 	public List<Usuario> findUsuarioByRol (PersistenceManager pm, long rol) {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + " WHERE rol = ?");
 		q.setResultClass(Usuario.class);
@@ -55,6 +63,9 @@ public class SQLUsuario {
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableUsuario() + " WHERE correo = ?");
 		q.setResultClass(Usuario.class);
 		q.setParameters(correo);
-		return (Usuario) q.executeUnique();
+		System.out.println(pe.getTableUsuario());
+		Usuario res = (Usuario) q.executeUnique();
+		System.out.println(res);
+		return res;
 	}
 }

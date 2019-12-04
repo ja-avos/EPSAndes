@@ -1,15 +1,19 @@
 package uniandes.isis2304.epsAndes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -38,24 +42,40 @@ public class LoginPanel extends JPanel implements ActionListener{
 		setLayout(new BorderLayout());
 		
 		titulo = new JLabel("EPSAndes", JLabel.CENTER);
+		titulo.setFont(new Font(titulo.getFont().getName(), Font.BOLD, 50));
 		add(titulo, BorderLayout.NORTH);
+		setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		
-		JPanel aux = new JPanel();
-		aux.setLayout(new BoxLayout(aux, BoxLayout.PAGE_AXIS));
+		JPanel aux = new JPanel(new GridBagLayout());
+		Box box = new Box(BoxLayout.Y_AXIS);
+		box.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        box.add(aux);
 		
-		lblLog = new JLabel("Ingresar");
-		aux.add(lblLog);
+        GridBagConstraints c = new GridBagConstraints();
+        
+		lblLog = new JLabel("    Ingresar    ");
+		lblLog.setFont(new Font(titulo.getFont().getName(), Font.PLAIN, 30));
+		c.gridy = 0; 
+		aux.add(lblLog, c);
+		
+		c.gridy = 1;
+		aux.add(new JLabel(" "), c);
 		
 		txtEmail = new JTextField();
-		txtEmail.setMaximumSize(new Dimension(300, 20));
-		aux.add(txtEmail);
+		c.gridy = 2;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		aux.add(txtEmail, c);
+
+		c.gridy = 3;
+		aux.add(new JLabel(" "), c);
 		
 		btnLog = new JButton("Log in");
 		btnLog.setActionCommand(LOGIN);
 		btnLog.addActionListener(this);
-		aux.add(btnLog);
+		c.gridy = 4;
+		aux.add(btnLog, c);
 		
-		add(aux, BorderLayout.CENTER);
+		add(box, BorderLayout.CENTER);
 		
 		btnHelp = new JButton("Ayuda");
 		btnHelp.setActionCommand(HELP);

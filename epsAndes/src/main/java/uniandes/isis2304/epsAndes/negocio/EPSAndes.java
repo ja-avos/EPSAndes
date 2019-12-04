@@ -38,6 +38,14 @@ public class EPSAndes {
         return nuevoRol;
 	}
 	
+	public Rol getRolByID(long id)
+	{
+		log.info ("Consultando Rol: " + id);
+        Rol nuevoRol = pp.getRolByID(id);		
+        log.info ("Consultando Rol: " + nuevoRol);
+        return nuevoRol;
+	}
+	
 	public Rol getRolByNombre(String rol)
 	{
 		log.info ("Consultando Rol: " + rol);
@@ -78,6 +86,14 @@ public class EPSAndes {
         return nuevoTipo;
 	}
 	
+	public TipoID getTipoIDByID(Long id)
+	{
+		log.info ("Consultando TipoID: " + id);
+        TipoID nuevoTipo = pp.getTipoIDByID(id);		
+        log.info ("Consultando TipoID: " + nuevoTipo);
+        return nuevoTipo;
+	}
+	
 	public List<TipoID> darTiposID()
 	{
 		log.info ("Listando TiposId");
@@ -103,11 +119,33 @@ public class EPSAndes {
 		return nuevoUsuario;
 	}
 	
+	public void deleteUsuario(long id)
+	{
+		log.info("Eliminando Usuario por id: " + id);
+		pp.deleteUsuario(id);
+		log.info ("Eliminado Usuario por id: " + id);
+	}
+	
 	public Usuario getUserByEmail(String correo) throws Exception {
 		log.info("Dar información de usuario por correo: " + correo);
 		Usuario usuario = pp.getUserByEmail(correo);
 		log.info ("Buscando usuario por correo: " + usuario != null ? usuario : "NO EXISTE");
-		if (usuario == null ) throw new Exception("Correo no registrado en el sistema");
+		if (usuario == null ) 
+			throw new Exception("Correo no registrado en el sistema");
+		return usuario;
+	}
+	
+	public Usuario getUsuarioByID(Long id) {
+		log.info("Dar información de usuario por id: " + id);
+		Usuario usuario = pp.getUserByID(id);
+		log.info ("Buscando usuario por id: " + usuario != null ? usuario : "NO EXISTE");
+		return usuario;
+	}
+	
+	public List<Usuario> getUsers() {
+		log.info("Dar información de usuarios");
+		List<Usuario> usuario = pp.getUsers();
+		log.info ("Buscando usuarios");
 		return usuario;
 	}
 	
@@ -119,12 +157,40 @@ public class EPSAndes {
 		return nuevoMedico;
 	}
 	
+	public void deleteMedico(long id)
+	{
+		log.info("Eliminando Medico por id: " + id);
+		pp.deleteMedico(id);
+		log.info ("Eliminado Medico por id: " + id);
+	}
+	
+	public List<Medico> getMedicos() {
+		log.info("Listar Medicos");
+		List<Medico> medicos = pp.getMedicos();
+		log.info ("Listar Medicos");
+		return medicos;
+	}
+	
 	public Afiliado addAfiliado (Timestamp fechaNacimiento, long usuario)
 	{
 		log.info("Adicionando afiliado: " + usuario);
 		Afiliado nuevoAfiliado = pp.addAfiliado(fechaNacimiento, usuario);
 		log.info("Adicionando afiliado: " + nuevoAfiliado);
 		return nuevoAfiliado;
+	}
+	
+	public void deleteAfiliado(long id)
+	{
+		log.info("Eliminando Afiliado por id: " + id);
+		pp.deleteAfiliado(id);
+		log.info ("Eliminado Afiliado por id: " + id);
+	}
+	
+	public List<Afiliado> getAfiliados() {
+		log.info("Listar Afiliados");
+		List<Afiliado> afiliados = pp.getAfiliados();
+		log.info ("Listar Afiliados");
+		return afiliados;
 	}
 	
 	public Recepcionista addRecepcionista (long usuario, long IPS)
@@ -143,12 +209,27 @@ public class EPSAndes {
 		return nuevaIPS;
 	}
 	
+	public void deleteIPS(long id)
+	{
+		log.info("Eliminando IPS por id: " + id);
+		pp.deleteIPS(id);
+		log.info ("Eliminada IPS por id: " + id);
+	}
+	
 	public IPS getIPSById (long id)
 	{
 		log.info("Consultando IPS por id");
 		IPS resp = pp.getIPSById(id);
 		log.info("Consultando IPS por id " + id + " : " + resp);
 		return resp;
+	}
+	
+	public List<IPS> getIPSs()
+	{
+        log.info ("Listando IPSs");
+        List<IPS> ipss = pp.getIPSs();
+        log.info ("Listando IPSs: " + ipss.size() + " IPSs existentes");
+        return ipss;
 	}
 	
 	public TrabajaEn addTrabajaEn (long ips, long medico)
@@ -207,6 +288,14 @@ public class EPSAndes {
 		return resp;
 	}
 	
+	public List<ServicioSalud> getServiciosSalud()
+	{
+		log.info("Consultando todos los servicios de salud");
+		List<ServicioSalud> resp = pp.getServiciosSalud();
+		log.info("Consultando todos los servicios salud: " + resp);
+		return resp;
+	}
+	
 	public Orden addOrden (Timestamp fecha, boolean valido, long medicoRemitente,
 			long servicio, long afiliado)
 	{
@@ -236,7 +325,7 @@ public class EPSAndes {
 		return cambios;
 	}
 	
-	public Horario addHorario (long IPS, long servicio, int capacidad, int dia,
+	public Horario addHorario (long IPS, long servicio, long capacidad, long dia,
 			Timestamp horaInicio, Timestamp horaFin, Long deshabilitado)
 	{
 		log.info ("Adicionando Horario [" + IPS + ", " + servicio + "]");
@@ -250,8 +339,23 @@ public class EPSAndes {
 	{
 		log.info("Consultando Horario por IPS");
 		List<Horario> resp = pp.getHorariosByIPS(ips);
-		log.info ("Consultando horario por IPS " + ips + " : " + resp);
+		log.info ("Consultando horario por IPS " + ips + " : " + resp.hashCode());
 		return resp;
+	}
+	
+	public List<Horario> getHorarios()
+	{
+		log.info("Consultando Horarios");
+		List<Horario> resp = pp.getHorarios();
+		log.info ("Consultando horarios");
+		return resp;
+	}
+	
+	public void deleteHorario(long id)
+	{
+		log.info("Eliminando Horario por id: " + id);
+		pp.deleteHorario(id);
+		log.info ("Eliminado Horario por id: " + id);
 	}
 	
 	public long getDisponibilidad (Timestamp fecha, long horario) {

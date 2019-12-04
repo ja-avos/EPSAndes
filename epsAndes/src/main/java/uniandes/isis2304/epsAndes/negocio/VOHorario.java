@@ -10,9 +10,9 @@ public interface VOHorario {
 	
 	public long getServicio();
 	
-	public int getCapacidad();
+	public long getCapacidad();
 	
-	public int getDia();
+	public long getDia();
 	
 	public Timestamp getHora_Inicio();
 	

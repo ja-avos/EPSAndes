@@ -43,6 +43,15 @@ public class SQLTipoId {
 		return (List<TipoID>) q.executeList();
 	}
 	
+	public TipoID getTipoIDByID(PersistenceManager pm, Long id)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableTipoID() +
+				" WHERE ID_TIPO = ?");
+		q.setParameters(id);
+		q.setResultClass(TipoID.class);
+		return (TipoID) q.executeUnique();
+	}
+	
 	public long eliminarTipoIdPorId(PersistenceManager pm, long id)
 	{
 		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableTipoID() +

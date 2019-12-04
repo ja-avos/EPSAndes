@@ -24,7 +24,7 @@ public class SQLHorario {
 	}
 	
 	public long addHorario (PersistenceManager pm, long idHorario, long IPS,
-			long servicio, int capacidad, int dia, Timestamp horaInicio,
+			long servicio, long capacidad, long dia, Timestamp horaInicio,
 			Timestamp horaFin) 
 	{
         Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableHorario() + 
@@ -45,11 +45,33 @@ public class SQLHorario {
 	
 	public List<Horario> getHorariosByIPS (PersistenceManager pm, long ips)
 	{
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableHorario() + 
-				" WHERE ips = ?");
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableHorario()
+			+ " WHERE IPS = ?");
 		q.setResultClass(Horario.class);
 		q.setParameters(ips);
+		List<Horario> lh = (List<Horario>)q.execute(ips);
+		return lh;
+	}
+	
+	public List<Horario> getHorarios (PersistenceManager pm) 
+	{
+		String sql = "";
+		sql += "SELECT *";
+		sql += " FROM " + pe.getTableHorario();
+		Query q = pm.newQuery(SQL, sql);
+		q.setResultClass(Horario.class);
+		Query r = pm.newQuery(SQL, "SELECT * FROM HORARIO");
+		r.setResultClass(Horario.class);
+		System.out.println(((List<Horario>)r.executeList()).get(0).getCapacidad());
 		return (List<Horario>) q.executeList();
+	}
+	
+	public void deleteHorario(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableHorario() +
+				" WHERE ID_HORARIO = ?");
+		q.setParameters(id);
+		q.executeUnique();
 	}
 	
 	public List<Horario> getHorarios (PersistenceManager pm, int dia,

@@ -69,16 +69,17 @@ public class PanelTablaServiciosIPS extends JPanel implements MouseListener
 					};
 				};
 				
-		for(Horario actual: servicios)
+		for(int i = 0; i < servicios.size(); i++)
 		{
+			Horario actual = servicios.get(i);
 			fila = new String[7];
 			fila[0] = actual.getIPS() + "";
-			fila[1] = actual.getIdHorario() + "";
+			fila[1] = actual.getId_Horario() + "";
 			fila[2] = principal.getServicioSaludByID(actual.getServicio()).getNombre();
 			fila[3] = actual.getCapacidad() + "";
 			fila[4] = actual.getDia() + "";
-			fila[5] = actual.getHoraInicio().getHours() + ":" + actual.getHoraInicio().getMinutes();
-			fila[6] = actual.getHoraFin().getHours() + ":" + actual.getHoraFin().getMinutes();
+			fila[5] = actual.getHora_Inicio().getHours() + ":" + actual.getHora_Inicio().getMinutes();
+			fila[6] = actual.getHora_Fin().getHours() + ":" + actual.getHora_Fin().getMinutes();
 			modelo.addRow(fila);
 		}
 		tablaServicios.setModel(modelo);

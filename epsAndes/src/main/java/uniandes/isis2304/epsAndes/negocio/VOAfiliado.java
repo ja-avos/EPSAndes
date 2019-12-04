@@ -1,13 +1,12 @@
 package uniandes.isis2304.epsAndes.negocio;
 
-import java.sql.Date;
-import java.sql.Timestamp;
+import java.util.Date;
 
 public interface VOAfiliado {
 
 	public long getId_Afiliado();
 	
-	public Timestamp getFecha_Nacimiento();
+	public Date getFecha_Nacimiento();
 	
 	public long getUsuario();
 	

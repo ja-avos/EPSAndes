@@ -10,7 +10,9 @@
  */
 package uniandes.isis2304.epsAndes.interfazApp.adminDatos;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Timestamp;
@@ -98,6 +100,8 @@ public class DialogoAgregarServicioIPS extends JDialog implements ActionListener
 	 */
 	public DialogoAgregarServicioIPS(InterfazApp ventanaPrincipal, IPS ips) 
 	{
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
 		principal = ventanaPrincipal;
 		this.ips = ips;
 		setSize(400, 350);
@@ -201,17 +205,18 @@ public class DialogoAgregarServicioIPS extends JDialog implements ActionListener
 		if( comando.equals( AGREGAR ) )
 		{
 			long idServicio = parsearServicio((String) comboServicio.getSelectedItem());
-			int capacidad = Integer.valueOf(txtCapacidad.getText());
-			int dia = comboDia.getSelectedIndex();
+			long capacidad = Long.valueOf(txtCapacidad.getText());
+			long dia = comboDia.getSelectedIndex()+1;
 			Date horaInicio = (Date) sHoraInicio.getValue();
 			Date horaFin = (Date) sHoraFin.getValue();
 			try {
 				principal.addHorario(ips.getId_IPS(), idServicio, capacidad, dia, new Timestamp(horaInicio.getTime()), new Timestamp(horaFin.getTime()));
+				JOptionPane.showMessageDialog(this, "Agregado correctamente!");
+				dispose();
 			} catch ( Exception e )
 			{
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error agregando el servicio", JOptionPane.ERROR_MESSAGE);
 			}
-			
 		}
 		else if( comando.equals( CANCELAR ) )
 		{

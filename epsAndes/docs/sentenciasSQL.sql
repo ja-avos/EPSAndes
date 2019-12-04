@@ -1,4 +1,4 @@
-RF10
+--RF10
 
 INSERT INTO CAMPANA (id_Campana, fecha_inicio, fecha_fin, cancelada) 
 VALUES (x,y,z, 0);
@@ -9,7 +9,7 @@ FROM HORARIO
     ON servicio = id_servicio
 WHERE tipo = x;
 
-RF11
+--RF11
 
 DELETE RESERVA
 FROM RESERVA
@@ -27,7 +27,7 @@ FROM RESERVA
 	ON horario = id_horario
 WHERE campana = x;
 
-RF12
+--RF12
 
 SELECT *
 FROM SERVICIO_DESABILITADO
@@ -52,13 +52,13 @@ FROM RESERVA
 	ON horario = id_horario
 WHERE servicio = x AND ips = y AND fecha BETWEEN z AND a;
 
-RF13
+--RF13
 
 UPDATE HORARIO
 SET deshabilitado = null 
 WHERE servicio = x;
 
-RFC1
+--RFC1
 
 SELECT id, localizacion, nombre, count (distinct servicio) as servicios_Prestados
 FROM IPS
@@ -68,7 +68,7 @@ FROM IPS
 WHERE servicio_prestado = 1 AND fecha BETWEEN x AND y
 GROUP BY id, localizacion, nombre;
 
-RFC2
+--RFC2
 
 SELECT * FROM (
     SELECT id_servicio, nombre, tipo
@@ -82,13 +82,13 @@ SELECT * FROM (
     RODER BY COUNT(*))
 WHERE ROWNUM < 21;
 
-RFC5
+--RFC5
 
 SELECT COUNT(*)/COUNT(servicio_prestado)
 FROM RESERVA
 WHERE afiliado = ? AND fecha BETWEEN ? AND ?;
 
-RFC7
+--RFC7
 
 SELECT afiliado, COUNT(*), COUNT (DISTINCT tipo)
 FROM RESERVA
@@ -100,7 +100,7 @@ WHERE fecha BETWEEN x AND y
 GROUP BY afiliado
 HAVING COUNT(*) > 12 AND COUNT (DISNTINCT tipo) > 3;
 
-RFC8
+--RFC8
 
 SELECT id_servicio, nombre, tipo
 FROM SERVICIO_SALUD

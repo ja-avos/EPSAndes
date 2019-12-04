@@ -34,6 +34,14 @@ class SQLRol {
 		return (List<Rol>) q.executeList();
 	}
 	
+	public Rol getRolByID(PersistenceManager pm, Long id)
+	{
+		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableRol() + " WHERE ID_ROL = ?");
+		q.setResultClass(Rol.class);
+		q.setParameters(id);
+		return (Rol) q.executeUnique();
+	}
+	
 	public List<Rol> getRolesByName (PersistenceManager pm, String rol) 
 	{
 		Query q = pm.newQuery(SQL, "SELECT * FROM " + pe.getTableRol() + 

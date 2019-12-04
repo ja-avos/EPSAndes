@@ -22,10 +22,18 @@ public class SQLIps {
 	
 	public long addIps (PersistenceManager pm, long id, String localizacion, String nombre) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableIPS() + "(id, localizacion, nombre) "
+        Query q = pm.newQuery(SQL, "INSERT INTO " + pe.getTableIPS() + "(id_ips, localizacion, nombre) "
         		+ "values (?, ?,?)");
         q.setParameters(id, localizacion, nombre);
         return (long) q.executeUnique();
+	}
+	
+	public void deleteIPS(PersistenceManager pm, long id)
+	{
+		Query q = pm.newQuery(SQL, "DELETE FROM " + pe.getTableIPS() +
+				" WHERE ID_IPS = ?");
+		q.setParameters(id);
+		q.executeUnique();
 	}
 	
 	public List<IPS> getIpss (PersistenceManager pm)
