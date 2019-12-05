@@ -32,8 +32,8 @@ public class PanelOpciones extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		if(e.getActionCommand().equals("REG"))
-			main.registrar();
+		if(e.getActionCommand().equals("REG")) {}
+			//main.registrar();
 		
 	}
 

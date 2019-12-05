@@ -4,11 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Timestamp;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -31,7 +34,7 @@ import uniandes.isis2304.epsAndes.negocio.ServicioSalud;
 import uniandes.isis2304.epsAndes.negocio.TipoID;
 import uniandes.isis2304.epsAndes.negocio.Usuario;
 
-public class InterfazApp extends JFrame {
+public class InterfazApp extends JFrame implements ActionListener{
 	
 	/* ****************************************************************
 	 * 			Constantes
@@ -44,7 +47,7 @@ public class InterfazApp extends JFrame {
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
-	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigApp.json"; 
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/gerente.json"; 
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos
@@ -82,6 +85,7 @@ public class InterfazApp extends JFrame {
 	private static final String AFILIADO = "Afiliado";
 	
 	private static final String LOGIN = "Log In";
+	private static final String LOGOUT = "Logout";
 
 	private JLabel titulo;
 	
@@ -120,14 +124,22 @@ public class InterfazApp extends JFrame {
 		
 		loginPanel = new LoginPanel(this);
 		pAdmin = new PanelAdmin(this);
+		pGerente = new PanelGerente(this);
 		
 		vistas = new JPanel(new CardLayout());
 		vistas.add(loginPanel, LOGIN);
 		vistas.add(pAdmin, ADMIN);
+		vistas.add(pGerente, GERENTE);
+		
+		JButton logoutBtn = new JButton("Log out");
+		logoutBtn.addActionListener(this);
+		logoutBtn.setActionCommand(LOGOUT);
 		
 		changeView(LOGIN);
 		
 		add(vistas, BorderLayout.CENTER);
+		
+		add(logoutBtn, BorderLayout.SOUTH);
 		
 	}
 	
@@ -159,6 +171,8 @@ public class InterfazApp extends JFrame {
 				break;
 			case 5:
 				JOptionPane.showMessageDialog(this, "El ambiente para Gerente sigue en construccion");
+				changeView(GERENTE);
+				setSize(700, 600);
 				break;
 			default:
 				throw new Exception("Existe el usuario con error. Comunicarse con IT.");
@@ -307,12 +321,24 @@ public class InterfazApp extends JFrame {
 	{
 		eps.deleteHorario(id);
 	}
+	
+	public void logout()
+	{
+		changeView(LOGIN);
+		setSize(300, 300);
+	}
 
 	public static void main(String[] args) {
 		
 		InterfazApp i = new InterfazApp();
 		i.setVisible(true);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals(LOGOUT))
+			logout();		
 	}
 
 }

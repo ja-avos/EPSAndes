@@ -1536,17 +1536,17 @@ public class PersistenciaEPSAndes {
 	public List<ServicioSalud> serviciosSinDemanda(int n) {
 		LocalDate hoy = LocalDate.now();
 		Timestamp hoyt = new Timestamp(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth(), 0, 0, 0, 0);
-		LocalDate inicioAño = LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
-		Timestamp inicioAñot = new Timestamp(hoy.getYear(), 1, 1, 0, 0, 0, 0);
-		long weeks = ChronoUnit.WEEKS.between(inicioAño, hoy);
+		LocalDate inicioDate = LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
+		Timestamp inicioTime = new Timestamp(hoy.getYear(), 1, 1, 0, 0, 0, 0);
+		long weeks = ChronoUnit.WEEKS.between(inicioDate, hoy);
 		return sqlServicioSalud.getServiciosSinDemanda(pmf.getPersistenceManager(), 
-				inicioAñot, hoyt, weeks, n);
+				inicioTime, hoyt, weeks, n);
 	}
 	
 	public List<Object[]> afiliadosExigentes() {
 		LocalDate hoy = LocalDate.now();
 		Timestamp fechaFin = new Timestamp(hoy.getYear(), hoy.getMonthValue(), hoy.getDayOfMonth(), 0, 0, 0, 0);
-		LocalDate inicioAño = LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
+		LocalDate inicioDate= LocalDate.of(hoy.getYear(), Month.JANUARY, 1);
 		Timestamp fechaInicio = new Timestamp(hoy.getYear(), 1, 1, 0, 0, 0, 0);
 		return sqlAfiliado.afiliadosExigentes(pmf.getPersistenceManager(), fechaInicio, fechaFin);
 	}

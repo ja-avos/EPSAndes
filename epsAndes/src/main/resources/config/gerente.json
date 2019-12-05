@@ -1,0 +1,63 @@
+{
+	"title": "Aplicacion transaccional de EPSAndes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Requerimientos",
+		  "options":
+			[
+				{
+					"label": "RFC1 -  CANTIDAD DE SERVICIOS PRESTADOS POR CADA IPS",
+					"event": "rfc1"
+				},
+				{
+					"label": "RFC2 -  MOSTRAR LOS 20 SERVICIOS MÁS SOLICITADOS",
+					"event": "rfc2"
+				},
+				{
+					"label": "RFC3 -  ÍNDICE DE USO DE CADA SERVICIO PROVISTO",
+					"event": "rfc3"
+				},
+				{
+					"label": "RFC4 -  SERVICIOS QUE CUMPLEN CON CIERTA CARACTERÍSTICA",
+					"event": "rfc4"
+				},
+				{
+					"label": "RFC5 - UTILIZACIÓN DE SERVICIOS POR UN AFILIADO DADO",
+					"event": "rfc5"
+				},
+				{
+					"label": "RFC6 -  ANALIZAR LA OPERACIÓN DE EPSANDES",
+					"event": "rfc6"
+				},
+				{
+					"label": "RFC7 -  ENCONTRAR LOS AFILIADOS EXIGENTES",
+					"event": "rfc7"
+				},
+				{
+					"label": "RFC8 -  ENCONTRAR LOS SERVICIOS QUE NO TIENEN MUCHA DEMANDA",
+					"event": "rfc8"
+				},
+				{
+					"label": "RFC9 -  CONSULTAR LA PRESTACIÓN DE SERVICIOS",
+					"event": "rfc9"
+				},
+				{
+					"label": "RFC10 - CONSULTAR LA PRESTACIÓN DE SERVICIOS EN EPSANDES – RFC9-V2",
+					"event": "rfc10"
+				},
+				{
+					"label": "RFC11 - CONSULTAR FUNCIONAMIENTO",
+					"event": "rfc11"
+				},
+				{
+					"label": "RFC12 - CONSULTAR LOS AFILIADOS COSTOSOS",
+					"event": "rfc12"
+				}
+			]
+		}
+	]
+}
+	
